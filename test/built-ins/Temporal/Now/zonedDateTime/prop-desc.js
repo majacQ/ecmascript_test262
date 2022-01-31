@@ -7,6 +7,11 @@ includes: [propertyHelper.js]
 features: [Temporal]
 ---*/
 
+  <<<<<<< bocoup/temporal-now-zoneddatetime-zoneddatetimeiso
+  =======
+assert.sameValue(typeof Temporal.Now.zonedDateTime, "function", "typeof is function");
+
+  >>>>>>> main
 verifyProperty(Temporal.Now, 'zonedDateTime', {
   enumerable: false,
   writable: true,

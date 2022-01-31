@@ -154,9 +154,8 @@ WeakRef
 FinalizationRegistry
 
 # FinalizationRegistry#cleanupSome
-# link pending
+# https://github.com/tc39/proposal-cleanup-some
 FinalizationRegistry.prototype.cleanupSome
-cleanupSome
 
 # Optional Chaining
 # https://github.com/tc39/proposal-optional-chaining
@@ -177,6 +176,10 @@ coalesce-expression
 # Intl.DisplayNames
 # https://github.com/tc39-transfer/proposal-intl-displaynames
 Intl.DisplayNames
+
+# Intl.NumberFormat V3
+# https://github.com/tc39/proposal-intl-numberformat-v3
+Intl.NumberFormat-v3
 
 # Promise.any
 # https://github.com/tc39/proposal-promise-any
@@ -256,6 +259,14 @@ ShadowRealm
 # Array.prototype.findLast & Array.prototype.findLastIndex
 # https://github.com/tc39/proposal-array-find-from-last
 array-find-from-last
+
+# Intl.DurationFormat
+# https://github.com/tc39/proposal-intl-duration-format
+Intl.DurationFormat
+
+# RegExp set notation + properties of strings
+# https://github.com/tc39/proposal-regexp-set-notation
+regexp-v-flag
 
 ## Standard language features
 #

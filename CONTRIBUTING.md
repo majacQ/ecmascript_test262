@@ -108,6 +108,7 @@ Test262 supports the following keys:
  - [**author**](#author)
  - [**flags**](#flags)
  - [**features**](#features) (required for new tests written for new features)
+ - [**locale**](#locale)
 
 The following keys are deprecated, but exist in old tests:
 
@@ -158,10 +159,10 @@ single line comment syntax.
 #### negative
 `negative: [dictionary containing "phase" and "type" keys]`
 
-This means the test is expected to throw an error of the given type.  If no error is thrown, a test failure is reported.
+This means the test is expected to throw an error of the given type.  If no error is thrown, a test failure is reported. The **phase** field must precede the **type** field.
 
-- **type** - If an error is thrown, it is implicitly converted to a string. In order for the test to pass, this value must match the name of the error constructor.
 - **phase** - Negative tests whose **phase** value is "parse" must produce the specified error prior to executing code. The value "resolution" indicates that the error is expected to result while performing ES2015 module resolution. The value "runtime" dictates that the error is expected to be produced as a result of executing the test code.
+- **type** - If an error is thrown, it is implicitly converted to a string. In order for the test to pass, this value must match the name of the error constructor.
 
 For best practices on how to use the negative key please see [Handling Errors and Negative Test Cases](#handling-errors-and-negative-test-cases), below.
 
@@ -176,9 +177,15 @@ negative:
 #### includes
 `includes: [file-list]`
 
-This key names a list of helper files that will be included in the test environment prior to running the test.  Filenames **must** include the `.js` extension.
+This key names a list of files in the `harness/` directory that will be included in the test environment prior to running the test.  Filenames **must** include the `.js` extension.
+Includes should use flow style without line break (separating items by commas and enclosing them in square brackets), block style (one line for each item, each line starting with a dash) isn't allowed.
+When some code is used repeatedly across a group of tests, it may be appropriate to define it in a harness file. This practice increases test complexity, so it should be applied sparingly.
 
-The helper files are found in the `harness/` directory. When some code is used repeatedly across a group of tests, a new helper function (or group of helpers) can be defined. Helpers increase test complexity, so they should be created and used sparingly.
+For example:
+
+```
+includes: [include1.js, include2.js]
+```
 
 #### author
 `author: [string]`
@@ -194,8 +201,8 @@ This key is for boolean properties associated with the test.
 - **noStrict** - only run the test in "sloppy" mode
 - **module** - interpret the source text as
   [module code](https://tc39.github.io/ecma262/#sec-modules)
-- **raw** - execute the test without any modification (no helpers will be
-  available); necessary to test the behavior of directive prologue; implies
+- **raw** - execute the test without any modification (no harness files will be
+  included); necessary to test the behavior of directive prologue; implies
   `noStrict`
 - **async** - defer interpretation of test results until after the invocation
   of the global `$DONE` function
@@ -205,11 +212,17 @@ This key is for boolean properties associated with the test.
   for more information on this process
 - **CanBlockIsFalse** - only run the test when the [[CanBlock]] property of the [Agent Record](https://tc39.github.io/ecma262/#sec-agents) executing the test file is `false`
 - **CanBlockIsTrue** - only run the test when the [[CanBlock]] property of the [Agent Record](https://tc39.github.io/ecma262/#sec-agents) executing the test file is `true`
+- **non-deterministic** - informative flag used to communicate that the semantics under test are intentionally under-specified, so the test's passing or failing status is neither reliable nor an indication of conformance
 
 #### features
 `features: [list]`
 
 Some tests require the use of language features that are not directly described by the test file's location in the directory structure. These features should be specified with this key. See the [`features.txt`](features.txt) file for a complete list of available values. This key is required for new tests written for new features, but contributions will not be "blocked" if the key is missing from frontmatter. The committing maintainer is required to ensure that the key is present and contains the correct feature names; this can be done in a follow up commit.
+
+#### locale
+`locale: [list]`
+
+Some tests require the use of one or more specific human languages as exposed by [ECMA402](https://tc39.es/ecma402/) as a means to verify semantics which cannot be observed in the abstract. Sch tests must declare their requirements by using this key to define an array of one or more valid language tags or subtags.
 
 #### es5id
 `es5id: [es5-test-id]`
@@ -231,16 +244,18 @@ Read the [Test262 Technical Rationale Report](https://github.com/tc39/test262/wi
 
 ## Test Environment
 
-Each test case is run in a fresh JavaScript environment; in a browser, this will be a new &lt;iframe&gt;; for a console runner, this will be a new process.  The test harness code is loaded before the test is run.  The test harness defines the following helper functions:
+Each test case is run in a fresh JavaScript environment; in a browser, this will be a new &lt;iframe&gt;; for a console runner, this will be a new process.
+
+Before the test is executed (and unless the test uses the `raw` frontmatter flag), the test runner will evaluate a number of files in the `harness/` directory. At a minimum, this procedure will define the following functions:
 
 Function | Purpose
 ---------|--------
 `Test262Error(message)` | constructor for an error object that indicates a test failure
 `$DONE(arg)` | see [Writing Asynchronous Tests](#writing-asynchronous-tests), below
-`assert(value, message)` | throw a new Test262Error instance if the specified value is not strictly equal to the JavaScript `true` value; accepts an optional string message for use in creating the error
-`assert.sameValue(actual, expected, message)` | throw a new Test262Error instance if the first two arguments are not [the same value](https://tc39.github.io/ecma262/#sec-samevalue); accepts an optional string message for use in creating the error
-`assert.notSameValue(actual, unexpected, message)` | throw a new Test262Error instance if the first two arguments are [the same value](https://tc39.github.io/ecma262/#sec-samevalue); accepts an optional string message for use in creating the error
-`assert.throws(expectedErrorConstructor, fn, message)` | throw a new Test262Error instance if the provided function does not throw an error, or if the constructor of the value thrown does not match the provided constructor
+`assert(value, message)` | throw a new Test262Error instance if the specified value is not strictly equal to the JavaScript `true` value; accepts an optional string message explaining the scenario and what should have happened
+`assert.sameValue(actual, expected, message)` | throw a new Test262Error instance if the first two arguments are not [the same value](https://tc39.github.io/ecma262/#sec-samevalue); accepts an optional string message explaining the scenario and what should have happened
+`assert.notSameValue(actual, unexpected, message)` | throw a new Test262Error instance if the first two arguments are [the same value](https://tc39.github.io/ecma262/#sec-samevalue); accepts an optional string message explaining the scenario and what should have happened
+`assert.throws(expectedErrorConstructor, fn, message)` | throw a new Test262Error instance if the provided function does not throw an error or if the constructor of the value thrown does not match the provided constructor; accepts an optional string message explaining the scenario and what should have happened
 `$DONOTEVALUATE()` | throw an exception if the code gets evaluated. This may only be used in [negative test cases for parsing errors](#handling-errors-and-negative-test-cases).
 `throw "Test262: This statement should not be evaluated.";` | throw an exception if the code gets evaluated. Use this if the test file has the `raw` flag and it's a negative test case for parsing error.
 
@@ -274,7 +289,7 @@ $DONOTEVALUATE();
 var var = var;
 ```
 
-If the test case has the `raw` flag, this disallows the test to load any harness file including `$DONOTEVALUATE`. In this case, include a direct `throw "Test262: This statement should not be evaluated.";` statement:
+If the test case has the `raw` flag, the test runner will not load any harness file including the file which defines `$DONOTEVALUATE`. In this case, include a direct `throw "Test262: This statement should not be evaluated.";` statement:
 
 ```javascript
 /*---
