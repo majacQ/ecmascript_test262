@@ -1,3 +1,5 @@
+import yaml
+
 from ..check import Check
 
 _REQUIRED_FIELDS = set(['description'])
@@ -12,13 +14,21 @@ class CheckFrontmatter(Check):
     ID = 'FRONTMATTER'
 
     def run(self, name, meta, source):
-        if name.endswith('_FIXTURE.js'):
+        if '_FIXTURE' in name:
             if meta is not None:
                 return '"Fixture" files cannot specify metadata'
             return
 
         if meta is None:
             return 'No valid YAML-formatted frontmatter'
+
+        for parsing_event in meta.parsing_events:
+            if not isinstance(parsing_event, yaml.ScalarEvent):
+                continue
+            if parsing_event.style is not None:
+                continue
+            if parsing_event.start_mark.line != parsing_event.end_mark.line:
+                return 'YAML multiline scalar values in flow notation are disallowed (use "|" or ">")'
 
         fields = set(meta.keys())
 

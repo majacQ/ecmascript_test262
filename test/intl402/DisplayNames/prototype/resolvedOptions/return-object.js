@@ -25,18 +25,19 @@ info: |
   [[Style]]: "style"
   [[Type]]: "type"
   [[Fallback]]: "fallback"
+  [[LanguageDisplay]]: "languageDisplay"
 
-  Intl.DisplayNames ([ locales [ , options ]])
+  Intl.DisplayNames ( locales , options )
 
   ...
-  8. Let matcher be ? GetOption(options, "localeMatcher", "string", « "lookup", "best fit" », "best fit").
+  7. Let matcher be ? GetOption(options, "localeMatcher", "string", « "lookup", "best fit" », "best fit").
   ...
-  10. Let r be ResolveLocale(%DisplayNames%.[[AvailableLocales]], requestedLocales, opt,
+  9. Let r be ResolveLocale(%DisplayNames%.[[AvailableLocales]], requestedLocales, opt,
     %DisplayNames%.[[RelevantExtensionKeys]]).
-  11. Let style be ? GetOption(options, "style", "string", « "narrow", "short", "long" », "long").
+  10. Let style be ? GetOption(options, "style", "string", « "narrow", "short", "long" », "long").
   ...
-  13. Let type be ? GetOption(options, "type", "string", « "language", "region", "script", "currency",
-    "weekday", "month", "quarter", "dayPeriod", "dateTimeField" », "language").
+  12. Let type be ? GetOption(options, "type", "string", « "language", "region", "script", "currency" », undefined).
+  13. If type is undefined, throw a TypeError exception.
   ...
   15. Let fallback be ? GetOption(options, "fallback", "string", « "code", "none" », "code").
   ...
@@ -50,14 +51,14 @@ info: |
     [[Configurable]]: true }.
   ...
 locale: [en-US]
-features: [Intl.DisplayNames, Reflect]
+features: [Intl.DisplayNames-v2, Reflect]
 includes: [propertyHelper.js, compareArray.js]
 ---*/
 
-var dn = new Intl.DisplayNames('en-US');
+const dn = new Intl.DisplayNames('en-US', {type: 'language'});
 
-var options = dn.resolvedOptions();
-var other = dn.resolvedOptions();
+const options = dn.resolvedOptions();
+const other = dn.resolvedOptions();
 
 assert.notSameValue(options, other, 'each call returns a new object');
 
@@ -66,7 +67,7 @@ assert.sameValue(Object.getPrototypeOf(other), Object.prototype, 'ordinary objec
 
 assert.compareArray(
   Reflect.ownKeys(options),
-  ['locale', 'style', 'type', 'fallback'],
+  ['locale', 'style', 'type', 'fallback', 'languageDisplay'],
   'all the data properties set to this object, in order of creation'
 );
 
@@ -77,7 +78,8 @@ verifyProperty(options, 'locale', {
   configurable: true
 });
 
-var explicit = new Intl.DisplayNames('en', { localeMatcher: 'lookup' }).resolvedOptions();
+const explicit = new Intl.DisplayNames(
+    'en', { localeMatcher: 'lookup', type: 'language' }).resolvedOptions();
 
 assert.sameValue(
   explicit.hasOwnProperty('localeMatcher'),
@@ -85,11 +87,12 @@ assert.sameValue(
   'the localeMatcher option is not set, option was explicitly set'
 );
 
-var extra = new Intl.DisplayNames('en', { chaos: 'yes', random: 'sure', '0': 42 }).resolvedOptions();
+const extra = new Intl.DisplayNames(
+    'en', { chaos: 'yes', random: 'sure', '0': 42, type: 'language' }).resolvedOptions();
 
 assert.compareArray(
   Reflect.ownKeys(extra),
-  ['locale', 'style', 'type', 'fallback'],
+  ['locale', 'style', 'type', 'fallback', 'languageDisplay'],
   'extra properties are not reflected in the resolvedOptions'
 );
 

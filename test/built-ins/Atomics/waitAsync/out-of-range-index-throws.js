@@ -20,6 +20,7 @@ info: |
     5. If accessIndex ≥ length, throw a RangeError exception.
 features: [Atomics.waitAsync, SharedArrayBuffer, TypedArray, Atomics]
 ---*/
+assert.sameValue(typeof Atomics.waitAsync, 'function', 'The value of `typeof Atomics.waitAsync` is "function"');
 const i32a = new Int32Array(
   new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT * 4)
 );
@@ -31,14 +32,14 @@ const poisoned = {
 };
 
 assert.throws(RangeError, function() {
-  Atomics.wait(i32a, Infinity, poisoned, poisoned);
-}, '`Atomics.wait(i32a, Infinity, poisoned, poisoned)` throws RangeError');
+  Atomics.waitAsync(i32a, Infinity, poisoned, poisoned);
+}, '`Atomics.waitAsync(i32a, Infinity, poisoned, poisoned)` throws a RangeError exception');
 assert.throws(RangeError, function() {
-  Atomics.wait(i32a, -1, poisoned, poisoned);
-}, '`Atomics.wait(i32a, -1, poisoned, poisoned)` throws RangeError');
+  Atomics.waitAsync(i32a, -1, poisoned, poisoned);
+}, '`Atomics.waitAsync(i32a, -1, poisoned, poisoned)` throws a RangeError exception');
 assert.throws(RangeError, function() {
-  Atomics.wait(i32a, 4, poisoned, poisoned);
-}, '`Atomics.wait(i32a, 4, poisoned, poisoned)` throws RangeError');
+  Atomics.waitAsync(i32a, 4, poisoned, poisoned);
+}, '`Atomics.waitAsync(i32a, 4, poisoned, poisoned)` throws a RangeError exception');
 assert.throws(RangeError, function() {
-  Atomics.wait(i32a, 200, poisoned, poisoned);
-}, '`Atomics.wait(i32a, 200, poisoned, poisoned)` throws RangeError');
+  Atomics.waitAsync(i32a, 200, poisoned, poisoned);
+}, '`Atomics.waitAsync(i32a, 200, poisoned, poisoned)` throws a RangeError exception');

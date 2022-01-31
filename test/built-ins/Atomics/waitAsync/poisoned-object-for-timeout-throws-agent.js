@@ -19,8 +19,9 @@ info: |
 
 flags: [async]
 includes: [atomicsHelper.js]
-features: [Atomics.waitAsync, SharedArrayBuffer, TypedArray, Atomics]
+features: [Atomics.waitAsync, SharedArrayBuffer, TypedArray, Atomics, arrow-function, async-functions]
 ---*/
+assert.sameValue(typeof Atomics.waitAsync, 'function', 'The value of `typeof Atomics.waitAsync` is "function"');
 
 const RUNNING = 1;
 
@@ -45,12 +46,12 @@ $262.agent.start(`
     let status2 = '';
 
     try {
-      Atomics.wait(i32a, 0, 0, poisonedValueOf);
+      Atomics.waitAsync(i32a, 0, 0, poisonedValueOf);
     } catch (error) {
       status1 = 'poisonedValueOf';
     }
     try {
-      Atomics.wait(i32a, 0, 0, poisonedToPrimitive);
+      Atomics.waitAsync(i32a, 0, 0, poisonedToPrimitive);
     } catch (error) {
       status2 = 'poisonedToPrimitive';
     }
@@ -67,21 +68,21 @@ const i32a = new Int32Array(
 
 $262.agent.safeBroadcastAsync(i32a, RUNNING, 1).then(async (agentCount) => {
 
-  assert.sameValue(agentCount, 1);
+  assert.sameValue(agentCount, 1, 'The value of `agentCount` is 1');
 
   assert.sameValue(
     await $262.agent.getReportAsync(),
     'poisonedValueOf',
-    'Atomics.wait(i32a, 0, 0, poisonedValueOf) throws'
+    '(await $262.agent.getReportAsync()) resolves to the value "poisonedValueOf"'
   );
 
   assert.sameValue(
     await $262.agent.getReportAsync(),
     'poisonedToPrimitive',
-    'Atomics.wait(i32a, 0, 0, poisonedToPrimitive) throws'
+    '(await $262.agent.getReportAsync()) resolves to the value "poisonedToPrimitive"'
   );
 
-  assert.sameValue(Atomics.notify(i32a, 0), 0, 'Atomics.notify(i32a, 0) returns 0');
+  assert.sameValue(Atomics.notify(i32a, 0), 0, 'Atomics.notify(new Int32Array(new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT * 4)), 0) must return 0');
 
 }).then($DONE, $DONE);
 

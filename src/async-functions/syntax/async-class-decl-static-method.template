@@ -19,6 +19,9 @@ info: |
 features: [async-functions]
 ---*/
 
-class C { static async method() {
+class C {
+  static async method(/*{ params }*/) {
     /*{ body }*/
-}}
+  }
+}
+

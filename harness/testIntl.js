@@ -1,5 +1,6 @@
 // Copyright (C) 2011 2012 Norbert Lindenberg. All rights reserved.
 // Copyright (C) 2012 2013 Mozilla Corporation. All rights reserved.
+// Copyright (C) 2020 Apple Inc. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 description: |
@@ -18,7 +19,12 @@ defines:
   - getInvalidLocaleArguments
   - testOption
   - testForUnwantedRegExpChanges
+  - allCalendars
+  - allCollations
+  - allNumberingSystems
   - isValidNumberingSystem
+  - numberingSystemDigits
+  - allSimpleSanctionedUnits
   - testNumberFormat
   - getDateTimeComponents
   - getDateTimeComponentValues
@@ -40,7 +46,8 @@ function testWithIntlConstructors(f) {
 
   // Optionally supported Intl constructors.
   // NB: Intl.Locale isn't an Intl service constructor!
-  ["PluralRules", "RelativeTimeFormat", "ListFormat", "DisplayNames"].forEach(function(constructor) {
+  // Intl.DisplayNames cannot be called without type in options.
+  ["PluralRules", "RelativeTimeFormat", "ListFormat"].forEach(function(constructor) {
     if (typeof Intl[constructor] === "function") {
       constructors[constructors.length] = constructor;
     }
@@ -67,7 +74,7 @@ function testWithIntlConstructors(f) {
 function taintDataProperty(obj, property) {
   Object.defineProperty(obj, property, {
     set: function(value) {
-      $ERROR("Client code can adversely affect behavior: setter for " + property + ".");
+      throw new Test262Error("Client code can adversely affect behavior: setter for " + property + ".");
     },
     enumerable: false,
     configurable: true
@@ -84,7 +91,7 @@ function taintDataProperty(obj, property) {
 function taintMethod(obj, property) {
   Object.defineProperty(obj, property, {
     value: function() {
-      $ERROR("Client code can adversely affect behavior: method " + property + ".");
+      throw new Test262Error("Client code can adversely affect behavior: method " + property + ".");
     },
     writable: true,
     enumerable: false,
@@ -126,12 +133,13 @@ function taintArray() {
  * Gets locale support info for the given constructor object, which must be one
  * of Intl constructors.
  * @param {object} Constructor the constructor for which to get locale support info
+ * @param {object} options the options while calling the constructor
  * @return {object} locale support info with the following properties:
  *   supported: array of fully supported language tags
  *   byFallback: array of language tags that are supported through fallbacks
  *   unsupported: array of unsupported language tags
  */
-function getLocaleSupportInfo(Constructor) {
+function getLocaleSupportInfo(Constructor, options) {
   var languages = ["zh", "es", "en", "hi", "ur", "ar", "ja", "pa"];
   var scripts = ["Latn", "Hans", "Deva", "Arab", "Jpan", "Hant", "Guru"];
   var countries = ["CN", "IN", "US", "PK", "JP", "TW", "HK", "SG", "419"];
@@ -161,7 +169,7 @@ function getLocaleSupportInfo(Constructor) {
   var unsupported = [];
   for (i = 0; i < allTags.length; i++) {
     var request = allTags[i];
-    var result = new Constructor([request], {localeMatcher: "lookup"}).resolvedOptions().locale;
+    var result = new Constructor([request], options).resolvedOptions().locale;
     if (request === result) {
       supported.push(request);
     } else if (request.indexOf(result) === 0) {
@@ -326,7 +334,7 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     // property names must be in lower case; values in canonical form
 
     "art-lojban": "jbo",
-    "cel-gaulish": "xtg-x-cel-gaulish",
+    "cel-gaulish": "xtg",
     "zh-guoyu": "zh",
     "zh-hakka": "hak",
     "zh-xiang": "hsn",
@@ -347,6 +355,8 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "abk": "ab",
     "adp": "dz",
     "afr": "af",
+    "agp": "apf",
+    "ais": "ami",
     "aju": "jrb",
     "aka": "ak",
     "alb": "sq",
@@ -369,18 +379,23 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "bak": "ba",
     "bam": "bm",
     "baq": "eu",
+    "baz": "nvo",
     "bcc": "bal",
     "bcl": "bik",
     "bel": "be",
     "ben": "bn",
     "bgm": "bcg",
     "bh": "bho",
+    "bhk": "fbl",
     "bih": "bho",
     "bis": "bi",
     "bjd": "drl",
+    "bjq": "bzc",
+    "bkb": "ebk",
     "bod": "bo",
     "bos": "bs",
     "bre": "br",
+    "btb": "beb",
     "bul": "bg",
     "bur": "my",
     "bxk": "luy",
@@ -406,7 +421,9 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "cwd": "cr",
     "cym": "cy",
     "cze": "cs",
+    "daf": "dnj",
     "dan": "da",
+    "dap": "njz",
     "deu": "de",
     "dgo": "doi",
     "dhd": "mwr",
@@ -414,11 +431,18 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "diq": "zza",
     "dit": "dif",
     "div": "dv",
+    "djl": "dze",
+    "dkl": "aqd",
     "drh": "mn",
+    "drr": "kzk",
+    "dud": "uth",
+    "duj": "dwu",
     "dut": "nl",
+    "dwl": "dbt",
     "dzo": "dz",
     "ekk": "et",
     "ell": "el",
+    "elp": "amq",
     "emk": "man",
     "eng": "en",
     "epo": "eo",
@@ -438,14 +462,19 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "ful": "ff",
     "gav": "dev",
     "gaz": "om",
+    "gbc": "wny",
     "gbo": "grb",
     "geo": "ka",
     "ger": "de",
     "gfx": "vaj",
     "ggn": "gvr",
+    "ggo": "esg",
+    "ggr": "gtu",
+    "gio": "aou",
     "gla": "gd",
     "gle": "ga",
     "glg": "gl",
+    "gli": "kzk",
     "glv": "gv",
     "gno": "gon",
     "gre": "el",
@@ -476,6 +505,7 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "ike": "iu",
     "iku": "iu",
     "ile": "ie",
+    "ill": "ilm",
     "ilw": "gal",
     "in": "id",
     "ina": "ia",
@@ -484,6 +514,8 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "isl": "is",
     "ita": "it",
     "iw": "he",
+    "izi": "eza",
+    "jar": "jgk",
     "jav": "jv",
     "jeg": "oyb",
     "ji": "yi",
@@ -495,7 +527,9 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "kat": "ka",
     "kau": "kr",
     "kaz": "kk",
+    "kdv": "zkd",
     "kgc": "tdf",
+    "kgd": "ncq",
     "kgh": "kml",
     "khk": "mn",
     "khm": "km",
@@ -510,6 +544,7 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "kom": "kv",
     "kon": "kg",
     "kor": "ko",
+    "kpp": "jkm",
     "kpv": "kv",
     "krm": "bmf",
     "ktr": "dtp",
@@ -518,12 +553,15 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "kvs": "gdj",
     "kwq": "yam",
     "kxe": "tvd",
+    "kxl": "kru",
+    "kzh": "dgl",
     "kzj": "dtp",
     "kzt": "dtp",
     "lao": "lo",
     "lat": "la",
     "lav": "lv",
     "lbk": "bnc",
+    "leg": "enl",
     "lii": "raq",
     "lim": "li",
     "lin": "ln",
@@ -541,18 +579,22 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "mar": "mr",
     "may": "ms",
     "meg": "cir",
+    "mgx": "jbk",
     "mhr": "chm",
     "mkd": "mk",
     "mlg": "mg",
     "mlt": "mt",
     "mnk": "man",
+    "mnt": "wnn",
     "mo": "ro",
+    "mof": "xnt",
     "mol": "ro",
     "mon": "mn",
     "mri": "mi",
     "msa": "ms",
     "mst": "mry",
     "mup": "raj",
+    "mwd": "dmw",
     "mwj": "vaj",
     "mya": "my",
     "myd": "aog",
@@ -560,20 +602,26 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "nad": "xny",
     "nau": "na",
     "nav": "nv",
+    "nbf": "nru",
     "nbl": "nr",
+    "nbx": "ekc",
     "ncp": "kdz",
     "nde": "nd",
     "ndo": "ng",
     "nep": "ne",
     "nld": "nl",
+    "nln": "azd",
+    "nlr": "nrk",
     "nno": "nn",
     "nns": "nbr",
     "nnx": "ngv",
     "no": "nb",
     "nob": "nb",
+    "noo": "dtd",
     "nor": "nb",
     "npi": "ne",
     "nts": "pij",
+    "nxu": "bpp",
     "nya": "ny",
     "oci": "oc",
     "ojg": "oj",
@@ -602,6 +650,7 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "puz": "pub",
     "que": "qu",
     "quz": "qu",
+    "rmr": "emx",
     "rmy": "rom",
     "roh": "rm",
     "ron": "ro",
@@ -610,9 +659,11 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "rus": "ru",
     "sag": "sg",
     "san": "sa",
+    "sap": "aqt",
     "sca": "hle",
     "scc": "sr",
     "scr": "hr",
+    "sgl": "isk",
     "sin": "si",
     "skk": "oyb",
     "slk": "sk",
@@ -631,6 +682,8 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "srd": "sc",
     "srp": "sr",
     "ssw": "ss",
+    "sul": "sgd",
+    "sum": "ulw",
     "sun": "su",
     "swa": "sw",
     "swe": "sv",
@@ -640,12 +693,15 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "tat": "tt",
     "tdu": "dtp",
     "tel": "te",
+    "tgg": "bjp",
     "tgk": "tg",
     "tgl": "fil",
     "tha": "th",
     "thc": "tpo",
+    "thw": "ola",
     "thx": "oyb",
     "tib": "bo",
+    "tid": "itd",
     "tie": "ras",
     "tir": "ti",
     "tkk": "twm",
@@ -665,6 +721,7 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "uig": "ug",
     "ukr": "uk",
     "umu": "del",
+    "unp": "wro",
     "uok": "ema",
     "urd": "ur",
     "uzb": "uz",
@@ -673,6 +730,9 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "vie": "vi",
     "vol": "vo",
     "wel": "cy",
+    "wgw": "wgb",
+    "wit": "nol",
+    "wiw": "nwo",
     "wln": "wa",
     "wol": "wo",
     "xba": "cax",
@@ -680,11 +740,14 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "xia": "acn",
     "xkh": "waw",
     "xpe": "kpe",
+    "xrq": "dmw",
     "xsj": "suj",
     "xsl": "den",
     "ybd": "rki",
     "ydd": "yi",
+    "yen": "ynq",
     "yid": "yi",
+    "yiy": "yrm",
     "yma": "lrr",
     "ymt": "mtm",
     "yor": "yo",
@@ -693,6 +756,7 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
     "zai": "zap",
     "zha": "za",
     "zho": "zh",
+    "zir": "scv",
     "zsm": "ms",
     "zul": "zu",
     "zyb": "za",
@@ -1249,11 +1313,8 @@ function isCanonicalizedStructurallyValidLanguageTag(locale) {
   var __variantMappings = {
     // property names and values must be in canonical case
 
-    "aaland": {type: "region", replacement: "AX"},
-    "arevela": {type: "language", replacement: "hy"},
-    "arevmda": {type: "language", replacement: "hyw"},
     "heploc": {type: "variant", replacement: "alalc97"},
-    "polytoni": {type: "variant", replacement: "polyton"},
+    "polytoni": {type: "language", replacement: "polyton"},
   };
 
 
@@ -1917,13 +1978,13 @@ function testOption(Constructor, property, type, values, fallback, testOptions) 
     obj = new Constructor(undefined, options);
     if (noReturn) {
       if (obj.resolvedOptions().hasOwnProperty(property)) {
-        $ERROR("Option property " + property + " is returned, but shouldn't be.");
+        throw new Test262Error("Option property " + property + " is returned, but shouldn't be.");
       }
     } else {
       actual = obj.resolvedOptions()[property];
       if (isILD) {
         if (actual !== undefined && values.indexOf(actual) === -1) {
-          $ERROR("Invalid value " + actual + " returned for property " + property + ".");
+          throw new Test262Error("Invalid value " + actual + " returned for property " + property + ".");
         }
       } else {
         if (type === "boolean") {
@@ -1932,7 +1993,7 @@ function testOption(Constructor, property, type, values, fallback, testOptions) 
           expected = String(value);
         }
         if (actual !== expected && !(isOptional && actual === undefined)) {
-          $ERROR("Option value " + value + " for property " + property +
+          throw new Test262Error("Option value " + value + " for property " + property +
             " was not accepted; got " + actual + " instead.");
         }
       }
@@ -1959,9 +2020,9 @@ function testOption(Constructor, property, type, values, fallback, testOptions) 
         error = e;
       }
       if (error === undefined) {
-        $ERROR("Invalid option value " + value + " for property " + property + " was not rejected.");
+        throw new Test262Error("Invalid option value " + value + " for property " + property + " was not rejected.");
       } else if (error.name !== "RangeError") {
-        $ERROR("Invalid option value " + value + " for property " + property + " was rejected with wrong error " + error.name + ".");
+        throw new Test262Error("Invalid option value " + value + " for property " + property + " was rejected with wrong error " + error.name + ".");
       }
     });
   }
@@ -1975,12 +2036,12 @@ function testOption(Constructor, property, type, values, fallback, testOptions) 
     if (!(isOptional && actual === undefined)) {
       if (fallback !== undefined) {
         if (actual !== fallback) {
-          $ERROR("Option fallback value " + fallback + " for property " + property +
+          throw new Test262Error("Option fallback value " + fallback + " for property " + property +
             " was not used; got " + actual + " instead.");
         }
       } else {
         if (values.indexOf(actual) === -1 && !(isILD && actual === undefined)) {
-          $ERROR("Invalid value " + actual + " returned for property " + property + ".");
+          throw new Test262Error("Invalid value " + actual + " returned for property " + property + ".");
         }
       }
     }
@@ -2000,6 +2061,7 @@ var regExpProperties = ["$1", "$2", "$3", "$4", "$5", "$6", "$7", "$8", "$9",
 
 var regExpPropertiesDefaultValues = (function () {
   var values = Object.create(null);
+  (/(?:)/).test("");
   regExpProperties.forEach(function (property) {
     values[property] = RegExp[property];
   });
@@ -2013,13 +2075,11 @@ var regExpPropertiesDefaultValues = (function () {
  * RegExp constructor.
  */
 function testForUnwantedRegExpChanges(testFunc) {
-  regExpProperties.forEach(function (property) {
-    RegExp[property] = regExpPropertiesDefaultValues[property];
-  });
+  (/(?:)/).test("");
   testFunc();
   regExpProperties.forEach(function (property) {
     if (RegExp[property] !== regExpPropertiesDefaultValues[property]) {
-      $ERROR("RegExp has unexpected property " + property + " with value " +
+      throw new Test262Error("RegExp has unexpected property " + property + " with value " +
         RegExp[property] + ".");
     }
   });
@@ -2027,17 +2087,71 @@ function testForUnwantedRegExpChanges(testFunc) {
 
 
 /**
- * Tests whether name is a valid BCP 47 numbering system name
- * and not excluded from use in the ECMAScript Internationalization API.
- * @param {string} name the name to be tested.
- * @return {boolean} whether name is a valid BCP 47 numbering system name and
- *   allowed for use in the ECMAScript Internationalization API.
+ * Returns an array of all known calendars.
  */
+function allCalendars() {
+  // source: CLDR file common/bcp47/number.xml; version CLDR 39.
+  // https://github.com/unicode-org/cldr/blob/master/common/bcp47/calendar.xml
+  return [
+    "buddhist",
+    "chinese",
+    "coptic",
+    "dangi",
+    "ethioaa",
+    "ethiopic",
+    "gregory",
+    "hebrew",
+    "indian",
+    "islamic",
+    "islamic-umalqura",
+    "islamic-tbla",
+    "islamic-civil",
+    "islamic-rgsa",
+    "iso8601",
+    "japanese",
+    "persian",
+    "roc",
+  ];
+}
 
-function isValidNumberingSystem(name) {
 
-  // source: CLDR file common/bcp47/number.xml; version CLDR 36.1.
-  var numberingSystems = [
+/**
+ * Returns an array of all known collations.
+ */
+function allCollations() {
+  // source: CLDR file common/bcp47/collation.xml; version CLDR 39.
+  // https://github.com/unicode-org/cldr/blob/master/common/bcp47/collation.xml
+  return [
+    "big5han",
+    "compat",
+    "dict",
+    "direct",
+    "ducet",
+    "emoji",
+    "eor",
+    "gb2312",
+    "phonebk",
+    "phonetic",
+    "pinyin",
+    "reformed",
+    "search",
+    "searchjl",
+    "standard",
+    "stroke",
+    "trad",
+    "unihan",
+    "zhuyin",
+  ];
+}
+
+
+/**
+ * Returns an array of all known numbering systems.
+ */
+function allNumberingSystems() {
+  // source: CLDR file common/bcp47/number.xml; version CLDR 39.
+  // https://github.com/unicode-org/cldr/blob/master/common/bcp47/number.xml
+  return [
     "adlm",
     "ahom",
     "arab",
@@ -2126,6 +2240,20 @@ function isValidNumberingSystem(name) {
     "wara",
     "wcho",
   ];
+}
+
+
+/**
+ * Tests whether name is a valid BCP 47 numbering system name
+ * and not excluded from use in the ECMAScript Internationalization API.
+ * @param {string} name the name to be tested.
+ * @return {boolean} whether name is a valid BCP 47 numbering system name and
+ *   allowed for use in the ECMAScript Internationalization API.
+ */
+
+function isValidNumberingSystem(name) {
+
+  var numberingSystems = allNumberingSystems();
 
   var excluded = [
     "finance",
@@ -2144,29 +2272,126 @@ function isValidNumberingSystem(name) {
  */
 
 var numberingSystemDigits = {
+  adlm: "𞥐𞥑𞥒𞥓𞥔𞥕𞥖𞥗𞥘𞥙",
+  ahom: "𑜰𑜱𑜲𑜳𑜴𑜵𑜶𑜷𑜸𑜹",
   arab: "٠١٢٣٤٥٦٧٨٩",
   arabext: "۰۱۲۳۴۵۶۷۸۹",
   bali: "\u1B50\u1B51\u1B52\u1B53\u1B54\u1B55\u1B56\u1B57\u1B58\u1B59",
   beng: "০১২৩৪৫৬৭৮৯",
+  bhks: "𑱐𑱑𑱒𑱓𑱔𑱕𑱖𑱗𑱘𑱙",
+  brah: "𑁦𑁧𑁨𑁩𑁪𑁫𑁬𑁭𑁮𑁯",
+  cakm: "𑄶𑄷𑄸𑄹𑄺𑄻𑄼𑄽𑄾𑄿",
+  cham: "꩐꩑꩒꩓꩔꩕꩖꩗꩘꩙",
   deva: "०१२३४५६७८९",
+  diak: "𑥐𑥑𑥒𑥓𑥔𑥕𑥖𑥗𑥘𑥙",
   fullwide: "０１２３４５６７８９",
+  gong: "𑶠𑶡𑶢𑶣𑶤𑶥𑶦𑶧𑶨𑶩",
+  gonm: "𑵐𑵑𑵒𑵓𑵔𑵕𑵖𑵗𑵘𑵙",
   gujr: "૦૧૨૩૪૫૬૭૮૯",
   guru: "੦੧੨੩੪੫੬੭੮੯",
   hanidec: "〇一二三四五六七八九",
+  hmng: "𖭐𖭑𖭒𖭓𖭔𖭕𖭖𖭗𖭘𖭙",
+  hmnp: "𞅀𞅁𞅂𞅃𞅄𞅅𞅆𞅇𞅈𞅉",
+  java: "꧐꧑꧒꧓꧔꧕꧖꧗꧘꧙",
+  kali: "꤀꤁꤂꤃꤄꤅꤆꤇꤈꤉",
   khmr: "០១២៣៤៥៦៧៨៩",
   knda: "೦೧೨೩೪೫೬೭೮೯",
+  lana: "᪀᪁᪂᪃᪄᪅᪆᪇᪈᪉",
+  lanatham: "᪐᪑᪒᪓᪔᪕᪖᪗᪘᪙",
   laoo: "໐໑໒໓໔໕໖໗໘໙",
   latn: "0123456789",
+  lepc: "᱀᱁᱂᱃᱄᱅᱆᱇᱈᱉",
   limb: "\u1946\u1947\u1948\u1949\u194A\u194B\u194C\u194D\u194E\u194F",
+  mathbold: "𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗",
+  mathdbl: "𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡",
+  mathmono: "𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿",
+  mathsanb: "𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵",
+  mathsans: "𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫",
   mlym: "൦൧൨൩൪൫൬൭൮൯",
+  modi: "𑙐𑙑𑙒𑙓𑙔𑙕𑙖𑙗𑙘𑙙",
   mong: "᠐᠑᠒᠓᠔᠕᠖᠗᠘᠙",
+  mroo: "𖩠𖩡𖩢𖩣𖩤𖩥𖩦𖩧𖩨𖩩",
+  mtei: "꯰꯱꯲꯳꯴꯵꯶꯷꯸꯹",
   mymr: "၀၁၂၃၄၅၆၇၈၉",
+  mymrshan: "႐႑႒႓႔႕႖႗႘႙",
+  mymrtlng: "꧰꧱꧲꧳꧴꧵꧶꧷꧸꧹",
+  newa: "𑑐𑑑𑑒𑑓𑑔𑑕𑑖𑑗𑑘𑑙",
+  nkoo: "߀߁߂߃߄߅߆߇߈߉",
+  olck: "᱐᱑᱒᱓᱔᱕᱖᱗᱘᱙",
   orya: "୦୧୨୩୪୫୬୭୮୯",
+  osma: "𐒠𐒡𐒢𐒣𐒤𐒥𐒦𐒧𐒨𐒩",
+  rohg: "𐴰𐴱𐴲𐴳𐴴𐴵𐴶𐴷𐴸𐴹",
+  saur: "꣐꣑꣒꣓꣔꣕꣖꣗꣘꣙",
+  segment: "🯰🯱🯲🯳🯴🯵🯶🯷🯸🯹",
+  shrd: "𑇐𑇑𑇒𑇓𑇔𑇕𑇖𑇗𑇘𑇙",
+  sind: "𑋰𑋱𑋲𑋳𑋴𑋵𑋶𑋷𑋸𑋹",
+  sinh: "෦෧෨෩෪෫෬෭෮෯",
+  sora: "𑃰𑃱𑃲𑃳𑃴𑃵𑃶𑃷𑃸𑃹",
+  sund: "᮰᮱᮲᮳᮴᮵᮶᮷᮸᮹",
+  takr: "𑛀𑛁𑛂𑛃𑛄𑛅𑛆𑛇𑛈𑛉",
+  talu: "᧐᧑᧒᧓᧔᧕᧖᧗᧘᧙",
   tamldec: "௦௧௨௩௪௫௬௭௮௯",
   telu: "౦౧౨౩౪౫౬౭౮౯",
   thai: "๐๑๒๓๔๕๖๗๘๙",
-  tibt: "༠༡༢༣༤༥༦༧༨༩"
+  tibt: "༠༡༢༣༤༥༦༧༨༩",
+  tirh: "𑓐𑓑𑓒𑓓𑓔𑓕𑓖𑓗𑓘𑓙",
+  vaii: "꘠꘡꘢꘣꘤꘥꘦꘧꘨꘩",
+  wara: "𑣠𑣡𑣢𑣣𑣤𑣥𑣦𑣧𑣨𑣩",
+  wcho: "𞋰𞋱𞋲𞋳𞋴𞋵𞋶𞋷𞋸𞋹",
 };
+
+
+/**
+ * Returns an array of all simple, sanctioned unit identifiers.
+ */
+function allSimpleSanctionedUnits() {
+  // https://tc39.es/ecma402/#table-sanctioned-simple-unit-identifiers
+  return [
+    "acre",
+    "bit",
+    "byte",
+    "celsius",
+    "centimeter",
+    "day",
+    "degree",
+    "fahrenheit",
+    "fluid-ounce",
+    "foot",
+    "gallon",
+    "gigabit",
+    "gigabyte",
+    "gram",
+    "hectare",
+    "hour",
+    "inch",
+    "kilobit",
+    "kilobyte",
+    "kilogram",
+    "kilometer",
+    "liter",
+    "megabit",
+    "megabyte",
+    "meter",
+    "mile",
+    "mile-scandinavian",
+    "milliliter",
+    "millimeter",
+    "millisecond",
+    "minute",
+    "month",
+    "ounce",
+    "percent",
+    "petabyte",
+    "pound",
+    "second",
+    "stone",
+    "terabit",
+    "terabyte",
+    "week",
+    "yard",
+    "year",
+  ];
+}
 
 
 /**
@@ -2194,7 +2419,7 @@ function testNumberFormat(locales, numberingSystems, options, testData) {
         var oneoneRE = "([^" + digits + "]*)[" + digits + "]+([^" + digits + "]+)[" + digits + "]+([^" + digits + "]*)";
         var match = formatted.match(new RegExp(oneoneRE));
         if (match === null) {
-          $ERROR("Unexpected formatted " + n + " for " +
+          throw new Test262Error("Unexpected formatted " + n + " for " +
             format.resolvedOptions().locale + " and options " +
             JSON.stringify(options) + ": " + formatted);
         }
@@ -2237,7 +2462,7 @@ function testNumberFormat(locales, numberingSystems, options, testData) {
           var expected = buildExpected(rawExpected, patternParts);
           var actual = format.format(input);
           if (actual !== expected) {
-            $ERROR("Formatted value for " + input + ", " +
+            throw new Test262Error("Formatted value for " + input + ", " +
             format.resolvedOptions().locale + " and options " +
             JSON.stringify(options) + " is " + actual + "; expected " + expected + ".");
           }
@@ -2281,7 +2506,7 @@ function getDateTimeComponentValues(component) {
 
   var result = components[component];
   if (result === undefined) {
-    $ERROR("Internal error: No values defined for date-time component " + component + ".");
+    throw new Test262Error("Internal error: No values defined for date-time component " + component + ".");
   }
   return result;
 }
