@@ -18,12 +18,12 @@ info: |
     ...
     For all other grammatical productions, recurse on all nonterminals. If any piece returns true, then return true. Otherwise return false.
 features: [class, class-fields-public]
-template: initializer-eval-arguments
+template: initializer-direct-eval-arguments
 ---*/
 
 //- initializer
 arguments
+//- arrow-body
+() => arguments
 //- earlyerror
 SyntaxError
-//- executionerror
-ReferenceError

@@ -93,18 +93,16 @@ class Template:
                 continue
 
             match = interpolatePattern.match(comment['source'])
-
-            if match == None:
-                continue
-
-            self.regions.insert(0, dict(name=match.group(1), **comment))
+            if match:
+                self.regions.insert(0, dict(name=match.group(1), **comment))
 
     def expand_regions(self, source, context):
         lines = source.split('\n')
 
         for region in self.regions:
+            region_name = region['name']
             whitespace = indentPattern.match(lines[region['lineno']]).group(1)
-            value = context['regions'].get(region['name'], '')
+            value = context['regions'].get(region_name, '')
 
             str_char = region.get('in_string')
             if str_char:
@@ -112,8 +110,18 @@ class Template:
                 value = value.replace(str_char, safe_char)
                 value = value.replace('\n', '\\\n')
 
+            if "codepoints" in context['region_options'].get(region_name, set()):
+                str_from_cp = chr
+                try:
+                    # In Python 2, explicitly work on code points
+                    str_from_cp = unichr
+                except NameError: pass
+                value = "".join(str_from_cp(int(cp, 16)) for cp in value.split())
+            else:
+                value = indent(value, whitespace, True).lstrip()
+
             source = source[:region['firstchar']] + \
-                indent(value, whitespace, True).lstrip() + \
+                value + \
                 source[region['lastchar']:]
 
         setup = context['regions'].get('setup')
@@ -202,9 +210,11 @@ class Template:
         return '\n'.join(lines)
 
     def expand(self, case_filename, case_name, case_values, encoding):
-        frontmatter = self._frontmatter(case_filename, case_values)
-        body = self.expand_regions(self.source, case_values)
-
         assert encoding == 'utf-8'
+        def get_source():
+            frontmatter = self._frontmatter(case_filename, case_values)
+            body = self.expand_regions(self.source, case_values)
+            return codecs.encode(frontmatter + '\n' + body, encoding)
         return Test(self.attribs['meta']['path'] + case_name + '.js',
-            source=codecs.encode(frontmatter + '\n' + body, encoding))
+            dynamic_source=get_source,
+            source_file_names=(self.filename, case_filename))

@@ -14,7 +14,7 @@ features: [async-functions]
 ---*/
 
 var obj = {
-  async method() {
+  async method(/*{ params }*/) {
     /*{ body }*/
   }
 };
