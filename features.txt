@@ -132,6 +132,10 @@ Intl.DisplayNames-v2
 # https://github.com/tc39/proposal-intl-extend-timezonename
 Intl.DateTimeFormat-extend-timezonename
 
+# Intl "Enumeration API"
+# https://github.com/tc39/proposal-intl-enumeration
+Intl-enumeration
+
 # Global
 # https://github.com/tc39/proposal-global
 globalThis
@@ -150,9 +154,8 @@ WeakRef
 FinalizationRegistry
 
 # FinalizationRegistry#cleanupSome
-# link pending
+# https://github.com/tc39/proposal-cleanup-some
 FinalizationRegistry.prototype.cleanupSome
-cleanupSome
 
 # Optional Chaining
 # https://github.com/tc39/proposal-optional-chaining
@@ -173,6 +176,10 @@ coalesce-expression
 # Intl.DisplayNames
 # https://github.com/tc39-transfer/proposal-intl-displaynames
 Intl.DisplayNames
+
+# Intl.NumberFormat V3
+# https://github.com/tc39/proposal-intl-numberformat-v3
+Intl.NumberFormat-v3
 
 # Promise.any
 # https://github.com/tc39/proposal-promise-any
@@ -244,6 +251,18 @@ resizable-arraybuffer
 # Temporal
 # https://github.com/tc39/proposal-temporal
 Temporal
+
+# ShadowRealm, née Callable Boundary Realms
+# https://github.com/tc39/proposal-realms
+ShadowRealm
+
+# Array.prototype.findLast & Array.prototype.findLastIndex
+# https://github.com/tc39/proposal-array-find-from-last
+array-find-from-last
+
+# Permit Symbol as WeakMap key and WeakSet entry
+# https://github.com/tc39/ecma262/pull/2038
+permit-symbol-weakmap-key-weakset-entry
 
 ## Standard language features
 #
