@@ -2,22 +2,21 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Being in function code, "this" and eval("this"), called as a
     constructors, return the object
 es5id: 11.1.1_A3.2
 description: Create function. It have property, that returned "this"
-flags: [noStrict]
 ---*/
 
 //CHECK#1
 function SetThis() {this.THIS = this}
 if ((new SetThis()).THIS.toString() !== "[object Object]") {
-  $ERROR('#1: function SetThis() {this.THIS = this} (new SetThis()).THIS.toString() !== "[object Object]". Actual: ' + ((new SetThis()).THIS.toString()));
+  throw new Test262Error('#1: function SetThis() {this.THIS = this} (new SetThis()).THIS.toString() !== "[object Object]". Actual: ' + ((new SetThis()).THIS.toString()));
 }
 
 //CHECK#2
 function SetEvalThis() {this.THIS = eval("this")}
 if ((new SetEvalThis()).THIS.toString() !== "[object Object]") {
-  $ERROR('#2: function SetEvalThis() {this.THIS = eval("this")} (new SetEvalThis()).THIS.toString() !== "[object Object]". Actual: ' + ((new SetEvalThis()).THIS.toString()));
+  throw new Test262Error('#2: function SetEvalThis() {this.THIS = eval("this")} (new SetEvalThis()).THIS.toString() !== "[object Object]". Actual: ' + ((new SetEvalThis()).THIS.toString()));
 }

@@ -3,16 +3,16 @@
 
 /*---
 description: Expression not allowed in head's AssignmentExpression position
-info: >
+info: |
     IterationStatement :
         for ( LeftHandSideExpression of AssignmentExpression ) Statement
 es6id: 13.7
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 var x;
 for (x of [], []) {}

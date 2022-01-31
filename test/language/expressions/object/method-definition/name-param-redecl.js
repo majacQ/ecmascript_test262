@@ -8,11 +8,11 @@ description: >
     FunctionBody.
 es6id: 14.3.1
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 var obj = {
   method(param) {

@@ -4,14 +4,12 @@
 /*---
 info: The "length" property of the "setMonth" is 2
 esid: sec-date.prototype.setmonth
-es5id: 15.9.5.38_A2_T1
 description: The "length" property of the "setMonth" is 2
 ---*/
+assert.sameValue(
+  Date.prototype.setMonth.hasOwnProperty("length"),
+  true,
+  'Date.prototype.setMonth.hasOwnProperty("length") must return true'
+);
 
-if(Date.prototype.setMonth.hasOwnProperty("length") !== true){
-  $ERROR('#1: The setMonth has a "length" property');
-}
-
-if(Date.prototype.setMonth.length !== 2){
-  $ERROR('#2: The "length" property of the setMonth is 2');
-}
+assert.sameValue(Date.prototype.setMonth.length, 2, 'The value of Date.prototype.setMonth.length is expected to be 2');

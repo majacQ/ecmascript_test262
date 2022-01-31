@@ -8,11 +8,11 @@ description: >
     Checking if break Identifier with no loop, placed into a  block,
     fails
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 LABEL : x=3.14;
 

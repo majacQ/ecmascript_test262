@@ -2,18 +2,21 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype property "setUTCMilliseconds" has { DontEnum }
     attributes
 esid: sec-date.prototype.setutcmilliseconds
-es5id: 15.9.5.29_A1_T2
 description: Checking absence of DontDelete attribute
 ---*/
+assert.notSameValue(
+  delete Date.prototype.setUTCMilliseconds,
+  false,
+  'The value of delete Date.prototype.setUTCMilliseconds is not false'
+);
 
-if (delete Date.prototype.setUTCMilliseconds  === false) {
-  $ERROR('#1: The Date.prototype.setUTCMilliseconds property has not the attributes DontDelete');
-}
+assert(
+  !Date.prototype.hasOwnProperty('setUTCMilliseconds'),
+  'The value of !Date.prototype.hasOwnProperty(\'setUTCMilliseconds\') is expected to be true'
+);
 
-if (Date.prototype.hasOwnProperty('setUTCMilliseconds')) {
-  $ERROR('#2: The Date.prototype.setUTCMilliseconds property has not the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

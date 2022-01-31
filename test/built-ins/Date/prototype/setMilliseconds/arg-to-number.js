@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-date.prototype.setmilliseconds
-es6id: 20.3.4.23
 description: Type coercion of provided argument
 info: |
   1. Let t be LocalTime(? thisTimeValue(this value)).
@@ -54,7 +53,7 @@ assert.sameValue(returnValue, new Date(2016, 6, 1).getTime(), 'false');
 returnValue = date.setMilliseconds('   +00200.000E-0002	');
 
 assert.sameValue(
-  returnValue, new Date(2016, 6, 1, 0, 0, 0 , 2).getTime(), 'string'
+  returnValue, new Date(2016, 6, 1, 0, 0, 0, 2).getTime(), 'string'
 );
 
 returnValue = date.setMilliseconds();

@@ -4,7 +4,7 @@
 es6id: 23.1.3.5
 description: >
   Returns error from callback result is abrupt.
-info: >
+info: |
   Map.prototype.forEach ( callbackfn [ , thisArg ] )
 
   ...
@@ -16,7 +16,6 @@ info: >
       i. Let funcResult be Call(callbackfn, T, «e.[[value]], e.[[key]], M»).
       ii. ReturnIfAbrupt(funcResult).
   ...
-flags: [noStrict]
 ---*/
 
 var map = new Map([[0, 0]]);

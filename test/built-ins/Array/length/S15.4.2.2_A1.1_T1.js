@@ -3,7 +3,7 @@
 
 /*---
 esid: sec-array-len
-info: >
+info: |
     The [[Prototype]] property of the newly constructed object
     is set to the original Array prototype object, the one that
     is the initial value of Array.prototype
@@ -13,9 +13,6 @@ description: >
     this property
 ---*/
 
-//CHECK#1
 Array.prototype.myproperty = 1;
 var x = new Array(0);
-if (x.myproperty !== 1) {
-  $ERROR('#1: Array.prototype.myproperty = 1; var x = new Array(0); x.myproperty === 1. Actual: ' + (x.myproperty));
-}
+assert.sameValue(x.myproperty, 1, 'The value of x.myproperty is expected to be 1');

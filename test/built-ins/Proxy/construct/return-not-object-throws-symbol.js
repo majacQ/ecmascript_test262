@@ -1,25 +1,26 @@
 // Copyright (C) 2015 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 9.5.14
+esid: sec-proxy-object-internal-methods-and-internal-slots-construct-argumentslist-newtarget
 description: >
     Throws a TypeError if trap result is not an Object: Symbol
-info: >
+info: |
     [[Construct]] ( argumentsList, newTarget)
 
     11. If Type(newObj) is not Object, throw a TypeError exception.
-features: [Symbol]
+features: [Proxy, Symbol]
 ---*/
 
-function Target() {
-    this.attr = "done";
-};
-var P = new Proxy(Target, {
-    construct: function() {
-        return Symbol();
-    }
+function Target() {}
+
+var P = new Proxy(function() {
+  throw new Test262Error('target should not be called');
+}, {
+  construct: function() {
+    return Symbol();
+  }
 });
 
 assert.throws(TypeError, function() {
-    new P();
+  new P();
 });

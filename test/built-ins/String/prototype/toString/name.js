@@ -2,10 +2,10 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-es6id: 21.1.3.23
+esid: sec-string.prototype.tostring
 description: >
   String.prototype.toString.name is "toString".
-info: >
+info: |
   String.prototype.toString ( )
 
   17 ECMAScript Standard Built-in Objects:
@@ -19,8 +19,9 @@ info: >
 includes: [propertyHelper.js]
 ---*/
 
-assert.sameValue(String.prototype.toString.name, "toString");
-
-verifyNotEnumerable(String.prototype.toString, "name");
-verifyNotWritable(String.prototype.toString, "name");
-verifyConfigurable(String.prototype.toString, "name");
+verifyProperty(String.prototype.toString, 'name', {
+  value: 'toString',
+  writable: false,
+  enumerable: false,
+  configurable: true,
+});

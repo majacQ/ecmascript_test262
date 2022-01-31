@@ -1,7 +1,6 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.7
 esid: sec-array.prototype.filter
 description: >
     Behavior when `constructor` property is neither an Object nor undefined
@@ -20,7 +19,9 @@ info: |
 
 var a = [];
 var callCount = 0;
-var cb = function() { callCount += 0; };
+var cb = function() {
+  callCount += 0;
+};
 
 a.constructor = null;
 assert.throws(TypeError, function() {

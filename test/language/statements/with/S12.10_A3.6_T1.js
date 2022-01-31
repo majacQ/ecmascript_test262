@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     No matter how control leaves the embedded 'Statement',
     the scope chain is always restored to its former state
 es5id: 12.10_A3.6_T1
@@ -37,7 +37,7 @@ with(myObj){
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if(p1 !== 1){
-  $ERROR('#1: p1 === 1. Actual:  p1 ==='+ p1  );
+  throw new Test262Error('#1: p1 === 1. Actual:  p1 ==='+ p1  );
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ if(p1 !== 1){
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if(myObj.p1 !== "a"){
-  $ERROR('#2: myObj.p1 === "a". Actual:  myObj.p1 ==='+ myObj.p1  );
+  throw new Test262Error('#2: myObj.p1 === "a". Actual:  myObj.p1 ==='+ myObj.p1  );
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@ if(myObj.p1 !== "a"){
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#3
 if(theirObj.p1 !== "x1"){
-  $ERROR('#3: theirObj.p1 === "x1". Actual:  theirObj.p1 ==='+ theirObj.p1  );
+  throw new Test262Error('#3: theirObj.p1 === "x1". Actual:  theirObj.p1 ==='+ theirObj.p1  );
 }
 //
 //////////////////////////////////////////////////////////////////////////////

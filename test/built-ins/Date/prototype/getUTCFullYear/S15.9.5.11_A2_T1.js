@@ -4,14 +4,16 @@
 /*---
 info: The "length" property of the "getUTCFullYear" is 0
 esid: sec-date.prototype.getutcfullyear
-es5id: 15.9.5.11_A2_T1
 description: The "length" property of the "getUTCFullYear" is 0
 ---*/
+assert.sameValue(
+  Date.prototype.getUTCFullYear.hasOwnProperty("length"),
+  true,
+  'Date.prototype.getUTCFullYear.hasOwnProperty("length") must return true'
+);
 
-if(Date.prototype.getUTCFullYear.hasOwnProperty("length") !== true){
-  $ERROR('#1: The getUTCFullYear has a "length" property');
-}
-
-if(Date.prototype.getUTCFullYear.length !== 0){
-  $ERROR('#2: The "length" property of the getUTCFullYear is 0');
-}
+assert.sameValue(
+  Date.prototype.getUTCFullYear.length,
+  0,
+  'The value of Date.prototype.getUTCFullYear.length is expected to be 0'
+);

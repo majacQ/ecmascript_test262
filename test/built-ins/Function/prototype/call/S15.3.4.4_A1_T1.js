@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The call method performs a function call using the [[Call]] property of
     the object. If the object does not have a [[Call]] property, a TypeError
     exception is thrown
@@ -12,25 +12,19 @@ description: >
     property.  Prototype of the object is Function()
 ---*/
 
-var proto=Function();
+var proto = Function();
 
-function FACTORY(){};
+function FACTORY() {}
 
-FACTORY.prototype=proto;
+FACTORY.prototype = proto;
 
 var obj = new FACTORY;
 
-//CHECK#1
-if (typeof obj.call !== "function") {
-  $ERROR('#1: call method accessed');
-}
+assert.sameValue(typeof obj.call, "function", 'The value of `typeof obj.call` is expected to be "function"');
 
-//CHECK#2
 try {
   obj.call();
-  $ERROR('#2: If the object does not have a [[Call]] property, a TypeError exception is thrown');
+  throw new Test262Error('#2: If the object does not have a [[Call]] property, a TypeError exception is thrown');
 } catch (e) {
-  if (!(e instanceof TypeError)) {
-  	$ERROR('#2.1: If the object does not have a [[Call]] property, a TypeError exception is thrown');
-  }
+  assert(e instanceof TypeError, 'The result of evaluating (e instanceof TypeError) is expected to be true');
 }

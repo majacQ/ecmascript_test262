@@ -4,10 +4,10 @@
 /*---
 info: The Date.prototype has the property "toUTCString"
 esid: sec-properties-of-the-date-prototype-object
-es5id: 15.9.5_A42_T1
 description: The Date.prototype has the property "toUTCString"
 ---*/
-
-if(Date.prototype.hasOwnProperty("toUTCString") !== true){
-  $ERROR('#1: The Date.prototype has the property "toUTCString"');
-}
+assert.sameValue(
+  Date.prototype.hasOwnProperty("toUTCString"),
+  true,
+  'Date.prototype.hasOwnProperty("toUTCString") must return true'
+);

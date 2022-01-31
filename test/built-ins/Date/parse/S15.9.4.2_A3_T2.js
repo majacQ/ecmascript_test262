@@ -2,18 +2,17 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.parse property "length" has { ReadOnly, ! DontDelete, DontEnum }
     attributes
 esid: sec-date.parse
-es5id: 15.9.4.2_A3_T2
 description: Checking DontDelete attribute
 ---*/
+assert.sameValue(delete Date.parse.length, true, 'The value of `delete Date.parse.length` is expected to be true');
 
-if (delete Date.parse.length  !== true) {
-  $ERROR('#1: The Date.parse.length property does not have the attributes DontDelete');
-}
+assert(
+  !Date.parse.hasOwnProperty('length'),
+  'The value of !Date.parse.hasOwnProperty(\'length\') is expected to be true'
+);
 
-if (Date.parse.hasOwnProperty('length')) {
-  $ERROR('#2: The Date.parse.length property does not have the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

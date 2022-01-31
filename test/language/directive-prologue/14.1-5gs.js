@@ -7,7 +7,7 @@ description: >
     StrictMode - a Use Strict Directive embedded in a directive
     prologue followed by a strict mode violation
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 flags: [raw]
 ---*/
@@ -15,5 +15,5 @@ flags: [raw]
 "a";
 "use strict";
 "c";
-throw new Error("This code should not execute");
+throw "Test262: This statement should not be evaluated.";
 eval = 42;

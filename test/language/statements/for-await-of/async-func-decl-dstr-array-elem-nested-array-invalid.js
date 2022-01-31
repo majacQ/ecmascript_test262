@@ -5,9 +5,9 @@
 description: It is a Syntax Error if LeftHandSideExpression is either an ObjectLiteral or an ArrayLiteral and if the lexical token sequence matched by LeftHandSideExpression cannot be parsed with no tokens left over using AssignmentPattern as the goal symbol. (for-await-of statement in an async function declaration)
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
 features: [destructuring-binding, async-iteration]
-flags: [generated, async]
+flags: [generated]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     IterationStatement :
@@ -27,8 +27,8 @@ info: |
           lhs using AssignmentPattern as the goal symbol.
     [...]
 ---*/
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 async function fn() {
-  for await ([[(x, y)]] of [[[]]])
+  for await ([[(x, y)]] of [[[]]]) {}
 }

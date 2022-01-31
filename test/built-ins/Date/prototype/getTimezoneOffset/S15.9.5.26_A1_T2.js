@@ -2,18 +2,21 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype property "getTimezoneOffset" has { DontEnum }
     attributes
 esid: sec-date.prototype.gettimezoneoffset
-es5id: 15.9.5.26_A1_T2
 description: Checking absence of DontDelete attribute
 ---*/
+assert.notSameValue(
+  delete Date.prototype.getTimezoneOffset,
+  false,
+  'The value of delete Date.prototype.getTimezoneOffset is not false'
+);
 
-if (delete Date.prototype.getTimezoneOffset  === false) {
-  $ERROR('#1: The Date.prototype.getTimezoneOffset property has not the attributes DontDelete');
-}
+assert(
+  !Date.prototype.hasOwnProperty('getTimezoneOffset'),
+  'The value of !Date.prototype.hasOwnProperty(\'getTimezoneOffset\') is expected to be true'
+);
 
-if (Date.prototype.hasOwnProperty('getTimezoneOffset')) {
-  $ERROR('#2: The Date.prototype.getTimezoneOffset property has not the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

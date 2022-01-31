@@ -4,19 +4,11 @@
 /*---
 info: The join property of Array can't be used as constructor
 esid: sec-array.prototype.join
-es5id: 15.4.4.5_A6.7
 description: >
     If property does not implement the internal [[Construct]] method,
     throw a TypeError exception
 ---*/
 
-//CHECK#1
-
-try {
+assert.throws(TypeError, () => {
   new Array.prototype.join();
-  $ERROR('#1.1: new Array.prototype.join() throw TypeError. Actual: ' + (new Array.prototype.join()));
-} catch (e) {
-  if ((e instanceof TypeError) !== true) {
-    $ERROR('#1.2: new Array.prototype.join() throw TypeError. Actual: ' + (e));
-  }
-}
+});

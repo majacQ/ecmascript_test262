@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     [[Get]](P) method should return value when property P does not exist in
     instance but prototype contain it
 es5id: 8.12.3_A1
@@ -20,7 +20,7 @@ var __obj= new FooObj;
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (__obj.propFoo !== "some"){
-  $ERROR('#1: function FooObj(){}; FooObj.prototype.propFoo="some"; var __obj= new FooObj; __obj.propFoo === "some". Actual: ' + (__obj.propFoo));
+  throw new Test262Error('#1: function FooObj(){}; FooObj.prototype.propFoo="some"; var __obj= new FooObj; __obj.propFoo === "some". Actual: ' + (__obj.propFoo));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ if (__obj.propFoo !== "some"){
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (__obj['propFoo'] !== "some"){
-  $ERROR('#1: function FooObj(){}; FooObj.prototype.propFoo="some"; var __obj= new FooObj; __obj[\'propFoo\'] === "some". Actual: ' + (__obj['propFoo']));
+  throw new Test262Error('#1: function FooObj(){}; FooObj.prototype.propFoo="some"; var __obj= new FooObj; __obj[\'propFoo\'] === "some". Actual: ' + (__obj['propFoo']));
 }
 //
 //////////////////////////////////////////////////////////////////////////////

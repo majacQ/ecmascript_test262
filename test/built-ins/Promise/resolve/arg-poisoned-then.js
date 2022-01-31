@@ -5,7 +5,7 @@
 description: >
     `Promise.resolve` invoked with an object with a "poisoned" `then` property
 es6id: 25.4.4.5
-info: >
+info: |
     6. Let resolveResult be Call(promiseCapability.[[Resolve]], undefined,
        «x»).
 
@@ -28,7 +28,7 @@ Object.defineProperty(poisonedThen, 'then', {
 });
 
 Promise.resolve(poisonedThen).then(function() {
-  $ERROR(
+  throw new Test262Error(
     'Promise should be rejected when retrieving `then` property throws an error'
   );
 }, function(reason) {

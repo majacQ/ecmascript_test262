@@ -2,7 +2,7 @@
 // See LICENSE for details.
 
 /*---
-info: >
+info: |
     catch(arg) is equivalent to then(undefined, arg)
 es6id: S25.4.5.1_A3.1_T1
 author: Sam Mikes
@@ -10,15 +10,12 @@ description: catch is implemented in terms of then
 flags: [async]
 ---*/
 
-var obj = {};
+var arg = {};
 
-var p = Promise.resolve(obj);
+var p = Promise.resolve(arg);
 
-p.catch(function () {
-    $ERROR("Should not be called - promise is fulfilled");
-}).then(function (arg) {
-    if (arg !== obj) {
-        $ERROR("Expected promise to be fulfilled with obj, got " + arg);
-    }
+p.catch(function() {
+  throw new Test262Error("Should not be called - promise is fulfilled");
+}).then(function(result) {
+  assert.sameValue(result, arg, 'The value of result is expected to equal the value of arg');
 }).then($DONE, $DONE);
-

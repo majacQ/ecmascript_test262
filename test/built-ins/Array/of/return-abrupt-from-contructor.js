@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.of
-es6id: 22.1.2.3
 description: >
   Return abrupt from this' constructor
-info: >
+info: |
   Array.of ( ...items )
 
   1. Let len be the actual number of arguments passed to this function.
@@ -25,4 +24,4 @@ function T() {
 
 assert.throws(Test262Error, function() {
   Array.of.call(T);
-});
+}, 'Array.of.call(T) throws a Test262Error exception');

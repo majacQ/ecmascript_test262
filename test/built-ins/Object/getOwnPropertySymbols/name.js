@@ -2,10 +2,10 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-es6id: 19.1.2.8
+esid: sec-object.getownpropertysymbols
 description: >
   Object.getOwnPropertySymbols.name is "getOwnPropertySymbols".
-info: >
+info: |
   Object.getOwnPropertySymbols ( O )
 
   17 ECMAScript Standard Built-in Objects:

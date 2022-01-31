@@ -4,14 +4,14 @@
 esid: sec-function-definitions-static-semantics-early-errors
 es6id: 14.1.2
 description: Body may not contain a "super" call
-info: >
+info: |
   It is a Syntax Error if FunctionBody Contains SuperCall is true.
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 0, function() {
   super();

@@ -4,7 +4,6 @@
 /*---
 description: Variable binding is initialized to `undefined` in outer scope (IfStatement without an else clause in the global scope)
 esid: sec-functiondeclarations-in-ifstatement-statement-clauses
-es6id: B.3.4
 flags: [generated, noStrict]
 includes: [fnGlobalObject.js, propertyHelper.js]
 info: |
@@ -29,8 +28,10 @@ info: |
 var global = fnGlobalObject();
 assert.sameValue(f, undefined, 'binding is initialized to `undefined`');
 
-verifyEnumerable(global, 'f');
-verifyWritable(global, 'f');
-verifyNotConfigurable(global, 'f');
+verifyProperty(global, "f", {
+  enumerable: true,
+  writable: true,
+  configurable: false
+});
 
 if (true) function f() {  }

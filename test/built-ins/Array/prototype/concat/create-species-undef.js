@@ -1,7 +1,6 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.1
 esid: sec-array.prototype.concat
 description: >
     An undefined value for the @@species constructor triggers the creation  of
@@ -31,5 +30,9 @@ a.constructor[Symbol.species] = undefined;
 
 result = a.concat();
 
-assert.sameValue(Object.getPrototypeOf(result), Array.prototype);
-assert(Array.isArray(result), 'result is an Array exotic object');
+assert.sameValue(
+  Object.getPrototypeOf(result),
+  Array.prototype,
+  'Object.getPrototypeOf(a.concat()) returns Array.prototype'
+);
+assert(Array.isArray(result), 'Array.isArray(result) must return true');

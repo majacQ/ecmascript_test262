@@ -8,12 +8,12 @@ desc: >
 template: default
 flags: [onlyStrict]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
 //- setup
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 //- body
   (function() {
     var yield;

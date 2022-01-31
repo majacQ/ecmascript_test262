@@ -3,32 +3,31 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-3-19
 description: >
     Array.prototype.every - value of 'length' is an Object which has
     an own toString method
 ---*/
 
 function callbackfn1(val, idx, obj) {
-    return val > 10;
+  return val > 10;
 }
 
 function callbackfn2(val, idx, obj) {
-    return val > 11;
+  return val > 11;
 }
 
 var toStringAccessed = false;
 var obj = {
-    0: 12,
-    1: 11,
-    2: 9,
+  0: 12,
+  1: 11,
+  2: 9,
 
-    length: {
-        toString: function () {
-            toStringAccessed = true;
-            return '2';
-        }
+  length: {
+    toString: function() {
+      toStringAccessed = true;
+      return '2';
     }
+  }
 };
 
 // objects inherit the default valueOf() method from Object

@@ -9,20 +9,18 @@ flags: [async]
 ---*/
 
 var rejectP1,
-    p1 = new Promise(function (resolve, reject) { rejectP1 = reject; }),
-    p2 = Promise.resolve(p1),
-    obj = {};
+  p1 = new Promise(function(resolve, reject) {
+    rejectP1 = reject;
+  }),
+  p2 = Promise.resolve(p1),
+  arg = {};
 
-if (p1 !== p2) {
-    $ERROR("Expected p1 === Promise.resolve(p1) because they have same constructor");
-}
+assert.sameValue(p1, p2, 'The value of p1 is expected to equal the value of p2');
 
-p2.then(function () {
-    $ERROR("Expected p2 to be rejected, not fulfilled.");
-}, function (arg) {
-    if (arg !== obj) {
-        $ERROR("Expected promise to be rejected with reason obj, actually " + arg);
-    }
+p2.then(function() {
+  throw new Test262Error("Expected p2 to be rejected, not fulfilled.");
+}, function(result) {
+  assert.sameValue(result, arg, 'The value of result is expected to equal the value of arg');
 }).then($DONE, $DONE);
 
-rejectP1(obj);
+rejectP1(arg);

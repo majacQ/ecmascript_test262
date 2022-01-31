@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-date.utc
-es6id: 20.3.3.4
 description: >
   Date.UTC.name is "UTC".
-info: >
+info: |
   Date.UTC ( year, month [ , date [ , hours [ , minutes [ , seconds [ , ms ] ] ] ] ] )
 
   17 ECMAScript Standard Built-in Objects:

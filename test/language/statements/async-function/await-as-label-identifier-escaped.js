@@ -7,7 +7,7 @@ esid: prod-AsyncFunctionDeclaration
 features: [async-functions]
 flags: [generated]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     Async Function Definitions
@@ -22,9 +22,9 @@ info: |
     StringValue of Identifier is "await".
 
 ---*/
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 
-async function fn() {
+async function asyncFn() {
   \u0061wait: ;
 }

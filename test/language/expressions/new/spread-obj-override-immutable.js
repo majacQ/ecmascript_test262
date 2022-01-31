@@ -4,7 +4,6 @@
 /*---
 description: Object Spread overriding immutable properties (`new` operator)
 esid: sec-new-operator-runtime-semantics-evaluation
-es6id: 12.3.3.1
 features: [object-spread]
 flags: [generated]
 includes: [propertyHelper.js]
@@ -31,14 +30,19 @@ new function(obj) {
   assert.sameValue(obj.a, 3)
   assert.sameValue(obj.b, 2);
 
-  verifyEnumerable(obj, "a");
-  verifyWritable(obj, "a");
-  verifyConfigurable(obj, "a");
+  verifyProperty(obj, "a", {
+    enumerable: true,
+    writable: true,
+    configurable: true,
+    value: 3
+  });
 
-  verifyEnumerable(obj, "b");
-  verifyWritable(obj, "b");
-  verifyConfigurable(obj, "b");
-
+  verifyProperty(obj, "b", {
+    enumerable: true,
+    writable: true,
+    configurable: true,
+    value: 2
+  });
   callCount += 1;
 }({...o, a: 3});
 

@@ -4,15 +4,20 @@
 /*---
 info: The Date.prototype property "setMonth" has { DontEnum } attributes
 esid: sec-date.prototype.setmonth
-es5id: 15.9.5.38_A1_T1
 description: Checking absence of ReadOnly attribute
 ---*/
 
 var x = Date.prototype.setMonth;
-if(x === 1)
+if (x === 1) {
   Date.prototype.setMonth = 2;
-else
+} else {
   Date.prototype.setMonth = 1;
-if (Date.prototype.setMonth === x) {
-  $ERROR('#1: The Date.prototype.setMonth has not the attribute ReadOnly');
 }
+
+assert.notSameValue(
+  Date.prototype.setMonth,
+  x,
+  'The value of Date.prototype.setMonth is expected to not equal the value of `x`'
+);
+
+// TODO: Convert to verifyProperty() format.

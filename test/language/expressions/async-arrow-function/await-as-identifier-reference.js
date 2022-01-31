@@ -7,7 +7,7 @@ esid: prod-AsyncArrowFunction
 features: [async-functions]
 flags: [generated]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     Async Arrow Function Definitions
@@ -26,9 +26,9 @@ info: |
     StringValue of Identifier is "await".
 
 ---*/
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 
-async() => {
+async () => {
   void await;
-};
+}

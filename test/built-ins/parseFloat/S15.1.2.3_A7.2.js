@@ -3,25 +3,23 @@
 
 /*---
 info: The length property of parseFloat does not have the attribute DontDelete
-es5id: 15.1.2.3_A7.2
-es6id: 18.2.4
 esid: sec-parsefloat-string
 description: Checking use hasOwnProperty, delete
 ---*/
 
 //CHECK#1
 if (parseFloat.hasOwnProperty('length') !== true) {
-  $ERROR('#1: parseFloat.hasOwnProperty(\'length\') === true. Actual: ' + (parseFloat.hasOwnProperty('length')));
+  throw new Test262Error('#1: parseFloat.hasOwnProperty(\'length\') === true. Actual: ' + (parseFloat.hasOwnProperty('length')));
 }
 
 delete parseFloat.length;
 
 //CHECK#2
 if (parseFloat.hasOwnProperty('length') !== false) {
-  $ERROR('#2: delete parseFloat.length; parseFloat.hasOwnProperty(\'length\') === false. Actual: ' + (parseFloat.hasOwnProperty('length')));
+  throw new Test262Error('#2: delete parseFloat.length; parseFloat.hasOwnProperty(\'length\') === false. Actual: ' + (parseFloat.hasOwnProperty('length')));
 }
 
 //CHECK#3
 if (parseFloat.length === undefined) {
-  $ERROR('#3: delete parseFloat.length; parseFloat.length !== undefined');
+  throw new Test262Error('#3: delete parseFloat.length; parseFloat.length !== undefined');
 }

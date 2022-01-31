@@ -9,18 +9,16 @@ description: >
     Function("arg1,arg2,arg3","arg4,arg5", null) fails
 ---*/
 
-var f =  Function("arg1,arg2,arg3","arg5,arg4", null);
+var f = Function("arg1,arg2,arg3", "arg5,arg4", null);
 
-//CHECK#1
-if (!(f.hasOwnProperty('length'))) {
-  $ERROR('#1: the function has length property.');
+assert(f.hasOwnProperty('length'), 'f.hasOwnProperty(\'length\') must return true');
+
+for (var key in f) {
+  if (key == "length") {
+    var lengthenumed = true;
+  }
 }
 
-for(var key in f)
-  if(key=="length")
-      var lengthenumed=true;
-      
-//CHECK#2
-if (lengthenumed) {
-  $ERROR('#2: the length property has the attributes { DontEnum }');
-}
+assert(!lengthenumed, 'The value of !lengthenumed is expected to be true');
+
+// TODO: Convert to verifyProperty() format.

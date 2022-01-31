@@ -2,11 +2,10 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-es6id: 18.2.6.3
 esid: sec-decodeuricomponent-encodeduricomponent
 description: >
   decodeURIComponent.name is "decodeURIComponent".
-info: >
+info: |
   decodeURIComponent (encodedURIComponent)
 
   17 ECMAScript Standard Built-in Objects:

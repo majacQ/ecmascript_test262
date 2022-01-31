@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-ecmascript-function-objects-construct-argumentslist-newtarget
-es6id: 9.2.2
 description: >
   Error retrieving function realm from revoked Proxy exotic object (honoring
   the Realm of the current execution context)
@@ -37,7 +36,7 @@ info: |
   4. If obj is a Proxy exotic object, then
      a. If the value of the [[ProxyHandler]] internal slot of obj is null,
         throw a TypeError exception.
-features: [Proxy]
+features: [cross-realm, Proxy]
 ---*/
 
 var other = $262.createRealm().global;

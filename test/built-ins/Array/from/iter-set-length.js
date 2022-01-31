@@ -2,9 +2,8 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.from
-es6id: 22.1.2.1
 description: Setting length of object (traversed via iterator)
-info: >
+info: |
     [...]
     6. If usingIterator is not undefined, then
        [...]
@@ -29,13 +28,19 @@ items[Symbol.iterator] = function() {
   };
 };
 
-nextIterResult = lastIterResult = { done: true };
+nextIterResult = lastIterResult = {
+  done: true
+};
 result = Array.from(items);
 
-assert.sameValue(result.length, 0);
+assert.sameValue(result.length, 0, 'The value of result.length is expected to be 0');
 
-nextIterResult = { done: false };
-lastIterResult = { done: true };
+nextIterResult = {
+  done: false
+};
+lastIterResult = {
+  done: true
+};
 result = Array.from(items);
 
-assert.sameValue(result.length, 1);
+assert.sameValue(result.length, 1, 'The value of result.length is expected to be 1');

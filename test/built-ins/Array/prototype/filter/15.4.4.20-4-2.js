@@ -3,13 +3,12 @@
 
 /*---
 esid: sec-array.prototype.filter
-es5id: 15.4.4.20-4-2
 description: >
     Array.prototype.filter throws ReferenceError if callbackfn is
     unreferenced
 ---*/
 
-  var arr = new Array(10);
+var arr = new Array(10);
 assert.throws(ReferenceError, function() {
-    arr.filter(foo);
+  arr.filter(foo);
 });

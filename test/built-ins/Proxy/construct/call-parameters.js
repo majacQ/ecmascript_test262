@@ -1,29 +1,31 @@
 // Copyright (C) 2015 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 9.5.14
+esid: sec-proxy-object-internal-methods-and-internal-slots-construct-argumentslist-newtarget
 description: >
     trap is called with handler object as its context, and parameters are:
     target, an array list with the called arguments and the new target, and the
     constructor new.target.
-info: >
+info: |
     [[Construct]] ( argumentsList, newTarget)
 
     9. Let newObj be Call(trap, handler, «target, argArray, newTarget »).
+features: [Proxy]
 ---*/
 
 var _target, _handler, _args, _P;
+
 function Target() {}
 
 var handler = {
-    construct: function(t, args, newTarget) {
-        _handler = this;
-        _target = t;
-        _args = args;
-        _P = newTarget;
+  construct: function(t, args, newTarget) {
+    _handler = this;
+    _target = t;
+    _args = args;
+    _P = newTarget;
 
-        return new t(args[0], args[1]);
-    }
+    return new t(args[0], args[1]);
+  }
 };
 var P = new Proxy(Target, handler);
 

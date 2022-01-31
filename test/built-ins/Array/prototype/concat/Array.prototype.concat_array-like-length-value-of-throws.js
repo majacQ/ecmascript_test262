@@ -4,14 +4,13 @@
 
 /*---
 esid: sec-array.prototype.concat
-es6id: 22.1.3.1_3
 description: Array.prototype.concat array like length valueOf throws
+features: [Symbol.isConcatSpreadable]
 ---*/
-function MyError() {}
-var obj = {
+var objWithPoisonedLengthValueOf = {
   "length": {
     valueOf: function() {
-      throw new MyError();
+      throw new Test262Error();
     },
     toString: null
   },
@@ -19,7 +18,7 @@ var obj = {
   "3": "B",
   "5": "C"
 };
-obj[Symbol.isConcatSpreadable] = true;
-assert.throws(MyError, function() {
-  [].concat(obj);
-});
+objWithPoisonedLengthValueOf[Symbol.isConcatSpreadable] = true;
+assert.throws(Test262Error, function() {
+  [].concat(objWithPoisonedLengthValueOf);
+}, '[].concat(objWithPoisonedLengthValueOf) throws a Test262Error exception');

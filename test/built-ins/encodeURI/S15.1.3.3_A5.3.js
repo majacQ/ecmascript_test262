@@ -3,8 +3,6 @@
 
 /*---
 info: The length property of encodeURI has the attribute ReadOnly
-es5id: 15.1.3.3_A5.3
-es6id: 18.2.6.4
 esid: sec-encodeuri-uri
 description: Checking if varying the length property fails
 includes: [propertyHelper.js]
@@ -14,5 +12,5 @@ includes: [propertyHelper.js]
 var x = encodeURI.length;
 verifyNotWritable(encodeURI, "length", null, Infinity);
 if (encodeURI.length !== x) {
-  $ERROR('#1: x = encodeURI.length; encodeURI.length = Infinity; encodeURI.length === x. Actual: ' + (encodeURI.length));
+  throw new Test262Error('#1: x = encodeURI.length; encodeURI.length = Infinity; encodeURI.length === x. Actual: ' + (encodeURI.length));
 }

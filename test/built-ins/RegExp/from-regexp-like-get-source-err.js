@@ -5,7 +5,7 @@
 description: >
     Behavior when error thrown from `source` property of a RegExp-like object
 es6id: 21.2.3.1
-info: >
+info: |
     1. Let patternIsRegExp be IsRegExp(pattern).
     [...]
     6. Else if patternIsRegExp is true, then
@@ -23,7 +23,7 @@ Object.defineProperty(obj, 'source', {
 });
 Object.defineProperty(obj, 'flags', {
   get: function() {
-    $ERROR('the `flags` property should not be referenced before `source`');
+    throw new Test262Error('the `flags` property should not be referenced before `source`');
   }
 });
 

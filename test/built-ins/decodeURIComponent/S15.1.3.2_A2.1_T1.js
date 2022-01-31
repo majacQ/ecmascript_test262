@@ -3,33 +3,21 @@
 
 /*---
 info: If string.charAt(k) not equal "%", return this char
-es5id: 15.1.3.2_A2.1_T1
-es6id: 18.2.6.3
 esid: sec-decodeuricomponent-encodeduricomponent
 description: Complex tests
 includes: [decimalToHexString.js]
 ---*/
 
-//CHECK
-var errorCount = 0;
-var count = 0;
 for (var indexI = 0; indexI <= 65535; indexI++) {
   if (indexI !== 0x25) {
-    var hex = decimalToHexString(indexI);
     try {
       var str = String.fromCharCode(indexI);
-      if (decodeURIComponent(str) !== str) {
-        $ERROR('#' + hex + ' ');
-        errorCount++;
-      }
-    } catch (e){
-      $ERROR('#' + hex + ' ');
-      errorCount++;
+      var differs = decodeURIComponent(str) !== str;
+    } catch (e) {
+      throw new Test262Error('#' + decimalToHexString(indexI) + ' throws');
     }
-    count++;
+    if (differs) {
+      throw new Test262Error('#' + decimalToHexString(indexI) + ' differs');
+    }
   }
-}
-
-if (errorCount > 0) {
-  $ERROR('Total error: ' + errorCount + ' bad Unicode character in ' + count);
 }

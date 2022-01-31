@@ -3,25 +3,23 @@
 
 /*---
 info: The encodeURI property has the attribute DontEnum
-es5id: 15.1.3.3_A5.5
-es6id: 18.2.6.4
 esid: sec-encodeuri-uri
 description: Checking use propertyIsEnumerable, for-in
 ---*/
 
 //CHECK#1
 if (this.propertyIsEnumerable('encodeURI') !== false) {
-  $ERROR('#1: this.propertyIsEnumerable(\'encodeURI\') === false. Actual: ' + (this.propertyIsEnumerable('encodeURI')));
+  throw new Test262Error('#1: this.propertyIsEnumerable(\'encodeURI\') === false. Actual: ' + (this.propertyIsEnumerable('encodeURI')));
 }
 
 //CHECK#2
 var result = true;
-for (var p in this){
+for (var p in this) {
   if (p === "encodeURI") {
     result = false;
   }
 }
 
 if (result !== true) {
-  $ERROR('#2: result = true; for (p in this) { if (p === "encodeURI") result = false; }  result === true;');
+  throw new Test262Error('#2: result = true; for (p in this) { if (p === "encodeURI") result = false; }  result === true;');
 }

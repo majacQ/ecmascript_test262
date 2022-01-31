@@ -4,7 +4,6 @@
 
 /*---
 esid: sec-dataview.prototype.getint32
-es6id: 24.2.4.9
 description: >
   Boolean littleEndian argument coerced in ToBoolean
 info: |
@@ -27,7 +26,7 @@ info: |
   ...
   8. If isLittleEndian is false, reverse the order of the elements of rawValue.
   ...
-features: [SharedArrayBuffer]
+features: [SharedArrayBuffer, Symbol]
 ---*/
 
 var buffer = new SharedArrayBuffer(4);

@@ -4,7 +4,6 @@
 /*---
 info: Boolean.prototype has the attribute ReadOnly
 esid: sec-boolean.prototype
-es5id: 15.6.3.1_A2
 description: Checking if varying the Boolean.prototype property fails
 includes: [propertyHelper.js]
 ---*/
@@ -12,6 +11,4 @@ includes: [propertyHelper.js]
 // CHECK#1
 var x = Boolean.prototype;
 verifyNotWritable(Boolean, "prototype", null, 1);
-if (Boolean.prototype !== x) {
-  $ERROR('#1: Boolean.prototype has the attribute ReadOnly');
-}
+assert.sameValue(Boolean.prototype, x, 'The value of Boolean.prototype is expected to equal the value of x');

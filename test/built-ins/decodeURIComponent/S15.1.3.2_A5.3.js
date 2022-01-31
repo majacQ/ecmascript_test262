@@ -3,8 +3,6 @@
 
 /*---
 info: The length property of decodeURIComponent has the attribute ReadOnly
-es5id: 15.1.3.2_A5.3
-es6id: 18.2.6.3
 esid: sec-decodeuricomponent-encodeduricomponent
 description: Checking if varying the length property fails
 includes: [propertyHelper.js]
@@ -14,5 +12,5 @@ includes: [propertyHelper.js]
 var x = decodeURIComponent.length;
 verifyNotWritable(decodeURIComponent, "length", null, Infinity);
 if (decodeURIComponent.length !== x) {
-  $ERROR('#1: x = decodeURIComponent.length; decodeURIComponent.length = Infinity; decodeURIComponent.length === x. Actual: ' + (decodeURIComponent.length));
+  throw new Test262Error('#1: x = decodeURIComponent.length; decodeURIComponent.length = Infinity; decodeURIComponent.length === x. Actual: ' + (decodeURIComponent.length));
 }

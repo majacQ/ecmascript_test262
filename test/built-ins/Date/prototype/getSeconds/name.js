@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-date.prototype.getseconds
-es6id: 20.3.4.9
 description: >
   Date.prototype.getSeconds.name is "getSeconds".
-info: >
+info: |
   Date.prototype.getSeconds ( )
 
   17 ECMAScript Standard Built-in Objects:

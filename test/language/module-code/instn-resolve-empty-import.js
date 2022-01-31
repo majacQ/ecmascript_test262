@@ -36,11 +36,11 @@ info: |
         { ImportsList }
         { ImportsList , }
 negative:
-  phase: early
-  type: ReferenceError
+  phase: resolution
+  type: SyntaxError
 flags: [module]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 import {} from './instn-resolve-empty-import_FIXTURE.js';

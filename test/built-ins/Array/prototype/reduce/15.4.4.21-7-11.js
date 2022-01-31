@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-array.prototype.reduce
-es5id: 15.4.4.21-7-11
 description: Array.prototype.reduce - 'initialValue' is not present
 ---*/
 
-        var str = "initialValue is not present";
+var str = "initialValue is not present";
 
-assert.sameValue([str].reduce(function () { }), str, '[str].reduce(function () { })');
+assert.sameValue([str].reduce(function() {}), str, '[str].reduce(function () { })');

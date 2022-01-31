@@ -3,19 +3,22 @@
 
 /*---
 esid: sec-array.prototype.reduceright
-es5id: 15.4.4.22-3-18
 description: >
     Array.prototype.reduceRight - value of 'length' is a string that
     can't convert to a number
 ---*/
 
-        var accessed = false;
+var accessed = false;
 
-        function callbackfn(prevVal, curVal, idx, obj) {
-            accessed = true;
-        }
+function callbackfn(prevVal, curVal, idx, obj) {
+  accessed = true;
+}
 
-        var obj = { 0: 9, 1: 8, length: "two" };
+var obj = {
+  0: 9,
+  1: 8,
+  length: "two"
+};
 
 assert.sameValue(Array.prototype.reduceRight.call(obj, callbackfn, 11), 11, 'Array.prototype.reduceRight.call(obj, callbackfn, 11)');
 assert.sameValue(accessed, false, 'accessed');

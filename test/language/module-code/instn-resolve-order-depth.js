@@ -4,12 +4,12 @@
 description: Module dependencies are resolved following a depth-first strategy
 esid: sec-moduledeclarationinstantiation
 negative:
-  phase: early
-  type: ReferenceError
+  phase: resolution
+  type: SyntaxError
 flags: [module]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 import './instn-resolve-order-depth-child_FIXTURE.js';
 import './instn-resolve-order-depth-syntax_FIXTURE.js';

@@ -3,35 +3,39 @@
 
 /*---
 esid: sec-array.prototype.reduceright
-es5id: 15.4.4.22-8-b-iii-1-11
 description: >
     Array.prototype.reduceRight - element to be retrieved is own
     accessor property that overrides an inherited data property on an
     Array-like object
 ---*/
 
-        var testResult = false;
-        function callbackfn(prevVal, curVal, idx, obj) {
-            if (idx === 1) {
-                testResult = (prevVal === "20");
-            }
-        }
+var testResult = false;
 
-        var proto = { 0: 0, 1: 1, 2: 2 };
+function callbackfn(prevVal, curVal, idx, obj) {
+  if (idx === 1) {
+    testResult = (prevVal === "20");
+  }
+}
 
-        var Con = function () { };
-        Con.prototype = proto;
+var proto = {
+  0: 0,
+  1: 1,
+  2: 2
+};
 
-        var child = new Con();
-        child.length = 3;
+var Con = function() {};
+Con.prototype = proto;
 
-        Object.defineProperty(child, "2", {
-            get: function () {
-                return "20";
-            },
-            configurable: true
-        });
+var child = new Con();
+child.length = 3;
 
-        Array.prototype.reduceRight.call(child, callbackfn);
+Object.defineProperty(child, "2", {
+  get: function() {
+    return "20";
+  },
+  configurable: true
+});
+
+Array.prototype.reduceRight.call(child, callbackfn);
 
 assert(testResult, 'testResult !== true');

@@ -3,7 +3,6 @@
 
 /*---
 esid: sec-promise.all
-es6id: 25.4.4.1
 description: >
   Error when advancing the provided iterable (not closing iterator)
 info: |
@@ -37,7 +36,7 @@ Object.defineProperty(poisonedDone, 'done', {
 });
 Object.defineProperty(poisonedDone, 'value', {
   get: function() {
-    $ERROR('The `value` property should not be accessed.');
+    throw new Test262Error('The `value` property should not be accessed.');
   }
 });
 

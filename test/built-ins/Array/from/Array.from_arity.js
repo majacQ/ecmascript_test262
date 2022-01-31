@@ -3,10 +3,9 @@
 // found in the LICENSE file.
 /*---
 esid: sec-array.from
-es6id: 22.1.2.1
 description: >
   The length property of the Array.from method is 1.
-info: >
+info: |
   22.1.2.1 Array.from ( items [ , mapfn [ , thisArg ] ] )
 
   ...
@@ -15,7 +14,7 @@ info: >
 includes: [propertyHelper.js]
 ---*/
 
-assert.sameValue(Array.from.length, 1);
+assert.sameValue(Array.from.length, 1, 'The value of Array.from.length is expected to be 1');
 
 verifyNotEnumerable(Array.from, 'length');
 verifyNotWritable(Array.from, 'length');

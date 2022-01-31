@@ -2,26 +2,25 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The initial value of Boolean.prototype is the Boolean
     prototype object
 esid: sec-boolean.prototype
-es5id: 15.6.3.1_A1
 description: Checking Boolean.prototype property
 ---*/
 
-//CHECK#1
-if (typeof Boolean.prototype !== "object") {
-  $ERROR('#1: typeof Boolean.prototype === "object"');
-}
+assert.sameValue(
+  typeof Boolean.prototype,
+  "object",
+  'The value of `typeof Boolean.prototype` is expected to be "object"'
+);
 
-//CHECK#2
-if (Boolean.prototype != false) {
-  $ERROR('#2: Boolean.prototype == false');
-}
+assert(Boolean.prototype == false, 'The value of Boolean.prototype is expected to be false');
 
 delete Boolean.prototype.toString;
 
-if (Boolean.prototype.toString() !== "[object Boolean]") {
-  $ERROR('#3: The [[Class]] property of the Boolean prototype object is set to "Boolean"');
-}
+assert.sameValue(
+  Boolean.prototype.toString(),
+  "[object Boolean]",
+  'Boolean.prototype.toString() must return "[object Boolean]"'
+);

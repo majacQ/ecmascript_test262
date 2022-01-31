@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
-  paths=$(git diff --diff-filter ACMR --name-only $TRAVIS_BRANCH -- test/)
+if [ "$CIRCLE_PULL_REQUEST" != "" ]; then
+  paths=$(git diff --diff-filter ACMR --name-only origin/main.. -- test/)
 
   if [ "$paths" == "" ]; then
     echo No test files added or modified. Exiting.
@@ -15,4 +15,4 @@ else
   paths="test/"
 fi
 
-./tools/lint/lint.py --whitelist lint.whitelist $paths
+./tools/lint/lint.py --exceptions lint.exceptions $paths

@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Delete operator deletes pure property, so it returns true to be applyed
     to this.property
 es5id: 8.7.1_A1
@@ -13,7 +13,7 @@ this.y = 1;
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if((delete this.y) !== true){
-  $ERROR('#1: this.y = 1; (delete this.y) === true. Actual: ' + ((delete this.y)));
+  throw new Test262Error('#1: this.y = 1; (delete this.y) === true. Actual: ' + ((delete this.y)));
 };
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@ if((delete this.y) !== true){
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (this.y !== undefined){
-  $ERROR('#2: this.y = 1; (delete this.y) === true; this.y === undefined. Actual: ' + (this.y));
+  throw new Test262Error('#2: this.y = 1; (delete this.y) === true; this.y === undefined. Actual: ' + (this.y));
 }
 //
 //////////////////////////////////////////////////////////////////////////////

@@ -10,12 +10,12 @@ template: syntax
 es6id: 12.14.5
 flags: [onlyStrict]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
 //- setup
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 //- elems
 { x = yield }
 //- vals

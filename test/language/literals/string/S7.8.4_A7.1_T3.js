@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     EscapeSequence :: UnicodeEscapeSequence :: u HexDigit HexDigit HexDigit
     HexDigit
 es5id: 7.8.4_A7.1_T3
@@ -14,6 +14,6 @@ var unicode = ["\u0061", "\u0062", "\u0063", "\u0064", "\u0065", "\u0066", "\u00
 var character = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 for (var index = 0; index <= 25; index++) {
   if (unicode[index] !== character[index]) {
-    $ERROR('#' + character[index] + ' ');
+    throw new Test262Error('#' + character[index] + ' ');
   }
 }

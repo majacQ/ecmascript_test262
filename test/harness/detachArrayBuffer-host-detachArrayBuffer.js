@@ -8,7 +8,7 @@ description: >
 
     $DETACHBUFFER relies on the presence of a host definition for $262.detachArrayBuffer
 
-includes: [detachArrayBuffer.js,sta.js]
+includes: [detachArrayBuffer.js]
 ---*/
 
 var $262 = {
@@ -26,18 +26,18 @@ try {
 } catch(err) {
   threw = true;
   if (err.constructor !== Test262Error) {
-    $ERROR(
+    throw new Error(
       'Expected a Test262Error, but a "' + err.constructor.name +
       '" was thrown.'
     );
   }
   if (err.message !== '$262.detachArrayBuffer called.') {
-    $ERROR(`Expected error message: ${err.message}`);
+    throw new Error(`Expected error message: ${err.message}`);
   }
 }
 
 if (threw === false) {
-  $ERROR('Expected a Test262Error, but no error was thrown.');
+  throw new Error('Expected a Test262Error, but no error was thrown.');
 }
 
 

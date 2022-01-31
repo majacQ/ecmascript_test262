@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.from
-es6id: 22.1.2.1
 description: >
     Error creating object with custom constructor (traversed via iterator)
-info: >
+info: |
     [...]
     6. If usingIterator is not undefined, then
        a. If IsConstructor(C) is true, then
@@ -24,4 +23,4 @@ items[Symbol.iterator] = function() {};
 
 assert.throws(Test262Error, function() {
   Array.from.call(C, items);
-});
+}, 'Array.from.call(C, items) throws a Test262Error exception');

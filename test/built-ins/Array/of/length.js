@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.of
-es6id: 22.1.2.3
 description: >
   Array.of.length value and property descriptor
-info: >
+info: |
   Array.of ( ...items )
 
   The length property of the of function is 0.
@@ -14,7 +13,7 @@ includes: [propertyHelper.js]
 
 assert.sameValue(
   Array.of.length, 0,
-  'The value of `Array.of.length` is `0`'
+  'The value of Array.of.length is expected to be 0'
 );
 
 verifyNotEnumerable(Array.of, 'length');

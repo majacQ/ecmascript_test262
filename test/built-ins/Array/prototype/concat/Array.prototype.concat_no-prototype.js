@@ -5,7 +5,10 @@
 
 /*---
 esid: sec-array.prototype.concat
-es6id: 22.1.3.1_3
 description: Array.prototype.concat no prototype
 ---*/
-assert.sameValue(Array.prototype.concat.prototype, void 0);
+assert.sameValue(
+  Array.prototype.concat.prototype,
+  void 0,
+  'The value of Array.prototype.concat.prototype is expected to be void 0'
+);

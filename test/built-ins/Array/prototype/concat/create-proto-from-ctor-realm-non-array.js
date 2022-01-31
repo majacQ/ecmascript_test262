@@ -1,7 +1,6 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.1
 esid: sec-array.prototype.concat
 description: Accept non-Array constructors from other realms
 info: |
@@ -20,6 +19,7 @@ info: |
           i. If SameValue(C, realmC.[[Intrinsics]].[[%Array%]]) is true, let C
              be undefined.
     [...]
+features: [cross-realm, Symbol.species]
 ---*/
 
 var array = [];
@@ -39,5 +39,9 @@ Object.defineProperty(Array, Symbol.species, speciesDesc);
 
 result = array.concat();
 
-assert.sameValue(Object.getPrototypeOf(result), CustomCtor.prototype);
-assert.sameValue(callCount, 0, 'Array species constructor is not referenced');
+assert.sameValue(
+  Object.getPrototypeOf(result),
+  CustomCtor.prototype,
+  'Object.getPrototypeOf(array.concat()) returns CustomCtor.prototype'
+);
+assert.sameValue(callCount, 0, 'The value of callCount is expected to be 0');

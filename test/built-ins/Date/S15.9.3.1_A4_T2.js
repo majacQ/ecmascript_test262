@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The [[Value]] property of the newly constructed object
     is set by following steps:
     1. Call ToNumber(year)
@@ -13,45 +13,25 @@ info: >
     6. If seconds is supplied use ToNumber(seconds)
     7. If ms is supplied use ToNumber(ms)
 esid: sec-date-year-month-date-hours-minutes-seconds-ms
-es5id: 15.9.3.1_A4_T2
 description: 3 arguments, (year, month, date)
 ---*/
 
-var myObj = function(val){
+function PoisonedValueOf(val) {
   this.value = val;
-  this.valueOf = function(){throw "valueOf-"+this.value;};
-  this.toString = function(){throw "toString-"+this.value;};
-};
-
-//CHECK#1
-try{
-  var x1 = new Date(new myObj(1), new myObj(2), new myObj(3));
-  $ERROR("#1: The 1st step is calling ToNumber(year)");
-}
-catch(e){
-  if(e !== "valueOf-1"){
-    $ERROR("#1: The 1st step is calling ToNumber(year)");
-  }
+  this.valueOf = function() {
+    throw new Test262Error();
+  };
+  this.toString = function() {};
 }
 
-//CHECK#2
-try{
-  var x2 = new Date(1, new myObj(2), new myObj(3));
-  $ERROR("#2: The 2nd step is calling ToNumber(month)");
-}
-catch(e){
-  if(e !== "valueOf-2"){
-    $ERROR("#2: The 2nd step is calling ToNumber(month)");
-  }
-}
+assert.throws(Test262Error, () => {
+  new Date(new PoisonedValueOf(1), new PoisonedValueOf(2), new PoisonedValueOf(3));
+}, '`new Date(new PoisonedValueOf(1), new PoisonedValueOf(2), new PoisonedValueOf(3))` throws a Test262Error exception');
 
-//CHECK#3
-try{
-  var x3 = new Date(1, 2, new myObj(3));
-  $ERROR("#3: The 3rd step is calling ToNumber(date)");
-}
-catch(e){
-  if(e !== "valueOf-3"){
-    $ERROR("#3: The 3rd step is calling ToNumber(date)");
-  }
-}
+assert.throws(Test262Error, () => {
+  new Date(1, new PoisonedValueOf(2), new PoisonedValueOf(3));
+}, '`new Date(1, new PoisonedValueOf(2), new PoisonedValueOf(3))` throws a Test262Error exception');
+
+assert.throws(Test262Error, () => {
+  new Date(1, 2, new PoisonedValueOf(3));
+}, '`new Date(1, 2, new PoisonedValueOf(3))` throws a Test262Error exception');

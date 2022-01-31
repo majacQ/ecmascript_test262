@@ -6,12 +6,12 @@ author: Brian Terlson <brian.terlson@microsoft.com>
 esid: pending
 description: It is a SyntaxError if FormalParameters contains eval in strict mode
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 flags: [onlyStrict]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 ({
   async foo(eval) { }
 })

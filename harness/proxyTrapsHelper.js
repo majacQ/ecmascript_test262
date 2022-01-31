@@ -1,9 +1,10 @@
-// Copyright (C) 2017 Ecma International.  All rights reserved.
+// Copyright (C) 2016 Jordan Harband.  All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 description: |
     Used to assert the correctness of object behavior in the presence
     and context of Proxy objects.
+defines: [allowProxyTraps]
 ---*/
 
 function allowProxyTraps(overrides) {

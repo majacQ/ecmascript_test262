@@ -5,7 +5,6 @@
 description: >
   Explicit iterator closing in response to error from `Promise.resolve`
 esid: sec-promise.race
-es6id: 25.4.4.3
 info: |
     [...]
     11. Let result be PerformPromiseRace(iteratorRecord, promiseCapability, C).
@@ -29,7 +28,10 @@ var returnCount = 0;
 iterDoneSpy[Symbol.iterator] = function() {
   return {
     next: function() {
-      return { value: null, done: false };
+      return {
+        value: null,
+        done: false
+      };
     },
     return: function() {
       returnCount += 1;

@@ -4,7 +4,6 @@
 /*---
 description: Promise rejection in response to error from `Promise.resolve`
 esid: sec-promise.race
-es6id: 25.4.4.3
 info: |
     [...]
     11. Let result be PerformPromiseRace(iteratorRecord, promiseCapability, C).
@@ -34,7 +33,7 @@ CustomPromise.resolve = function() {
 
 Promise.race.call(CustomPromise, [1])
   .then(function() {
-    $ERROR('The promise should be rejected.');
+    throw new Test262Error('The promise should be rejected.');
   }, function(reason) {
     assert.sameValue(reason, err);
     $DONE();

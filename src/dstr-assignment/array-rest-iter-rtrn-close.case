@@ -35,7 +35,6 @@ info: |
     8. If innerResult.[[type]] is throw, return Completion(innerResult).
 features: [Symbol.iterator, generators]
 template: default
-es6id: 12.14.5.2
 esid: sec-runtime-semantics-destructuringassignmentevaluation
 ---*/
 
@@ -46,6 +45,9 @@ var thisValue = null;
 var args = null;
 var iterable = {};
 var iterator = {
+  next() {
+    throw new Test262Error();
+  },
   return: function() {
     returnCount += 1;
     thisValue = this;

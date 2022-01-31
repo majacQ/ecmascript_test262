@@ -3,18 +3,17 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-7-c-iii-19
 description: >
     Array.prototype.every - return value of callbackfn is a Number
     object
 ---*/
 
-        var accessed = false;
+var accessed = false;
 
-        function callbackfn(val, idx, obj) {
-            accessed = true;
-            return new Number();
-        }
+function callbackfn(val, idx, obj) {
+  accessed = true;
+  return new Number();
+}
 
 assert([11].every(callbackfn), '[11].every(callbackfn) !== true');
 assert(accessed, 'accessed !== true');

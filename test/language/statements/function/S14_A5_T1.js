@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Identifer within a FunctionDeclaration can be written in both letters
     and unicode
 es5id: 14_A5_T1
@@ -14,7 +14,7 @@ description: >
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (__func() !== "both") {
-	$ERROR('#1: __func() === "both". Actual:  __func() ==='+ __func()  );
+	throw new Test262Error('#1: __func() === "both". Actual:  __func() ==='+ __func()  );
 }
 //
 //////////////////////////////////////////////////////////////////////////////

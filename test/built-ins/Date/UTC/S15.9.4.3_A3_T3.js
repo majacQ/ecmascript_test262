@@ -3,19 +3,19 @@
 
 /*---
 esid: sec-date.utc
-info: >
+info: |
     The Date.UTC property "length" has { ReadOnly, DontDelete, DontEnum }
     attributes
 es5id: 15.9.4.3_A3_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.UTC.propertyIsEnumerable('length'),
+  'The value of !Date.UTC.propertyIsEnumerable(\'length\') is expected to be true'
+);
 
-if (Date.UTC.propertyIsEnumerable('length')) {
-  $ERROR('#1: The Date.UTC.length property has the attribute DontEnum');
+for (var x in Date.UTC) {
+  assert.notSameValue(x, "length", 'The value of x is not "length"');
 }
 
-for(var x in Date.UTC) {
-  if(x === "length") {
-    $ERROR('#2: The Date.UTC.length has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

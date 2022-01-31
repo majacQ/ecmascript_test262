@@ -4,10 +4,10 @@
 /*---
 info: The Date.prototype has the property "getUTCMilliseconds"
 esid: sec-properties-of-the-date-prototype-object
-es5id: 15.9.5_A25_T1
 description: The Date.prototype has the property "getUTCMilliseconds"
 ---*/
-
-if(Date.prototype.hasOwnProperty("getUTCMilliseconds") !== true){
-  $ERROR('#1: The Date.prototype has the property "getUTCMilliseconds"');
-}
+assert.sameValue(
+  Date.prototype.hasOwnProperty("getUTCMilliseconds"),
+  true,
+  'Date.prototype.hasOwnProperty("getUTCMilliseconds") must return true'
+);

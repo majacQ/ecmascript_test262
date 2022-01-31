@@ -16,11 +16,11 @@ info: |
 
   NumericLiteralSuffix :: n
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 features: [BigInt]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 0xgn;

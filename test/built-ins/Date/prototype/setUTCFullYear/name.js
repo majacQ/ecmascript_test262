@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-date.prototype.setutcfullyear
-es6id: 20.3.4.29
 description: >
   Date.prototype.setUTCFullYear.name is "setUTCFullYear".
-info: >
+info: |
   Date.prototype.setUTCFullYear ( year [ , month [ , date ] ] )
 
   17 ECMAScript Standard Built-in Objects:

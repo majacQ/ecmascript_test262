@@ -10,11 +10,11 @@ info: |
     [lookahead ∉ { {, function, async [no LineTerminator here] function, class, let [ }]
     Expression[+In, ?Yield, ?Await] ;
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 features: [async-iteration]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 while (false) async function* g() {}

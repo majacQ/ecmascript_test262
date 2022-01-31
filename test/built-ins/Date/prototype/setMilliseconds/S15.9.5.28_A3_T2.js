@@ -2,18 +2,21 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype.setMilliseconds property "length" has { ReadOnly, !
     DontDelete, DontEnum } attributes
 esid: sec-date.prototype.setmilliseconds
-es5id: 15.9.5.28_A3_T2
 description: Checking DontDelete attribute
 ---*/
+assert.sameValue(
+  delete Date.prototype.setMilliseconds.length,
+  true,
+  'The value of `delete Date.prototype.setMilliseconds.length` is expected to be true'
+);
 
-if (delete Date.prototype.setMilliseconds.length  !== true) {
-  $ERROR('#1: The Date.prototype.setMilliseconds.length property does not have the attributes DontDelete');
-}
+assert(
+  !Date.prototype.setMilliseconds.hasOwnProperty('length'),
+  'The value of !Date.prototype.setMilliseconds.hasOwnProperty(\'length\') is expected to be true'
+);
 
-if (Date.prototype.setMilliseconds.hasOwnProperty('length')) {
-  $ERROR('#2: The Date.prototype.setMilliseconds.length property does not have the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

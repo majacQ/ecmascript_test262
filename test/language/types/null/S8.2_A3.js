@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     For the keyword null the typeof operator returns the "object"
     See also
     http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Operators:Special_Operators:typeof_Operator
@@ -16,7 +16,7 @@ description: Check type of null
 //////////////////////////////////////////////////////////////
 // CHECK#1
 if (typeof(null) !== "object") {
-  $ERROR('#1: typeof null === "object". Actual: ' + (typeof null));
+  throw new Test262Error('#1: typeof null === "object". Actual: ' + (typeof null));
 }
 //
 /////////////////////////////////////////////////////////////

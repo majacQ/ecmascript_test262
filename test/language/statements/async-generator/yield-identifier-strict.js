@@ -7,7 +7,7 @@ esid: prod-AsyncGeneratorDeclaration
 features: [async-iteration]
 flags: [generated, onlyStrict]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     Async Generator Function Definitions
@@ -17,7 +17,7 @@ info: |
         AsyncGeneratorBody }
 
 ---*/
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 
 var callCount = 0;

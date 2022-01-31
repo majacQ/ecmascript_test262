@@ -1,7 +1,6 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.16
 esid: sec-array.prototype.map
 description: Species constructor returns an abrupt completion
 info: |
@@ -26,7 +25,9 @@ var Ctor = function() {
   throw new Test262Error();
 };
 var callCount = 0;
-var cb = function() { callCount += 1; };
+var cb = function() {
+  callCount += 1;
+};
 var a = [];
 a.constructor = {};
 a.constructor[Symbol.species] = Ctor;

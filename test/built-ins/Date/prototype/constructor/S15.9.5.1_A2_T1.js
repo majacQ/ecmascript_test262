@@ -4,14 +4,16 @@
 /*---
 info: The "length" property of the "constructor" is 7
 esid: sec-date.prototype.constructor
-es5id: 15.9.5.1_A2_T1
 description: The "length" property of the "constructor" is 7
 ---*/
+assert.sameValue(
+  Date.prototype.constructor.hasOwnProperty("length"),
+  true,
+  'Date.prototype.constructor.hasOwnProperty("length") must return true'
+);
 
-if(Date.prototype.constructor.hasOwnProperty("length") !== true){
-  $ERROR('#1: The constructor has a "length" property');
-}
-
-if(Date.prototype.constructor.length !== 7){
-  $ERROR('#2: The "length" property of the constructor is 7');
-}
+assert.sameValue(
+  Date.prototype.constructor.length,
+  7,
+  'The value of Date.prototype.constructor.length is expected to be 7'
+);

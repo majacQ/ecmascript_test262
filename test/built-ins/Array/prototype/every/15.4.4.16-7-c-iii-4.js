@@ -3,19 +3,21 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-7-c-iii-4
 description: >
     Array.prototype.every - return value of callbackfn is a boolean
     (value is true)
 ---*/
 
-        var accessed = false;
-        var obj = { 0: 11, length: 1 };
+var accessed = false;
+var obj = {
+  0: 11,
+  length: 1
+};
 
-        function callbackfn(val, idx, obj) {
-            accessed = true;
-            return true;
-        }
+function callbackfn(val, idx, obj) {
+  accessed = true;
+  return true;
+}
 
 
 

@@ -7,7 +7,7 @@ esid: prod-AsyncGeneratorExpression
 features: [async-iteration]
 flags: [generated]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     Async Generator Function Definitions
@@ -23,7 +23,7 @@ info: |
     StringValue of Identifier is "yield".
 
 ---*/
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 
 var gen = async function *() {

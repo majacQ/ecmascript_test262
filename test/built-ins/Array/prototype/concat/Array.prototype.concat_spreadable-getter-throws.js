@@ -5,19 +5,20 @@
 
 /*---
 esid: sec-array.prototype.concat
-es6id: 22.1.3.1_3
 description: Array.prototype.concat Symbol.isConcatSpreadable getter throws
+features: [Symbol.isConcatSpreadable]
 ---*/
-function MyError() {}
-var obj = {};
-Object.defineProperty(obj, Symbol.isConcatSpreadable, {
-  get: function() { throw new MyError(); }
+var spreadablePoisonedGetter = {};
+Object.defineProperty(spreadablePoisonedGetter, Symbol.isConcatSpreadable, {
+  get: function() {
+    throw new Test262Error();
+  }
 });
 
-assert.throws(MyError, function() {
-  [].concat(obj);
-});
+assert.throws(Test262Error, function() {
+  [].concat(spreadablePoisonedGetter);
+}, '[].concat(spreadablePoisonedGetter) throws a Test262Error exception');
 
-assert.throws(MyError, function() {
-  Array.prototype.concat.call(obj, 1, 2, 3);
-});
+assert.throws(Test262Error, function() {
+  Array.prototype.concat.call(spreadablePoisonedGetter, 1, 2, 3);
+}, 'Array.prototype.concat.call(spreadablePoisonedGetter, 1, 2, 3) throws a Test262Error exception');

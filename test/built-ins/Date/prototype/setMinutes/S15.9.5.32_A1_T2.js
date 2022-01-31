@@ -4,14 +4,17 @@
 /*---
 info: The Date.prototype property "setMinutes" has { DontEnum } attributes
 esid: sec-date.prototype.setminutes
-es5id: 15.9.5.32_A1_T2
 description: Checking absence of DontDelete attribute
 ---*/
+assert.notSameValue(
+  delete Date.prototype.setMinutes,
+  false,
+  'The value of delete Date.prototype.setMinutes is not false'
+);
 
-if (delete Date.prototype.setMinutes  === false) {
-  $ERROR('#1: The Date.prototype.setMinutes property has not the attributes DontDelete');
-}
+assert(
+  !Date.prototype.hasOwnProperty('setMinutes'),
+  'The value of !Date.prototype.hasOwnProperty(\'setMinutes\') is expected to be true'
+);
 
-if (Date.prototype.hasOwnProperty('setMinutes')) {
-  $ERROR('#2: The Date.prototype.setMinutes property has not the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

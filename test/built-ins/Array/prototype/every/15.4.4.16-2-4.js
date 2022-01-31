@@ -3,13 +3,13 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-2-4
 description: >
     Array.prototype.every - 'length' is own data property that
     overrides an inherited data property on an Array
 ---*/
 
 var arrProtoLen = 0;
+
 function callbackfn1(val, idx, obj) {
   return val > 10;
 }

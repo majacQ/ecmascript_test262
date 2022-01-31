@@ -3,19 +3,19 @@
 
 /*---
 esid: sec-date.prototype.getminutes
-info: >
+info: |
     The Date.prototype.getMinutes property "length" has { ReadOnly,
     DontDelete, DontEnum } attributes
 es5id: 15.9.5.20_A3_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.getMinutes.propertyIsEnumerable('length'),
+  'The value of !Date.prototype.getMinutes.propertyIsEnumerable(\'length\') is expected to be true'
+);
 
-if (Date.prototype.getMinutes.propertyIsEnumerable('length')) {
-  $ERROR('#1: The Date.prototype.getMinutes.length property has the attribute DontEnum');
+for (var x in Date.prototype.getMinutes) {
+  assert.notSameValue(x, "length", 'The value of x is not "length"');
 }
 
-for(var x in Date.prototype.getMinutes) {
-  if(x === "length") {
-    $ERROR('#2: The Date.prototype.getMinutes.length has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

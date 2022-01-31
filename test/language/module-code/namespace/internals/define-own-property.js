@@ -6,7 +6,7 @@ description: >
     The [[DefineOwnProperty]] internal method returns `true` if no change is
     requested, and `false` otherwise.
 flags: [module]
-features: [Reflect, Symbol, Symbol.toStringTag]
+features: [Symbol.iterator, Reflect, Symbol, Symbol.toStringTag]
 ---*/
 
 import * as ns from './define-own-property.js';
@@ -114,3 +114,24 @@ assert.throws(TypeError, function() {
       {value: "module", writable: false, enumerable: false,
        configurable: false});
 }, 'Object.defineProperty: Symbol.toStringTag');
+
+
+// Indirect change requested through Object.freeze
+
+// Try freezing more times than there are exported properties
+for (let i = 1; i < exported.length + 2; i++) {
+  assert.throws(
+    TypeError,
+    function () {
+      Object.freeze(ns);
+    },
+    "Object.freeze: " + String(i)
+  );
+}
+
+for (const key of exported) {
+  const desc = Object.getOwnPropertyDescriptor(ns, key);
+  assert.sameValue(desc.writable, true, String(key) + " writable");
+}
+
+assert(!Object.isFrozen(ns), "namespace object not frozen");

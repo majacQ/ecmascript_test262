@@ -4,16 +4,16 @@
 /*---
 esid: sec-atomics.exchange
 description: >
-  Test Atomics.exchange on non-shared integer TypedArrays
+  Atomics.exchange throws when operating on non-sharable integer TypedArrays
 includes: [testTypedArray.js]
+features: [ArrayBuffer, Atomics, TypedArray]
 ---*/
 
-var ab = new ArrayBuffer(16);
+testWithNonAtomicsFriendlyTypedArrayConstructors(TA => {
+  const buffer = new ArrayBuffer(TA.BYTES_PER_ELEMENT * 4);
+  const view = new TA(buffer);
 
-var int_views = [Int8Array, Uint8Array, Int16Array, Uint16Array, Int32Array, Uint32Array];
-
-testWithTypedArrayConstructors(function(View) {
-    var view = new View(ab);
-
-    assert.throws(TypeError, (() => Atomics.exchange(view, 0, 0)));
-}, int_views);
+  assert.throws(TypeError, function() {
+    Atomics.exchange(view, 0, 0);
+  }, `Atomics.exchange(new ${TA.name}(buffer), 0, 0) throws TypeError`);
+});

@@ -3,13 +3,11 @@
 
 /*---
 info: The length property of encodeURI is 1
-es5id: 15.1.3.3_A5.4
-es6id: 18.2.6.4
 esid: sec-encodeuri-uri
 description: encodeURI.length === 1
 ---*/
 
 //CHECK#1
 if (encodeURI.length !== 1) {
-  $ERROR('#1: encodeURI.length === 1. Actual: ' + (encodeURI.length));
+  throw new Test262Error('#1: encodeURI.length === 1. Actual: ' + (encodeURI.length));
 }

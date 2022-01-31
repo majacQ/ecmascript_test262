@@ -15,10 +15,10 @@ description: >
     No parameters named "arguments"
 
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 flags: [onlyStrict]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 var af = (arguments) => 1;

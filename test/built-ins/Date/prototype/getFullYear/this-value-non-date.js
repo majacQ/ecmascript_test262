@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-date.prototype.getfullyear
-es6id: 20.3.4.4
 description: >
   Behavior when "this" value is an Object without a [[DateValue]] internal slot
 info: |
@@ -16,7 +15,9 @@ info: |
 ---*/
 
 var getFullYear = Date.prototype.getFullYear;
-var args = (function() { return arguments; }());
+var args = (function() {
+  return arguments;
+}());
 
 assert.sameValue(typeof getFullYear, 'function');
 

@@ -2,20 +2,19 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype.toString property "length" has { ReadOnly, DontDelete,
     DontEnum } attributes
 esid: sec-date.prototype.tostring
-es5id: 15.9.5.2_A3_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.toString.propertyIsEnumerable('length'),
+  'The value of !Date.prototype.toString.propertyIsEnumerable(\'length\') is expected to be true'
+);
 
-if (Date.prototype.toString.propertyIsEnumerable('length')) {
-  $ERROR('#1: The Date.prototype.toString.length property has the attribute DontEnum');
+for (var x in Date.prototype.toString) {
+  assert.notSameValue(x, "length", 'The value of x is not "length"');
 }
 
-for(var x in Date.prototype.toString) {
-  if(x === "length") {
-    $ERROR('#2: The Date.prototype.toString.length has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.prototype.fill
-es6id: 22.1.3.6
 description: >
   Returns `this`.
-info: >
+info: |
   12. Return O.
 ---*/
 

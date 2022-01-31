@@ -4,7 +4,7 @@
 esid: sec-%typedarray%.prototype.some
 description: >
   Instance buffer can be detached during loop
-info: >
+info: |
   22.2.3.25 %TypedArray%.prototype.some ( callbackfn [ , thisArg ] )
 
   %TypedArray%.prototype.some is a distinct function that implements the same
@@ -22,21 +22,20 @@ info: >
       ii. Let testResult be ToBoolean(? Call(callbackfn, T, « kValue, k, O »)).
   ...
 includes: [detachArrayBuffer.js, testTypedArray.js]
+features: [TypedArray]
 ---*/
 
 testWithTypedArrayConstructors(function(TA) {
   var loops = 0;
   var sample = new TA(2);
 
-  assert.throws(TypeError, function() {
-    sample.some(function() {
-      if (loops === 1) {
-        throw new Test262Error("callbackfn called twice");
-      }
+  sample.some(function() {
+    if (loops === 0) {
       $DETACHBUFFER(sample.buffer);
-      loops++;
-    });
+    }
+    loops++;
+    return false;
   });
 
-  assert.sameValue(loops, 1);
+  assert.sameValue(loops, 2);
 });

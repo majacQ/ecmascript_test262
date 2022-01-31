@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-date.prototype.valueof
-es6id: 20.3.4.44
 description: >
   Date.prototype.valueOf.name is "valueOf".
-info: >
+info: |
   Date.prototype.valueOf ( )
 
   17 ECMAScript Standard Built-in Objects:

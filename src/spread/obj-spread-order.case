@@ -15,7 +15,7 @@ info: |
     3. ReturnIfAbrupt(fromValue).
     4. Let excludedNames be a new empty List.
     5. Return CopyDataProperties(object, fromValue, excludedNames).
-features: [object-spread]
+features: [Symbol, object-spread]
 ---*/
 
 //- setup
@@ -29,5 +29,5 @@ Object.defineProperty(o, Symbol('foo'), { get: () => { calls.push("Symbol(foo)")
 //- params
 obj
 //- body
-assert(compareArray(calls, [1, 'z', 'a', "Symbol(foo)"]));
+assert.compareArray(calls, [1, 'z', 'a', "Symbol(foo)"]);
 assert.sameValue(Object.keys(obj).length, 3);

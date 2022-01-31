@@ -10,6 +10,7 @@ info: |
   [...]
   2. If P is "length", then
      a. Return ? ArraySetLength(A, Desc).
+features: [cross-realm]
 ---*/
 
 var OArray = $262.createRealm().global.Array;
@@ -17,4 +18,4 @@ var array = new OArray();
 
 assert.throws(RangeError, function() {
   array.length = 4294967296;
-});
+}, 'array.length = 4294967296 throws a RangeError exception');

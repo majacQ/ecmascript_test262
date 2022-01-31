@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When Function object(F) is constructed the length property of F is set to
     the number of formal properties specified in FormalParameterList
 es5id: 13.2_A3
@@ -16,7 +16,7 @@ function __func(){};
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (__func.length !== 0) {
-	$ERROR('#1: __func.length === 0. Actual: __func.length ==='+__func.length);
+	throw new Test262Error('#1: __func.length === 0. Actual: __func.length ==='+__func.length);
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ function __gunc(a,b,c){};
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (__gunc.length !== 3) {
-	$ERROR('#2: __gunc.length === 3. Actual: __gunc.length ==='+__gunc.length);
+	throw new Test262Error('#2: __gunc.length === 3. Actual: __gunc.length ==='+__gunc.length);
 }
 //
 //////////////////////////////////////////////////////////////////////////////

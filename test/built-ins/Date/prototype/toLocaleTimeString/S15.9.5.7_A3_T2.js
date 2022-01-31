@@ -2,18 +2,22 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype.toLocaleTimeString property "length" has { ReadOnly, !
     DontDelete, DontEnum } attributes
 esid: sec-date.prototype.tolocaletimestring
-es5id: 15.9.5.7_A3_T2
 description: Checking DontDelete attribute
 ---*/
 
-if (delete Date.prototype.toLocaleTimeString.length  !== true) {
-  $ERROR('#1: The Date.prototype.toLocaleTimeString.length property does not have the attributes DontDelete');
-}
+assert.sameValue(
+  delete Date.prototype.toLocaleTimeString.length,
+  true,
+  'The value of `delete Date.prototype.toLocaleTimeString.length` is expected to be true'
+);
 
-if (Date.prototype.toLocaleTimeString.hasOwnProperty('length')) {
-  $ERROR('#2: The Date.prototype.toLocaleTimeString.length property does not have the attributes DontDelete');
-}
+assert(
+  !Date.prototype.toLocaleTimeString.hasOwnProperty('length'),
+  'The value of !Date.prototype.toLocaleTimeString.hasOwnProperty(\'length\') is expected to be true'
+);
+
+// TODO: Convert to verifyProperty() format.

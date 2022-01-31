@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-arraybuffer.prototype.slice
-es6id: 24.1.4.3
 description: >
   Throws a TypeError if `this` does not have an [[ArrayBufferData]] internal slot.
-info: >
+info: |
   ArrayBuffer.prototype.slice ( start, end )
 
   1. Let O be the this value.

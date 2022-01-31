@@ -6,15 +6,15 @@ info: Multi line comments cannot nest
 es5id: 7.4_A3
 description: Try use nested comments
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 /*CHECK#1*/
 
-/* 
+/*
 var
 
 /* x */

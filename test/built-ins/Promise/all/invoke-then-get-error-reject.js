@@ -4,7 +4,6 @@
 description: >
   Error thrown when accessing the instance's `then` method (rejecting Promise)
 esid: sec-performpromiseall
-es6id: 25.4.4.1
 info: |
     11. Let result be PerformPromiseAll(iteratorRecord, C, promiseCapability).
     12. If result is an abrupt completion,
@@ -35,7 +34,7 @@ Object.defineProperty(promise, 'then', {
 });
 
 Promise.all([promise]).then(function() {
-  $ERROR('The promise should be rejected');
+  throw new Test262Error('The promise should be rejected');
 }, function(reason) {
   assert.sameValue(reason, error);
 }).then($DONE, $DONE);

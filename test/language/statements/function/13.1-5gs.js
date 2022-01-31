@@ -7,11 +7,11 @@ description: >
     Strict Mode - SyntaxError is thrown if a FunctionDeclaration has
     two identical parameters
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 flags: [onlyStrict]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 function _13_1_5_fun(param, param) { }

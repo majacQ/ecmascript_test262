@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     A property is created with name callee with property
     attributes { DontEnum } and no others
 es5id: 10.6_A3_T1
@@ -15,20 +15,20 @@ function f1(){
 }
 try{
   if(f1() !== true){
-    $ERROR("#1: arguments object doesn't contains property 'callee'");
+    throw new Test262Error("#1: arguments object doesn't contains property 'callee'");
   }
 }
 catch(e){
-  $ERROR("#1: arguments object doesn't exists");
+  throw new Test262Error("#1: arguments object doesn't exists");
 }
 
 //CHECK#2
 var f2 = function(){return arguments.hasOwnProperty("callee");};
 try{
   if(f2() !== true){
-    $ERROR("#2: arguments object doesn't contains property 'callee'");
+    throw new Test262Error("#2: arguments object doesn't contains property 'callee'");
   }
 }
 catch(e){
-  $ERROR("#2: arguments object doesn't exists");
+  throw new Test262Error("#2: arguments object doesn't exists");
 }

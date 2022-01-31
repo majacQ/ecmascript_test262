@@ -1,11 +1,10 @@
 // Copyright (C) 2015 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 23.3.1.1
 esid: sec-weakmap-iterable
 description: >
   Closes the iterator object after not object error on next item.
-info: >
+info: |
   WeakMap ( [ iterable ] )
 
   ...
@@ -28,7 +27,10 @@ var iterable = {};
 iterable[Symbol.iterator] = function() {
   return {
     next: function() {
-      return { value: nextItem, done: false };
+      return {
+        value: nextItem,
+        done: false
+      };
     },
     return: function() {
       count += 1;

@@ -3,7 +3,6 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-2-19
 description: >
     Array.prototype.every applied to Function object, which implements
     its own property get method
@@ -17,7 +16,7 @@ function callbackfn2(val, idx, obj) {
   return val > 11;
 }
 
-var fun = function (a, b) {
+var fun = function(a, b) {
   return a + b;
 };
 fun[0] = 12;

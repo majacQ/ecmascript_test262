@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the Function constructor is called with arguments p, body the following steps are taken:
     i) Let Result(i) be the first argument
     ii) Let P be ToString(Result(i))
@@ -18,22 +18,18 @@ description: >
     "{toString:function(){return 'a';}}" and "return a;"
 ---*/
 
-var p = {toString:function(){return "a";}};
+var p = {
+  toString: function() {
+    return "a";
+  }
+};
 var body = "return a;";
 
-//CHECK#1
 try {
-  var f = new Function(p,body);
+  var f = new Function(p, body);
 } catch (e) {
-  $ERROR('#1: test failed with error '+e);
+  throw new Test262Error('#1: test failed with error ' + e);
 }
 
-//CHECK#2
-if (f.constructor !== Function) {
-  $ERROR('#2: When the Function constructor is called with arguments p, body creates a new Function object as specified in 13.2');
-}
-
-//CHECK#3
-if (f(42)!==42) {
-  $ERROR('#3: When the Function constructor is called with arguments p, body creates a new Function object as specified in 13.2');
-}
+assert.sameValue(f.constructor, Function, 'The value of f.constructor is expected to equal the value of Function');
+assert.sameValue(f(42), 42, 'f(42) must return 42');

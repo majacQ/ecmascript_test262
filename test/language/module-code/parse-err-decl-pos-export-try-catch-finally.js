@@ -4,12 +4,12 @@
 description: Statement cannot contain an `export` declaration
 esid: sec-modules
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 flags: [module]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 try { } catch (err) { } finally {
   export default null;

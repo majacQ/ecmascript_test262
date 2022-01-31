@@ -1,10 +1,11 @@
 // Copyright (C) 2013 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 19.4
+esid: sec-object.seal
 description: >
     Object.seal(obj) where obj contains symbol properties.
 flags: [onlyStrict]
+features: [Symbol]
 ---*/
 var symA = Symbol("A");
 var symB = Symbol("B");
@@ -22,4 +23,3 @@ assert.throws(TypeError, function() {
 assert.throws(TypeError, function() {
   obj[symB] = 1;
 });
-

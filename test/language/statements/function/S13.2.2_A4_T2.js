@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the [[Construct]] property for a Function object F is called:
     A new native ECMAScript object is created.
     Gets the value of the [[Prototype]] property of the F(Denote it PROTO_VAL).
@@ -25,7 +25,7 @@ __device = new __FACTORY();
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (__device.printShape === undefined) {
-	$ERROR('#1: __device.printShape !== undefined. Actual: __device.printShape ==='+__device.printShape);
+	throw new Test262Error('#1: __device.printShape !== undefined. Actual: __device.printShape ==='+__device.printShape);
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ if (__device.printShape === undefined) {
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (__device.printShape() !== __CUBE) {
-	$ERROR('#2: __device.printShape() === __CUBE. Actual: __device.printShape() ==='+__device.printShape());
+	throw new Test262Error('#2: __device.printShape() === __CUBE. Actual: __device.printShape() ==='+__device.printShape());
 }
 //
 //////////////////////////////////////////////////////////////////////////////

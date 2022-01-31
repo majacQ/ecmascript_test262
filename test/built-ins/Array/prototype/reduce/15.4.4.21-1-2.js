@@ -3,11 +3,10 @@
 
 /*---
 esid: sec-array.prototype.reduce
-es5id: 15.4.4.21-1-2
 description: Array.prototype.reduce applied to null
 ---*/
 
 
 assert.throws(TypeError, function() {
-            Array.prototype.reduce.call(null);
+  Array.prototype.reduce.call(null);
 });

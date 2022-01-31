@@ -4,8 +4,7 @@
 /*---
 description: Spread operation follows [[OwnPropertyKeys]] order (`new` operator)
 esid: sec-new-operator-runtime-semantics-evaluation
-es6id: 12.3.3.1
-features: [object-spread]
+features: [Symbol, object-spread]
 flags: [generated]
 includes: [compareArray.js]
 info: |
@@ -40,7 +39,7 @@ Object.defineProperty(o, Symbol('foo'), { get: () => { calls.push("Symbol(foo)")
 var callCount = 0;
 
 new function(obj) {
-  assert(compareArray(calls, [1, 'z', 'a', "Symbol(foo)"]));
+  assert.compareArray(calls, [1, 'z', 'a', "Symbol(foo)"]);
   assert.sameValue(Object.keys(obj).length, 3);
   callCount += 1;
 }({...o});

@@ -3,19 +3,18 @@
 
 /*---
 esid: sec-array.prototype.filter
-es5id: 15.4.4.20-5-1-s
 description: Array.prototype.filter - thisArg not passed to strict callbackfn
 flags: [noStrict]
 ---*/
 
-  var innerThisCorrect = false;
+var innerThisCorrect = false;
 
-  function callbackfn(val, idx, obj) {
-    "use strict";
-    innerThisCorrect = this===undefined;
-    return true;
-  }
+function callbackfn(val, idx, obj) {
+  "use strict";
+  innerThisCorrect = this === undefined;
+  return true;
+}
 
-  [1].filter(callbackfn);
+[1].filter(callbackfn);
 
 assert(innerThisCorrect, 'innerThisCorrect !== true');

@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     pattern is an object R whose [[Class]] property is "RegExp" and flags
     is not undefined. If ToString(pattern) is not a valid flags arguments,
     then throw a SyntaxError exception
@@ -12,11 +12,14 @@ description: >
     pattern is "/1?1/mig", fails
 ---*/
 
-//CHECK#1
 try {
-  $ERROR('#1.1: new RegExp(/1?1/mig, {}) throw SyntaxError. Actual: ' + (new RegExp(/1?1/mig, {})));
+  throw new Test262Error('#1.1: new RegExp(/1?1/mig, {}) throw SyntaxError. Actual: ' + (new RegExp(/1?1/mig, {})));
 } catch (e) {
-  if ((e instanceof SyntaxError) !== true) {
-    $ERROR('#1.2: new RegExp(/1?1/mig, {}) throw SyntaxError. Actual: ' + (e));
-  }
+  assert.sameValue(
+    e instanceof SyntaxError,
+    true,
+    'The result of evaluating (e instanceof SyntaxError) is expected to be true'
+  );
 }
+
+// TODO: Convert to assert.throws() format.

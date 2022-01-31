@@ -1,10 +1,9 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-path: language/expressions/object/dstr-meth-
+path: language/expressions/object/dstr/meth-
 name: method
 esid: sec-runtime-semantics-definemethod
-es6id: 14.3.8
 features: [destructuring-binding]
 info: |
     MethodDefinition : PropertyName ( StrictFormalParameters ) { FunctionBody }

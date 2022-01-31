@@ -1,7 +1,6 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.7
 esid: sec-array.prototype.filter
 description: Abrupt completion from `@@species` property access
 info: |
@@ -21,7 +20,9 @@ features: [Symbol.species]
 
 var a = [];
 var callCount = 0;
-var cb = function() { callCount += 1; };
+var cb = function() {
+  callCount += 1;
+};
 a.constructor = {};
 
 Object.defineProperty(a.constructor, Symbol.species, {

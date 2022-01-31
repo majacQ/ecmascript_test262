@@ -2,9 +2,8 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.prototype.find
-es6id: 22.1.3.8
 description: Array.prototype.find.length value and descriptor.
-info: >
+info: |
   17 ECMAScript Standard Built-in Objects
 includes: [propertyHelper.js]
 ---*/

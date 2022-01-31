@@ -10,7 +10,7 @@ description: >
     of numbers, each added during some operation, and verifies that they
     are in numeric order.
 
-includes: [promiseHelper.js,sta.js]
+includes: [promiseHelper.js]
 ---*/
 
 assert(checkSequence([1, 2, 3, 4, 5]));
@@ -22,7 +22,7 @@ try {
 } catch(err) {
   threw = true;
   if (err.constructor !== Test262Error) {
-    $ERROR(
+    throw new Error(
       'Expected a Test262Error, but a "' + err.constructor.name +
       '" was thrown.'
     );
@@ -30,6 +30,6 @@ try {
 }
 
 if (threw === false) {
-  $ERROR('Expected a Test262Error, but no error was thrown.');
+  throw new Error('Expected a Test262Error, but no error was thrown.');
 }
 

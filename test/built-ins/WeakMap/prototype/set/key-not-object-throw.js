@@ -1,10 +1,9 @@
 // Copyright (C) 2015 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 23.3.3.5
 esid: sec-weakmap.prototype.set
 description: Throws TypeError if `key` is not Object.
-info: >
+info: |
   WeakMap.prototype.set ( key, value )
 
   5. If Type(key) is not Object, throw a TypeError exception.

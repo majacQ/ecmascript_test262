@@ -3,7 +3,6 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-2-5
 description: >
     Array.prototype.every applied to Array-like object, 'length' is an
     own data property that overrides an inherited accessor property
@@ -17,16 +16,16 @@ function callbackfn2(val, idx, obj) {
   return val > 11;
 }
 
-var proto = { };
+var proto = {};
 
 Object.defineProperty(proto, "length", {
-  get: function () {
-      return 3;
+  get: function() {
+    return 3;
   },
   configurable: true
 });
 
-var Con = function () { };
+var Con = function() {};
 Con.prototype = proto;
 
 var child = new Con();

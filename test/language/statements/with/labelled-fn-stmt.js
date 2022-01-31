@@ -17,10 +17,10 @@ info: |
   In the absence of Annex B.3.2, a SyntaxError should be produced due to the
   labelled function declaration itself.
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 with ({}) label1: label2: function test262() {}

@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-dataview.prototype.getuint8
-es6id: 24.2.4.10
 description: >
   DataView.prototype.getUint8.name is "getUint8".
-info: >
+info: |
   DataView.prototype.getUint8 ( byteOffset )
 
   17 ECMAScript Standard Built-in Objects:

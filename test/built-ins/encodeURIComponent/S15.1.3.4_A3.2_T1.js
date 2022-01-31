@@ -2,11 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     unescapedURIComponentSet containing one instance of each character valid
     in uriUnescaped
-es5id: 15.1.3.4_A3.2_T1
-es6id: 18.2.6.5
 esid: sec-encodeuricomponent-uricomponent
 description: "Complex tests, uriUnescaped :: uriAlpha"
 ---*/
@@ -15,6 +13,6 @@ var uriAlpha = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
 for (var indexC = 0; indexC < uriAlpha.length; indexC++) {
   var str = uriAlpha[indexC];
   if (encodeURIComponent(str) !== str) {
-    $ERROR('#' + (indexC + 1) + ': unescapedURISet containing ' + str);
+    throw new Test262Error('#' + (indexC + 1) + ': unescapedURISet containing ' + str);
   }
 }

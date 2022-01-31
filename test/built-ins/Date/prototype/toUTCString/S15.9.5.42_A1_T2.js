@@ -4,14 +4,18 @@
 /*---
 info: The Date.prototype property "toUTCString" has { DontEnum } attributes
 esid: sec-date.prototype.toutcstring
-es5id: 15.9.5.42_A1_T2
 description: Checking absence of DontDelete attribute
 ---*/
 
-if (delete Date.prototype.toUTCString  === false) {
-  $ERROR('#1: The Date.prototype.toUTCString property has not the attributes DontDelete');
-}
+assert.notSameValue(
+  delete Date.prototype.toUTCString,
+  false,
+  'The value of delete Date.prototype.toUTCString is not false'
+);
 
-if (Date.prototype.hasOwnProperty('toUTCString')) {
-  $ERROR('#2: The Date.prototype.toUTCString property has not the attributes DontDelete');
-}
+assert(
+  !Date.prototype.hasOwnProperty('toUTCString'),
+  'The value of !Date.prototype.hasOwnProperty(\'toUTCString\') is expected to be true'
+);
+
+// TODO: Convert to verifyProperty() format.

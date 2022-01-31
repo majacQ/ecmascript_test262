@@ -2,20 +2,19 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype property "toLocaleDateString" has { DontEnum }
     attributes
 esid: sec-date.prototype.tolocaledatestring
-es5id: 15.9.5.6_A1_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.propertyIsEnumerable('toLocaleDateString'),
+  'The value of !Date.prototype.propertyIsEnumerable(\'toLocaleDateString\') is expected to be true'
+);
 
-if (Date.prototype.propertyIsEnumerable('toLocaleDateString')) {
-  $ERROR('#1: The Date.prototype.toLocaleDateString property has the attribute DontEnum');
+for (var x in Date.prototype) {
+  assert.notSameValue(x, "toLocaleDateString", 'The value of x is not "toLocaleDateString"');
 }
 
-for(var x in Date.prototype) {
-  if(x === "toLocaleDateString") {
-    $ERROR('#2: The Date.prototype.toLocaleDateString has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

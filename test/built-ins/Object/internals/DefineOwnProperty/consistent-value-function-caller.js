@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-invariants-of-the-essential-internal-methods
-es6id: 6.1.7.3
 description: >
   Value of non-writable, non-configurable data property must not change
   ("caller" property of a non-strict function)
@@ -19,17 +18,20 @@ info: |
 ---*/
 
 function f() {
-    return Reflect.getOwnPropertyDescriptor(f, 'caller');
+  return Reflect.getOwnPropertyDescriptor(f, 'caller');
 }
 
 function g() {
-    return f();
+  return f();
 }
 
-Reflect.defineProperty(f, 'caller', { writable: false, configurable: false });
+Reflect.defineProperty(f, 'caller', {
+  writable: false,
+  configurable: false
+});
 
 var desc = Reflect.getOwnPropertyDescriptor(f, 'caller');
 if (desc && desc.configurable === false && desc.writable === false) {
-    var desc2 = g();
-    assert.sameValue(desc.value, desc2.value);
+  var desc2 = g();
+  assert.sameValue(desc.value, desc2.value);
 }

@@ -4,17 +4,21 @@
 esid: sec-atomics-@@tostringtag
 description: >
     `Symbol.toStringTag` property descriptor on Atomics
-info: >
+info: |
     The initial value of the @@toStringTag property is the String value
     "Atomics".
 
     This property has the attributes { [[Writable]]: false, [[Enumerable]]:
     false, [[Configurable]]: true }.
 includes: [propertyHelper.js]
-features: [Symbol.toStringTag]
+features: [Atomics, Symbol, Symbol.toStringTag]
 ---*/
 
-assert.sameValue(Atomics[Symbol.toStringTag], 'Atomics');
+assert.sameValue(
+  Atomics[Symbol.toStringTag],
+  'Atomics',
+  'The value of Atomics[Symbol.toStringTag] is "Atomics"'
+);
 
 verifyNotEnumerable(Atomics, Symbol.toStringTag);
 verifyNotWritable(Atomics, Symbol.toStringTag);

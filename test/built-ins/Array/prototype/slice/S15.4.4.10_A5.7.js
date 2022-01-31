@@ -4,19 +4,11 @@
 /*---
 info: The slice property of Array can't be used as constructor
 esid: sec-array.prototype.slice
-es5id: 15.4.4.10_A5.7
 description: >
     If property does not implement the internal [[Construct]] method,
     throw a TypeError exception
 ---*/
 
-//CHECK#1
-
-try {
+assert.throws(TypeError, () => {
   new Array.prototype.slice();
-  $ERROR('#1.1: new Array.prototype.slice() throw TypeError. Actual: ' + (new Array.prototype.slice()));
-} catch (e) {
-  if ((e instanceof TypeError) !== true) {
-    $ERROR('#1.2: new Array.prototype.slice() throw TypeError. Actual: ' + (e));
-  }
-}
+});

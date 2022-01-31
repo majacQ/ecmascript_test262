@@ -4,10 +4,10 @@
 /*---
 info: The Date.prototype has the property "setTime"
 esid: sec-properties-of-the-date-prototype-object
-es5id: 15.9.5_A27_T1
 description: The Date.prototype has the property "setTime"
 ---*/
-
-if(Date.prototype.hasOwnProperty("setTime") !== true){
-  $ERROR('#1: The Date.prototype has the property "setTime"');
-}
+assert.sameValue(
+  Date.prototype.hasOwnProperty("setTime"),
+  true,
+  'Date.prototype.hasOwnProperty("setTime") must return true'
+);

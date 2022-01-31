@@ -13,10 +13,10 @@ info: |
   ScriptBody :
     StatementList[~Yield, ~Return]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 return;

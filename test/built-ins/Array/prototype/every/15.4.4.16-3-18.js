@@ -3,7 +3,6 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-3-18
 description: >
     Array.prototype.every - value of 'length' is a string that can't
     convert to a number
@@ -16,7 +15,11 @@ function callbackfn(val, idx, obj) {
   return val > 10;
 }
 
-var obj = { 0: 9, 1: 8, length: "two" };
+var obj = {
+  0: 9,
+  1: 8,
+  length: "two"
+};
 
 assert(Array.prototype.every.call(obj, callbackfn), 'Array.prototype.every.call(obj, callbackfn) !== true');
 assert.sameValue(accessed, false, 'accessed');

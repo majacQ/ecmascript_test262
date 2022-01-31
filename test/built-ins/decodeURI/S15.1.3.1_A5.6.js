@@ -3,13 +3,11 @@
 
 /*---
 info: The decodeURI property has not prototype property
-es5id: 15.1.3.1_A5.6
-es6id: 18.2.6.2
 esid: sec-decodeuri-encodeduri
 description: Checking decodeURI.prototype
 ---*/
 
 //CHECK#1
 if (decodeURI.prototype !== undefined) {
-  $ERROR('#1: decodeURI.prototype === undefined. Actual: ' + (decodeURI.prototype));
+  throw new Test262Error('#1: decodeURI.prototype === undefined. Actual: ' + (decodeURI.prototype));
 }

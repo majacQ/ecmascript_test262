@@ -3,7 +3,7 @@
 /*---
 esid: sec-%typedarray%.prototype.map
 description: Consistent canonicalization of NaN values
-info: >
+info: |
   22.2.3.19 %TypedArray%.prototype.map ( callbackfn [ , thisArg ] )
 
   ...
@@ -12,11 +12,20 @@ info: >
     d. Perform ? Set(A, Pk, mappedValue, true).
   ...
 
-  9.4.5.9 IntegerIndexedElementSet ( O, index, value )
+  IntegerIndexedElementSet ( O, index, value )
 
-  ...
-  15. Perform SetValueInBuffer(buffer, indexedPosition, elementType, numValue).
-  ...
+  Assert: O is an Integer-Indexed exotic object.
+  If O.[[ContentType]] is BigInt, let numValue be ? ToBigInt(value).
+  Otherwise, let numValue be ? ToNumber(value).
+  Let buffer be O.[[ViewedArrayBuffer]].
+  If IsDetachedBuffer(buffer) is false and ! IsValidIntegerIndex(O, index) is true, then
+    Let offset be O.[[ByteOffset]].
+    Let arrayTypeName be the String value of O.[[TypedArrayName]].
+    Let elementSize be the Element Size value specified in Table 62 for arrayTypeName.
+    Let indexedPosition be (ℝ(index) × elementSize) + offset.
+    Let elementType be the Element Type value in Table 62 for arrayTypeName.
+    Perform SetValueInBuffer(buffer, indexedPosition, elementType, numValue, true, Unordered).
+  Return NormalCompletion(undefined).
 
   24.1.1.6 SetValueInBuffer ( arrayBuffer, byteIndex, type, value [ ,
   isLittleEndian ] )
@@ -41,15 +50,16 @@ info: >
         each implementation distinguishable NaN value.
   ...
 includes: [nans.js, testTypedArray.js, compareArray.js]
+features: [TypedArray]
 ---*/
 
 function body(FloatArray) {
-  var sample = new FloatArray(distinctNaNs);
+  var sample = new FloatArray(NaNs);
   var sampleBytes, resultBytes;
   var i = 0;
 
   var result = sample.map(function() {
-    return distinctNaNs[i++];
+    return NaNs[i++];
   });
 
   sampleBytes = new Uint8Array(sample.buffer);

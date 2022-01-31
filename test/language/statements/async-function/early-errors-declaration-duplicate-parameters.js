@@ -7,11 +7,11 @@ esid: pending
 description: >
   If strict mode, early error rules for StrictFormalParameters are applied
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 flags: [onlyStrict]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 async function foo(a, a) { }

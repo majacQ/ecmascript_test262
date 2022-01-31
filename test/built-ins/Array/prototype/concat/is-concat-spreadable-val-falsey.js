@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.prototype.concat
-es6id: 22.1.3.1
 description: >
     The `Symbol.isConcatSpreadable` property is defined and coerces to `false`
-info: >
+info: |
     1. Let O be ToObject(this value).
     2. ReturnIfAbrupt(O).
     3. Let A be ArraySpeciesCreate(O, 0).
@@ -37,20 +36,20 @@ var result;
 
 item[Symbol.isConcatSpreadable] = null;
 result = [].concat(item);
-assert.sameValue(result.length, 1);
-assert.sameValue(result[0], item);
+assert.sameValue(result.length, 1, 'The value of result.length is expected to be 1');
+assert.sameValue(result[0], item, 'The value of result[0] is expected to equal the value of item');
 
 item[Symbol.isConcatSpreadable] = false;
 result = [].concat(item);
-assert.sameValue(result.length, 1);
-assert.sameValue(result[0], item);
+assert.sameValue(result.length, 1, 'The value of result.length is expected to be 1');
+assert.sameValue(result[0], item, 'The value of result[0] is expected to equal the value of item');
 
 item[Symbol.isConcatSpreadable] = 0;
 result = [].concat(item);
-assert.sameValue(result.length, 1);
-assert.sameValue(result[0], item);
+assert.sameValue(result.length, 1, 'The value of result.length is expected to be 1');
+assert.sameValue(result[0], item, 'The value of result[0] is expected to equal the value of item');
 
 item[Symbol.isConcatSpreadable] = NaN;
 result = [].concat(item);
-assert.sameValue(result.length, 1);
-assert.sameValue(result[0], item);
+assert.sameValue(result.length, 1, 'The value of result.length is expected to be 1');
+assert.sameValue(result[0], item, 'The value of result[0] is expected to equal the value of item');

@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     RegExp.prototype.exec behavior depends on global property.
     If global is true and lastIndex not changed manually,
     next exec calling start to match from position where current match finished
@@ -134,21 +134,22 @@ var __the__raven = "	Once upon a midnight dreary, while I pondered weak and wear
         "And my soul from out that shadow that lies floating on the floor" +
         "Shall be lifted - nevermore!"
 
-var NEVERMORE_AND_EVERMORE=12;       
-       
+var NEVERMORE_AND_EVERMORE=12;
+
 var __re = /[Nn]?evermore/g;
 var __matched=0;
 
 do{
     var __executed = __re.exec(__the__raven);
     if (__executed !== null) {
-    	__matched++;
+        __matched++;
     } else {
-    	break;
+        break;
     }
 }while(1);
 
-//CHECK#1
-if (__matched !== NEVERMORE_AND_EVERMORE) {
-	$ERROR('#1: __re = /[Nn]?evermore/g; __executed = __re.exec(__the__raven)'+__matched);
-}
+assert.sameValue(
+  __matched,
+  NEVERMORE_AND_EVERMORE,
+  'The value of __matched is expected to equal the value of NEVERMORE_AND_EVERMORE'
+);

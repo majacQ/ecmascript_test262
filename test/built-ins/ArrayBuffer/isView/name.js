@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-arraybuffer.isview
-es6id: 24.1.3.1
 description: >
   ArrayBuffer.isView.name is "isView".
-info: >
+info: |
   ArrayBuffer.isView ( arg )
 
   17 ECMAScript Standard Built-in Objects:

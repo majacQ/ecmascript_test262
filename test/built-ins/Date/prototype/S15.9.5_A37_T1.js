@@ -4,10 +4,10 @@
 /*---
 info: The Date.prototype has the property "setUTCDate"
 esid: sec-properties-of-the-date-prototype-object
-es5id: 15.9.5_A37_T1
 description: The Date.prototype has the property "setUTCDate"
 ---*/
-
-if(Date.prototype.hasOwnProperty("setUTCDate") !== true){
-  $ERROR('#1: The Date.prototype has the property "setUTCDate"');
-}
+assert.sameValue(
+  Date.prototype.hasOwnProperty("setUTCDate"),
+  true,
+  'Date.prototype.hasOwnProperty("setUTCDate") must return true'
+);

@@ -7,7 +7,7 @@ esid: sec-function-definitions-runtime-semantics-evaluation
 features: [default-parameters]
 flags: [generated]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     FunctionExpression : function ( FormalParameters ) { FunctionBody }
@@ -54,7 +54,7 @@ info: |
       elements.
 
 ---*/
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 0, function(x = 0, x) {
   

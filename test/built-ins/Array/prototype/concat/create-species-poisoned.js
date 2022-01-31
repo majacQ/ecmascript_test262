@@ -1,7 +1,6 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.1
 esid: sec-array.prototype.concat
 description: Abrupt completion from `@@species` property access
 info: |
@@ -29,4 +28,4 @@ Object.defineProperty(a.constructor, Symbol.species, {
 
 assert.throws(Test262Error, function() {
   a.concat();
-});
+}, 'a.concat() throws a Test262Error exception');

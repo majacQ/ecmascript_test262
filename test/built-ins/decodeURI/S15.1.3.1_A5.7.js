@@ -3,8 +3,6 @@
 
 /*---
 info: The decodeURI property can't be used as constructor
-es5id: 15.1.3.1_A5.7
-es6id: 18.2.6.2
 esid: sec-decodeuri-encodeduri
 description: >
     If property does not implement the internal [[Construct]] method,
@@ -15,9 +13,9 @@ description: >
 
 try {
   new decodeURI();
-  $ERROR('#1.1: new decodeURI() throw TypeError. Actual: ' + (new decodeURI()));
+  throw new Test262Error('#1.1: new decodeURI() throw TypeError. Actual: ' + (new decodeURI()));
 } catch (e) {
   if ((e instanceof TypeError) !== true) {
-    $ERROR('#1.2: new decodeURI() throw TypeError. Actual: ' + (e));
+    throw new Test262Error('#1.2: new decodeURI() throw TypeError. Actual: ' + (e));
   }
 }

@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     RegExp.prototype.exec behavior depends on global property.
     If global is true and lastIndex not changed manually,
     next exec calling start to match from position where current match finished
@@ -25,14 +25,16 @@ do{
     }
 }while(true);
 
-//CHECK#1
-if (__expected.length !== __matched.length) {
-	$ERROR('#1: __executed = /(?:ab|cd)\\d?/g.exec("ab  cd2  ab34  cd"); __matched.length === ' + (__expected.length) + '.Actual: ' + (__matched.length));
-}
+assert.sameValue(
+  __expected.length,
+  __matched.length,
+  'The value of __expected.length is expected to equal the value of __matched.length'
+);
 
-//CHECK#2
 for(var index=0; index<__expected.length; index++) {
-	if (__expected[index] !== __matched[index]) {
-		$ERROR('#2: __executed = /(?:ab|cd)\\d?/g.exec("ab  cd2  ab34  cd"); __matched[' + index + '] === ' + __expected[index] + '. Actual: ' + __matched[index]);
-	}
+  assert.sameValue(
+    __expected[index],
+    __matched[index],
+    'The value of __expected[index] is expected to equal the value of __matched[index]'
+  );
 }

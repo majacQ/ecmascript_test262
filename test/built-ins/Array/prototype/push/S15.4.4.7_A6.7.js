@@ -4,19 +4,11 @@
 /*---
 info: The push property of Array can't be used as constructor
 esid: sec-array.prototype.push
-es5id: 15.4.4.7_A6.7
 description: >
     If property does not implement the internal [[Construct]] method,
     throw a TypeError exception
 ---*/
 
-//CHECK#1
-
-try {
+assert.throws(TypeError, () => {
   new Array.prototype.push();
-  $ERROR('#1.1: new Array.prototype.push() throw TypeError. Actual: ' + (new Array.prototype.push()));
-} catch (e) {
-  if ((e instanceof TypeError) !== true) {
-    $ERROR('#1.2: new Array.prototype.push() throw TypeError. Actual: ' + (e));
-  }
-}
+});

@@ -4,7 +4,6 @@
 /*---
 description: Variable binding is initialized to `undefined` in outer scope (Block statement in eval code containing a function declaration)
 esid: sec-web-compat-evaldeclarationinstantiation
-es6id: B.3.3.3
 flags: [generated, noStrict]
 includes: [fnGlobalObject.js, propertyHelper.js]
 info: |
@@ -21,8 +20,9 @@ info: |
   'var global = fnGlobalObject();\
   assert.sameValue(f, undefined, "binding is initialized to `undefined`");\
   \
-  verifyEnumerable(global, "f");\
-  verifyWritable(global, "f");\
-  verifyConfigurable(global, "f");\
-{ function f() {  } }'
+  verifyProperty(global, "f", {\
+    enumerable: true,\
+    writable: true,\
+    configurable: true\
+  });{ function f() {  } }'
 );

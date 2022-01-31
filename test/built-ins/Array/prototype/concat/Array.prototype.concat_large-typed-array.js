@@ -5,9 +5,9 @@
 
 /*---
 esid: sec-array.prototype.concat
-es6id: 22.1.3.1_3
 description: Array.prototype.concat large typed array
 includes: [compareArray.js]
+features: [Symbol.isConcatSpreadable]
 ---*/
 function concatTypedArray(type, elems, modulo) {
   var items = new Array(elems);
@@ -16,13 +16,22 @@ function concatTypedArray(type, elems, modulo) {
     ta_by_len[i] = items[i] = modulo === false ? i : elems % modulo;
   }
   var ta = new type(items);
-  assert(compareArray([].concat(ta, ta), [ta, ta]));
+  assert(
+    compareArray([].concat(ta, ta), [ta, ta]),
+    'compareArray([].concat(ta, ta), [ta, ta]) must return true'
+  );
   ta[Symbol.isConcatSpreadable] = true;
-  assert(compareArray([].concat(ta), items));
+  assert.compareArray([].concat(ta), items, '[].concat(new type(items)) returns items');
 
-  assert(compareArray([].concat(ta_by_len, ta_by_len), [ta_by_len, ta_by_len]));
+  assert(
+    compareArray([].concat(ta_by_len, ta_by_len), [ta_by_len, ta_by_len]),
+    'compareArray([].concat(ta_by_len, ta_by_len), [ta_by_len, ta_by_len]) must return true'
+  );
   ta_by_len[Symbol.isConcatSpreadable] = true;
-  assert(compareArray([].concat(ta_by_len), items));
+  assert(
+    compareArray([].concat(ta_by_len), items),
+    'compareArray([].concat(ta_by_len), items) must return true'
+  );
 
   // TypedArray with fake `length`.
   ta = new type(1);
@@ -30,9 +39,11 @@ function concatTypedArray(type, elems, modulo) {
   var expected = new Array(4000);
   expected[0] = defValue;
 
-  Object.defineProperty(ta, "length", { value: 4000 });
+  Object.defineProperty(ta, "length", {
+    value: 4000
+  });
   ta[Symbol.isConcatSpreadable] = true;
-  assert(compareArray([].concat(ta), expected));
+  assert.compareArray([].concat(ta), expected, '[].concat(new type(1)) returns expected');
 }
 
 var max = [Math.pow(2, 8), Math.pow(2, 16), Math.pow(2, 32), false, false];

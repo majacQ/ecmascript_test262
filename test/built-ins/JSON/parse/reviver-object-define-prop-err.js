@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-internalizejsonproperty
-es6id: 24.3.1.1
 description: Abrupt completion from defining object property while reviving
 info: |
   JSON.parse ( text [ , reviver ] )
@@ -30,7 +29,9 @@ info: |
 features: [Proxy]
 ---*/
 
-var badDefine = new Proxy({ 0: null }, {
+var badDefine = new Proxy({
+  0: null
+}, {
   defineProperty: function() {
     throw new Test262Error();
   }

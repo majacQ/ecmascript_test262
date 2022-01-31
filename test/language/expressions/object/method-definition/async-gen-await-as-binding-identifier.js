@@ -7,7 +7,7 @@ esid: prod-AsyncGeneratorMethod
 features: [async-iteration]
 flags: [generated]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     Async Generator Function Definitions
@@ -22,7 +22,7 @@ info: |
     StringValue of Identifier is "await".
 
 ---*/
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 var obj = {
   async *method() {

@@ -8,11 +8,11 @@ description: >
     Checking if execution of "continue" with no IterationStatement,
     placed into a block, fails
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1

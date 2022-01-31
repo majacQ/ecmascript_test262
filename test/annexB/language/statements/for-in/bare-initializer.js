@@ -5,12 +5,11 @@ esid: sec-initializers-in-forin-statement-heads
 description: >
     for-in heads prohibit AssignmentExpressions
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 var a;
-throw NotEarlyError;
-for (a = 0 in {});
 
+for (a = 0 in {});

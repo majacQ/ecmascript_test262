@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Global object has properties such as built-in objects such as
     Math, String, Date, parseInt, etc
 es5id: 10.2.3_A1.2_T3
@@ -11,78 +11,78 @@ description: Function execution context - Constructor Properties
 
 function test() {
   //CHECK#13
-  if ( Object === null ) {
-    $ERROR("#13: Object === null");
+  if (Object === null) {
+    throw new Test262Error("#13: Object === null");
   }
 
   //CHECK#14
-  if ( Function === null ) {
-    $ERROR("#14: Function === null");
+  if (Function === null) {
+    throw new Test262Error("#14: Function === null");
   }
 
   //CHECK#15
-  if ( String === null ) {
-    $ERROR("#15: String === null");
+  if (String === null) {
+    throw new Test262Error("#15: String === null");
   }
 
   //CHECK#16
-  if ( Number === null ) {
-    $ERROR("#16: Function === null");
+  if (Number === null) {
+    throw new Test262Error("#16: Function === null");
   }
 
   //CHECK#17
-  if ( Array === null ) {
-    $ERROR("#17: Array === null");
+  if (Array === null) {
+    throw new Test262Error("#17: Array === null");
   }
 
   //CHECK#18
-  if ( Boolean === null ) {
-    $ERROR("#20: Boolean === null");
+  if (Boolean === null) {
+    throw new Test262Error("#20: Boolean === null");
   }
 
   //CHECK#18
-  if ( Date === null ) {
-    $ERROR("#18: Date === null");
+  if (Date === null) {
+    throw new Test262Error("#18: Date === null");
   }
 
   //CHECK#19
-  if ( RegExp === null ) {
-    $ERROR("#19: RegExp === null");
+  if (RegExp === null) {
+    throw new Test262Error("#19: RegExp === null");
   }
 
   //CHECK#20
-  if ( Error === null ) {
-    $ERROR("#20: Error === null");
+  if (Error === null) {
+    throw new Test262Error("#20: Error === null");
   }
 
   //CHECK#21
-  if ( EvalError === null ) {
-    $ERROR("#21: EvalError === null");
+  if (EvalError === null) {
+    throw new Test262Error("#21: EvalError === null");
   }
 
   //CHECK#22
-  if ( RangeError === null ) {
-    $ERROR("#22: RangeError === null");
+  if (RangeError === null) {
+    throw new Test262Error("#22: RangeError === null");
   }
 
   //CHECK#23
-  if ( ReferenceError === null ) {
-    $ERROR("#23: ReferenceError === null");
+  if (ReferenceError === null) {
+    throw new Test262Error("#23: ReferenceError === null");
   }
 
   //CHECK#24
-  if ( SyntaxError === null ) {
-    $ERROR("#24: SyntaxError === null");
+  if (SyntaxError === null) {
+    throw new Test262Error("#24: SyntaxError === null");
   }
 
   //CHECK#25
-  if ( TypeError === null ) {
-    $ERROR("#25: TypeError === null");
+  if (TypeError === null) {
+    throw new Test262Error("#25: TypeError === null");
   }
 
   //CHECK#26
-  if ( URIError === null ) {
-    $ERROR("#26: URIError === null");
+  if (URIError === null) {
+    throw new Test262Error("#26: URIError === null");
   }
 }
 

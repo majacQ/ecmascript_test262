@@ -5,7 +5,7 @@
 es6id: 25.4.4.1.1
 description: >
   Indexed setter properties on Array.prototype are not invoked.
-info: >
+info: |
   Runtime Semantics: PerformPromiseAll( iteratorRecord, constructor, resultCapability)
 
   ...
@@ -29,8 +29,10 @@ flags: [async]
 
 Object.defineProperty(Array.prototype, 0, {
   set: function() {
-    $ERROR("Setter on Array.prototype called");
+    throw new Test262Error("Setter on Array.prototype called");
   }
 });
 
-Promise.all([42]).then(function(){ $DONE(); }, $DONE);
+Promise.all([42]).then(function() {
+  $DONE();
+}, $DONE);

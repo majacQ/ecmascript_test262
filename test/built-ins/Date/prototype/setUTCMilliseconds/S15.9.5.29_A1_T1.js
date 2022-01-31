@@ -2,19 +2,24 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype property "setUTCMilliseconds" has { DontEnum }
     attributes
 esid: sec-date.prototype.setutcmilliseconds
-es5id: 15.9.5.29_A1_T1
 description: Checking absence of ReadOnly attribute
 ---*/
 
 var x = Date.prototype.setUTCMilliseconds;
-if(x === 1)
+if (x === 1) {
   Date.prototype.setUTCMilliseconds = 2;
-else
+} else {
   Date.prototype.setUTCMilliseconds = 1;
-if (Date.prototype.setUTCMilliseconds === x) {
-  $ERROR('#1: The Date.prototype.setUTCMilliseconds has not the attribute ReadOnly');
 }
+
+assert.notSameValue(
+  Date.prototype.setUTCMilliseconds,
+  x,
+  'The value of Date.prototype.setUTCMilliseconds is expected to not equal the value of `x`'
+);
+
+// TODO: Convert to verifyProperty() format.

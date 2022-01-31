@@ -3,8 +3,6 @@
 
 /*---
 info: The undefined is DontEnum
-es5id: 15.1.1.3_A3.2
-es6id: 18.1.3
 esid: sec-undefined
 description: Use for-in statement
 ---*/
@@ -12,6 +10,6 @@ description: Use for-in statement
 // CHECK#1
 for (var prop in this) {
   if (prop === "undefined") {
-	  $ERROR('#1: The undefined is DontEnum');
+    throw new Test262Error('#1: The undefined is DontEnum');
   }
 }

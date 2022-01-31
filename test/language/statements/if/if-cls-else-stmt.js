@@ -5,10 +5,10 @@ description: Class declaration not allowed in statement position
 esid: sec-if-statement
 es6id: 13.6
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 if (true) class C {} else ;

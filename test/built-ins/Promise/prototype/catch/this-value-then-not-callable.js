@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-promise.prototype.catch
-es6id: 25.4.5.1
 description: >
   Promise.prototype.catch called with a `this` value that does not define a
   callable `this` property
@@ -38,25 +37,37 @@ assert.throws(TypeError, function() {
 }, 'undefined');
 
 assert.throws(TypeError, function() {
-  Promise.prototype.catch.call({ then: null });
+  Promise.prototype.catch.call({
+    then: null
+  });
 }, 'null');
 
 assert.throws(TypeError, function() {
-  Promise.prototype.catch.call({ then: 1 });
+  Promise.prototype.catch.call({
+    then: 1
+  });
 }, 'number');
 
 assert.throws(TypeError, function() {
-  Promise.prototype.catch.call({ then: '' });
+  Promise.prototype.catch.call({
+    then: ''
+  });
 }, 'string');
 
 assert.throws(TypeError, function() {
-  Promise.prototype.catch.call({ then: true });
+  Promise.prototype.catch.call({
+    then: true
+  });
 }, 'boolean');
 
 assert.throws(TypeError, function() {
-  Promise.prototype.catch.call({ then: symbol });
+  Promise.prototype.catch.call({
+    then: symbol
+  });
 }, 'symbol');
 
 assert.throws(TypeError, function() {
-  Promise.prototype.catch.call({ then: {} });
+  Promise.prototype.catch.call({
+    then: {}
+  });
 }, 'ordinary object');

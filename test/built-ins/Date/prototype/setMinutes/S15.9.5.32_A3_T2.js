@@ -2,18 +2,21 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype.setMinutes property "length" has { ReadOnly, !
     DontDelete, DontEnum } attributes
 esid: sec-date.prototype.setminutes
-es5id: 15.9.5.32_A3_T2
 description: Checking DontDelete attribute
 ---*/
+assert.sameValue(
+  delete Date.prototype.setMinutes.length,
+  true,
+  'The value of `delete Date.prototype.setMinutes.length` is expected to be true'
+);
 
-if (delete Date.prototype.setMinutes.length  !== true) {
-  $ERROR('#1: The Date.prototype.setMinutes.length property does not have the attributes DontDelete');
-}
+assert(
+  !Date.prototype.setMinutes.hasOwnProperty('length'),
+  'The value of !Date.prototype.setMinutes.hasOwnProperty(\'length\') is expected to be true'
+);
 
-if (Date.prototype.setMinutes.hasOwnProperty('length')) {
-  $ERROR('#2: The Date.prototype.setMinutes.length property does not have the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

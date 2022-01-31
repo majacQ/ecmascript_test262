@@ -7,6 +7,7 @@ description: >
         testTypedArrayConversions()
 
 includes: [testTypedArray.js]
+features: [TypedArray]
 ---*/
 var threw = false;
 
@@ -23,7 +24,7 @@ try {
 }
 
 if (threw === false) {
-  $ERROR('Expected a TypeError, but no error was thrown.');
+  throw new Error('Expected a TypeError, but no error was thrown.');
 }
 
 

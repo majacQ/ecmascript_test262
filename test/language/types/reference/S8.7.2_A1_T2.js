@@ -6,10 +6,10 @@ info: GetValue(V) mast fail
 es5id: 8.7.2_A1_T2
 description: Checking if execution of "1=1" fails
 negative:
-  phase: early
-  type: ReferenceError
+  phase: parse
+  type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 1=1;

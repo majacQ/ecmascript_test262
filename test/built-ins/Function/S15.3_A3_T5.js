@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Since when call is used for Function constructor themself new function instance creates
     and then first argument(thisArg) should be ignored
 es5id: 15.3_A3_T5
@@ -11,29 +11,16 @@ description: >
     Function return this.var_name
 ---*/
 
-var f=Function.call(this, "return this.planet;");
-var g=Function.call(this, "return this.color;");
+var f = Function.call(this, "return this.planet;");
+var g = Function.call(this, "return this.color;");
 
-//CHECK#1
-if (f() !== undefined) {
-  $ERROR('#2: ');
-}
+assert.sameValue(f(), undefined, 'f() returns undefined');
 
-var planet="mars";
+var planet = "mars";
 
-//CHECK#2
-if (f() !== "mars") {
-  $ERROR('#2: ');
-}
+assert.sameValue(f(), "mars", 'f() must return "mars"');
+assert.sameValue(g(), undefined, 'g() returns undefined');
 
-//CHECK#3
-if (g() !== undefined) {
-  $ERROR('#3: ');
-}   
+this.color = "red";
 
-this.color="red";
-
-//CHECK#4
-if (g() !== "red") {
-  $ERROR('#4: ');
-}
+assert.sameValue(g(), "red", 'g() must return "red"');

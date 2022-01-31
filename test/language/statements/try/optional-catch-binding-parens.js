@@ -11,11 +11,11 @@ info: |
   Catch[Yield, Await, Return]:
     catch ( CatchParameter[?Yield, ?Await] ) Block[?Yield, ?Await, ?Return]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 try {} catch () {}
 

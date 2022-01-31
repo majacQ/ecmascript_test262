@@ -4,15 +4,20 @@
 /*---
 info: The Date.prototype property "valueOf" has { DontEnum } attributes
 esid: sec-date.prototype.valueof
-es5id: 15.9.5.8_A1_T1
 description: Checking absence of ReadOnly attribute
 ---*/
 
 var x = Date.prototype.valueOf;
-if(x === 1)
+if (x === 1) {
   Date.prototype.valueOf = 2;
-else
+} else {
   Date.prototype.valueOf = 1;
-if (Date.prototype.valueOf === x) {
-  $ERROR('#1: The Date.prototype.valueOf has not the attribute ReadOnly');
 }
+
+assert.notSameValue(
+  Date.prototype.valueOf,
+  x,
+  'The value of Date.prototype.valueOf is expected to not equal the value of `x`'
+);
+
+// TODO: Convert to verifyProperty() format.

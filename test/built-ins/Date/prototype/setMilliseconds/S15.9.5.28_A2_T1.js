@@ -4,14 +4,16 @@
 /*---
 info: The "length" property of the "setMilliseconds" is 1
 esid: sec-date.prototype.setmilliseconds
-es5id: 15.9.5.28_A2_T1
 description: The "length" property of the "setMilliseconds" is 1
 ---*/
+assert.sameValue(
+  Date.prototype.setMilliseconds.hasOwnProperty("length"),
+  true,
+  'Date.prototype.setMilliseconds.hasOwnProperty("length") must return true'
+);
 
-if(Date.prototype.setMilliseconds.hasOwnProperty("length") !== true){
-  $ERROR('#1: The setMilliseconds has a "length" property');
-}
-
-if(Date.prototype.setMilliseconds.length !== 1){
-  $ERROR('#2: The "length" property of the setMilliseconds is 1');
-}
+assert.sameValue(
+  Date.prototype.setMilliseconds.length,
+  1,
+  'The value of Date.prototype.setMilliseconds.length is expected to be 1'
+);

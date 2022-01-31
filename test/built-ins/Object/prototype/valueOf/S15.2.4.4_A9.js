@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Object.prototype.valueOf.length property does not have the attribute
     DontDelete
 es5id: 15.2.4.4_A9
@@ -10,18 +10,19 @@ description: >
     Checknig if deleting of the Object.prototype.valueOf.length
     property fails
 ---*/
+assert(
+  !!Object.prototype.valueOf.hasOwnProperty('length'),
+  'The value of !!Object.prototype.valueOf.hasOwnProperty("length") is expected to be true'
+);
 
-//CHECK#0
-if (!(Object.prototype.valueOf.hasOwnProperty('length'))) {
-  $ERROR('#0: the Object.prototype.valueOf has length property');
-}
+assert(
+  !!delete Object.prototype.valueOf.length,
+  'The value of !!delete Object.prototype.valueOf.length is expected to be true'
+);
 
-//CHECK#1
-if (!delete Object.prototype.valueOf.length) {
-  $ERROR('#1: The Object.prototype.valueOf.length property does not have the attributes DontDelete');
-}
+assert(
+  !Object.prototype.valueOf.hasOwnProperty('length'),
+  'The value of !Object.prototype.valueOf.hasOwnProperty("length") is expected to be true'
+);
 
-//CHECK#2
-if (Object.prototype.valueOf.hasOwnProperty('length')) {
-  $ERROR('#2: The Object.prototype.valueOf.length property does not have the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

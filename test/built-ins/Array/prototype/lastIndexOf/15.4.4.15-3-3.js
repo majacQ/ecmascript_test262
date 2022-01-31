@@ -3,12 +3,14 @@
 
 /*---
 esid: sec-array.prototype.lastindexof
-es5id: 15.4.4.15-3-3
 description: >
     Array.prototype.lastIndexOf - value of 'length' is a number (value
     is 0)
 ---*/
 
-        var obj = { 0: "undefined", length: 0 };
+var obj = {
+  0: "undefined",
+  length: 0
+};
 
 assert.sameValue(Array.prototype.lastIndexOf.call(obj, "undefined"), -1, 'Array.prototype.lastIndexOf.call(obj, "undefined")');

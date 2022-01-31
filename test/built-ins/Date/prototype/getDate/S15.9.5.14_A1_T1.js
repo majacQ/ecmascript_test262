@@ -4,15 +4,20 @@
 /*---
 info: The Date.prototype property "getDate" has { DontEnum } attributes
 esid: sec-date.prototype.getdate
-es5id: 15.9.5.14_A1_T1
 description: Checking absence of ReadOnly attribute
 ---*/
 
 var x = Date.prototype.getDate;
-if(x === 1)
+if (x === 1) {
   Date.prototype.getDate = 2;
-else
+} else {
   Date.prototype.getDate = 1;
-if (Date.prototype.getDate === x) {
-  $ERROR('#1: The Date.prototype.getDate has not the attribute ReadOnly');
 }
+
+assert.notSameValue(
+  Date.prototype.getDate,
+  x,
+  'The value of Date.prototype.getDate is expected to not equal the value of `x`'
+);
+
+// TODO: Convert to verifyProperty() format.

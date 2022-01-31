@@ -5,7 +5,7 @@
 es6id: 25.4.5.3
 description: >
   Throws a TypeError if `this` is not a Promise object.
-info: >
+info: |
   Promise.prototype.then ( onFulfilled , onRejected )
 
   1. Let promise be the this value.
@@ -15,7 +15,7 @@ info: >
 
 var object = {
   get constructor() {
-    $ERROR("get constructor called");
+    throw new Test262Error("get constructor called");
   }
 };
 

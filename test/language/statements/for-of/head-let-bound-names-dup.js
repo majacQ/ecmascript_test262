@@ -3,7 +3,7 @@
 /*---
 description: The head's declaration may not contain duplicate entries
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     It is a Syntax Error if the BoundNames of ForDeclaration contains any
@@ -12,6 +12,6 @@ esid: sec-for-in-and-for-of-statements-static-semantics-early-errors
 es6id: 13.7.5
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 for (let [x, x] of []) {}

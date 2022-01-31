@@ -14,10 +14,10 @@ info: |
     get PropertyName[?Yield] ( ) { FunctionBody }
 features: [default-parameters]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 class C { get a(param = null) {} }

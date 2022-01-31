@@ -1,11 +1,10 @@
 // Copyright (C) 2015 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 23.3.3.4
 esid: sec-weakmap.prototype.has
 description: >
   Return false when value is not present in the WeakMap entries.
-info: >
+info: |
   WeakMap.prototype.has ( value )
 
   ...

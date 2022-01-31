@@ -11,8 +11,6 @@ flags: [async]
 
 var arg = [];
 
-Promise.all(arg).then(function (result) {
-    if(result.length !== 0) {
-        $ERROR("expected an empty array from Promise.all([]), got " + result);
-    }
+Promise.all(arg).then(function(result) {
+  assert.sameValue(result.length, 0, 'The value of result.length is expected to be 0');
 }).then($DONE, $DONE);

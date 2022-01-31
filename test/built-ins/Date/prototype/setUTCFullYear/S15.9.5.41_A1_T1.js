@@ -4,15 +4,20 @@
 /*---
 info: The Date.prototype property "setUTCFullYear" has { DontEnum } attributes
 esid: sec-date.prototype.setutcfullyear
-es5id: 15.9.5.41_A1_T1
 description: Checking absence of ReadOnly attribute
 ---*/
 
 var x = Date.prototype.setUTCFullYear;
-if(x === 1)
+if (x === 1) {
   Date.prototype.setUTCFullYear = 2;
-else
+} else {
   Date.prototype.setUTCFullYear = 1;
-if (Date.prototype.setUTCFullYear === x) {
-  $ERROR('#1: The Date.prototype.setUTCFullYear has not the attribute ReadOnly');
 }
+
+assert.notSameValue(
+  Date.prototype.setUTCFullYear,
+  x,
+  'The value of Date.prototype.setUTCFullYear is expected to not equal the value of `x`'
+);
+
+// TODO: Convert to verifyProperty() format.

@@ -2,18 +2,15 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Function prototype object is itself a Function object that, when
     invoked, accepts any arguments and returns undefined
 es5id: 15.3.4_A2_T1
 description: Call Function.prototype()
 ---*/
 
-//CHECK#1
 try {
-  if (Function.prototype() !== undefined) {
-    $ERROR('#1: The Function prototype object is itself a Function object that, when invoked, accepts any arguments and returns undefined');
-  }
+  assert.sameValue(Function.prototype(), undefined, 'Function.prototype() returns undefined');
 } catch (e) {
-  $ERROR('#1.1: The Function prototype object is itself a Function object that, when invoked, accepts any arguments and returns undefined: '+e);
+  throw new Test262Error('#1.1: The Function prototype object is itself a Function object that, when invoked, accepts any arguments and returns undefined: ' + e);
 }

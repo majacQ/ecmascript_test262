@@ -2,9 +2,8 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.from
-es6id: 22.1.2.1
 description: Creating object with custom constructor (traversed via iterator)
-info: >
+info: |
     [...]
     6. If usingIterator is not undefined, then
        a. If IsConstructor(C) is true, then
@@ -27,7 +26,9 @@ var items = {};
 items[Symbol.iterator] = function() {
   return {
     next: function() {
-      return { done: true };
+      return {
+        done: true
+      };
     }
   };
 };
@@ -35,13 +36,13 @@ items[Symbol.iterator] = function() {
 result = Array.from.call(C, items);
 
 assert(
-  result instanceof C, 'Constructed value is an instance of the constructor'
+  result instanceof C, 'The result of evaluating (result instanceof C) is expected to be true'
 );
 assert.sameValue(
   result.constructor,
   C,
-  'Constructed value correctly defines a `constructor` property'
+  'The value of result.constructor is expected to equal the value of C'
 );
-assert.sameValue(callCount, 1, 'Constructor invoked exactly once');
-assert.sameValue(thisVal, result, 'Constructed value is returned');
-assert.sameValue(args.length, 0, 'Constructor invoked without arguments');
+assert.sameValue(callCount, 1, 'The value of callCount is expected to be 1');
+assert.sameValue(thisVal, result, 'The value of thisVal is expected to equal the value of result');
+assert.sameValue(args.length, 0, 'The value of args.length is expected to be 0');

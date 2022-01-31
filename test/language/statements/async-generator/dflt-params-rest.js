@@ -7,7 +7,7 @@ esid: sec-asyncgenerator-definitions-instantiatefunctionobject
 features: [default-parameters, async-iteration]
 flags: [generated]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     AsyncGeneratorDeclaration : async [no LineTerminator here] function * BindingIdentifier
@@ -37,7 +37,7 @@ info: |
       ...BindingPattern[?Yield]
 
 ---*/
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 
 async function* f(...x = []) {

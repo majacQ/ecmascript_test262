@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Parentheses of the form ( Disjunction ) serve both to group the components of the Disjunction pattern together and to save the result of the match.
     The result can be used either in a backreference (\ followed by a nonzero decimal number),
     referenced in a replace string,
@@ -16,7 +16,4 @@ description: >
 
 var __executed = /([Jj]ava([Ss]cript)?)\sis\s(fun\w*)/.test("Developing with JavaScript is dangerous, do not try it without assistance");
 
-//CHECK#1
-if (__executed) {
-	$ERROR('#1: /([Jj]ava([Ss]cript)?)\\sis\\s(fun\\w*)/.test("Developing with JavaScript is dangerous, do not try it without assistance") === false');
-}
+assert(!__executed, 'The value of !__executed is expected to be true');

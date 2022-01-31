@@ -3,22 +3,21 @@
 
 /*---
 esid: sec-array.prototype.foreach
-es5id: 15.4.4.18-7-c-i-8
 description: >
     Array.prototype.forEach - element to be retrieved is inherited
     data property on an Array
 ---*/
 
-        var testResult = false;
+var testResult = false;
 
-        function callbackfn(val, idx, obj) {
-            if (idx === 1) {
-                testResult = (val === 13);
-            }
-        }
+function callbackfn(val, idx, obj) {
+  if (idx === 1) {
+    testResult = (val === 13);
+  }
+}
 
-            Array.prototype[1] = 13;
+Array.prototype[1] = 13;
 
-            [, , , ].forEach(callbackfn);
+[, , , ].forEach(callbackfn);
 
 assert(testResult, 'testResult !== true');

@@ -7,10 +7,10 @@ description: >
     SyntaxError expected: reserved words used as Identifier
     Names in UTF8: finally
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 var fina\u{6c}ly = 123;

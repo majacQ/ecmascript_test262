@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-date.prototype.setutcdate
-es6id: 20.3.4.28
 description: >
   Date.prototype.setUTCDate.name is "setUTCDate".
-info: >
+info: |
   Date.prototype.setUTCDate ( date )
 
   17 ECMAScript Standard Built-in Objects:

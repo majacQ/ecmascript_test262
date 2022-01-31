@@ -5,18 +5,21 @@ esid: sec-proxy-object-internal-methods-and-internal-slots-ownpropertykeys
 description: >
     If target is extensible, return the non-falsy trap result if target doesn't
     contain any non-configurable keys.
-info: >
+info: |
     [[OwnPropertyKeys]] ( )
 
     ...
     15. If extensibleTarget is true and targetNonconfigurableKeys is empty, then
         a. Return trapResult.
+features: [Proxy]
 ---*/
 
-var p = new Proxy({attr: 42}, {
-    ownKeys: function() {
-        return ["foo", "bar"];
-    }
+var p = new Proxy({
+  attr: 42
+}, {
+  ownKeys: function() {
+    return ["foo", "bar"];
+  }
 });
 
 var keys = Object.getOwnPropertyNames(p);

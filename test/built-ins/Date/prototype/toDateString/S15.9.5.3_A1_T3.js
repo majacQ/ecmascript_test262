@@ -4,16 +4,15 @@
 /*---
 info: The Date.prototype property "toDateString" has { DontEnum } attributes
 esid: sec-date.prototype.todatestring
-es5id: 15.9.5.3_A1_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.propertyIsEnumerable('toDateString'),
+  'The value of !Date.prototype.propertyIsEnumerable(\'toDateString\') is expected to be true'
+);
 
-if (Date.prototype.propertyIsEnumerable('toDateString')) {
-  $ERROR('#1: The Date.prototype.toDateString property has the attribute DontEnum');
+for (var x in Date.prototype) {
+  assert.notSameValue(x, "toDateString", 'The value of x is not "toDateString"');
 }
 
-for(var x in Date.prototype) {
-  if(x === "toDateString") {
-    $ERROR('#2: The Date.prototype.toDateString has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

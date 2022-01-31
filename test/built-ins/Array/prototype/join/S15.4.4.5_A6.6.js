@@ -4,11 +4,9 @@
 /*---
 info: The join property of Array has not prototype property
 esid: sec-array.prototype.join
-es5id: 15.4.4.5_A6.6
 description: Checking Array.prototype.join.prototype
 ---*/
 
-//CHECK#1
 if (Array.prototype.join.prototype !== undefined) {
-  $ERROR('#1: Array.prototype.join.prototype === undefined. Actual: ' + (Array.prototype.join.prototype));
+  throw new Test262Error('#1: Array.prototype.join.prototype === undefined. Actual: ' + (Array.prototype.join.prototype));
 }

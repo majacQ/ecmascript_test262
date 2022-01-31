@@ -2,9 +2,8 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-symbol.for
-es6id: 19.4.2.1
 description: Retrieval of previously-created value
-info: >
+info: |
     1. Let stringKey be ? ToString(key).
     2. For each element e of the GlobalSymbolRegistry List,
        a. If SameValue(e.[[Key]], stringKey) is true, return e.[[Symbol]].
@@ -15,6 +14,7 @@ info: >
     5. Append the Record { [[Key]]: stringKey, [[Symbol]]: newSymbol } to the
        GlobalSymbolRegistry List.
     6. Return newSymbol. 
+features: [Symbol]
 ---*/
 
 var canonical = Symbol.for('s');

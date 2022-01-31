@@ -1,7 +1,6 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.1
 esid: sec-array.prototype.concat
 description: >
     Behavior when the @@species attribute is a non-constructor object
@@ -29,4 +28,4 @@ a.constructor[Symbol.species] = parseInt;
 
 assert.throws(TypeError, function() {
   a.concat();
-});
+}, 'a.concat() throws a TypeError exception');

@@ -1,10 +1,10 @@
 # Copyright (C) 2016 the V8 project authors. All rights reserved.
 # This code is governed by the BSD license found in the LICENSE file.
 
-import re, os
+import glob, os, re
 
-from case import Case
-from template import Template
+from .case import Case
+from .template import Template
 
 caseFilenamePattern = re.compile(r'^[^\.].*\.case$')
 templateFilenamePattern = re.compile(r'^[^\.].*\.template$')
@@ -14,23 +14,33 @@ class Expander:
         self.templates = dict()
         self.case_dir = case_dir
 
-    def _load_templates(self, template_class):
-        directory = os.path.join(self.case_dir, template_class)
-        file_names = map(
-            lambda x: os.path.join(directory, x),
-            filter(self.is_template_file, os.listdir(directory))
-        )
+    def _load_templates(self, template_group, encoding):
+        directory = os.path.join(self.case_dir, template_group)
+        file_names = []
 
-        self.templates[template_class] = [Template(x) for x in file_names]
+        for expanded_directory in glob.glob(directory):
+            try:
+                file_names.extend(
+                    map(
+                        lambda x: os.path.join(expanded_directory, x),
+                        filter(self.is_template_file, os.listdir(expanded_directory))
+                    )
+                )
+            except:
+                file_names.append(expanded_directory)
 
-    def _get_templates(self, template_class):
-        if not template_class in self.templates:
-            self._load_templates(template_class)
+        self.templates[template_group] = [
+            Template(x, encoding) for x in file_names
+        ]
 
-        return self.templates[template_class]
+    def _get_templates(self, template_group, encoding):
+        if not template_group in self.templates:
+            self._load_templates(template_group, encoding)
+
+        return self.templates[template_group]
 
     def is_template_file(self, filename):
-      return re.match(templateFilenamePattern, filename)
+        return re.match(templateFilenamePattern, filename)
 
     def list_cases(self):
         for name in os.listdir(self.case_dir):
@@ -49,10 +59,18 @@ class Expander:
                 yield test
 
     def expand_case(self, file_name, encoding):
-        case = Case(file_name)
+        case = Case(file_name, encoding)
+        localtemplates = [];
 
-        template_class = case.attribs['meta']['template']
-        templates = self.templates.get(template_class)
+        if 'template' in case.attribs['meta']:
+            localtemplates.append(case.attribs['meta']['template'])
 
-        for template in self._get_templates(template_class):
-            yield template.expand(file_name, os.path.basename(file_name[:-5]), case.attribs, encoding)
+        if 'templates' in case.attribs['meta']:
+            localtemplates.extend(case.attribs['meta']['templates'])
+
+        for t in localtemplates:
+            template_group = t
+            templates = self.templates.get(template_group)
+
+            for template in self._get_templates(template_group, encoding):
+                yield template.expand(file_name, os.path.basename(file_name[:-5]), case.attribs, encoding)

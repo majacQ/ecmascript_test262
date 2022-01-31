@@ -4,7 +4,6 @@
 /*---
 description: Promise rejection in response to error
 esid: sec-promise.all
-es6id: 25.4.4.1
 info: |
     11. Let result be PerformPromiseAll(iteratorRecord, C, promiseCapability).
     12. If result is an abrupt completion,
@@ -31,9 +30,9 @@ Promise.resolve = function() {
 
 Promise.all([1])
   .then(function() {
-    $ERROR('The promise should not be fulfilled.');
+    throw new Test262Error('The promise should not be fulfilled.');
   }, function(reason) {
     if (reason !== thrown) {
-      $ERROR('The promise should be rejected with the thrown error object');
+      throw new Test262Error('The promise should be rejected with the thrown error object');
     }
   }).then($DONE, $DONE);

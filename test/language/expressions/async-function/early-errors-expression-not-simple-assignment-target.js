@@ -7,10 +7,10 @@ esid: pending
 description: >
   Async function expressions are not a simple assignment target.
 negative:
-  phase: early
-  type: ReferenceError
+  phase: parse
+  type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 (async function foo() { } = 1)

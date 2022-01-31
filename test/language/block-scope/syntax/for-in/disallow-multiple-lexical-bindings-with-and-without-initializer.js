@@ -6,10 +6,10 @@ description: >
     for declaration:
     disallow multiple lexical bindings, with and without initializer
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 for (let x = 3, y in {}) { }
 

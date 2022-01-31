@@ -2,18 +2,21 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype.getMonth property "length" has { ReadOnly, !
     DontDelete, DontEnum } attributes
 esid: sec-date.prototype.getmonth
-es5id: 15.9.5.12_A3_T2
 description: Checking DontDelete attribute
 ---*/
+assert.sameValue(
+  delete Date.prototype.getMonth.length,
+  true,
+  'The value of `delete Date.prototype.getMonth.length` is expected to be true'
+);
 
-if (delete Date.prototype.getMonth.length  !== true) {
-  $ERROR('#1: The Date.prototype.getMonth.length property does not have the attributes DontDelete');
-}
+assert(
+  !Date.prototype.getMonth.hasOwnProperty('length'),
+  'The value of !Date.prototype.getMonth.hasOwnProperty(\'length\') is expected to be true'
+);
 
-if (Date.prototype.getMonth.hasOwnProperty('length')) {
-  $ERROR('#2: The Date.prototype.getMonth.length property does not have the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

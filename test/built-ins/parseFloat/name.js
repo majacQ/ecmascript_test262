@@ -2,11 +2,10 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-es6id: 18.2.4
 esid: sec-parsefloat-string
 description: >
   parseFloat.name is "parseFloat".
-info: >
+info: |
   parseFloat (string)
 
   17 ECMAScript Standard Built-in Objects:

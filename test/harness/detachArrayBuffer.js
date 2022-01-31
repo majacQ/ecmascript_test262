@@ -9,8 +9,6 @@ description: >
     $DETACHBUFFER relies on the presence of a definition for $262.detachArrayBuffer.
 
     Without a definition, calling $DETACHBUFFER will result in a ReferenceError
-
-includes: [sta.js]
 ---*/
 
 var ab = new ArrayBuffer(1);
@@ -21,7 +19,7 @@ try {
 } catch(err) {
   threw = true;
   if (err.constructor !== ReferenceError) {
-    $ERROR(
+    throw new Error(
       'Expected a ReferenceError, but a "' + err.constructor.name +
       '" was thrown.'
     );
@@ -29,7 +27,7 @@ try {
 }
 
 if (threw === false) {
-  $ERROR('Expected a ReferenceError, but no error was thrown.');
+  throw new Error('Expected a ReferenceError, but no error was thrown.');
 }
 
 

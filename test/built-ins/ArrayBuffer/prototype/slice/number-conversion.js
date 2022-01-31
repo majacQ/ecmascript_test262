@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-arraybuffer.prototype.slice
-es6id: 24.1.4.3
 description: >
   ToInteger(start) is called before ToInteger(end).
-info: >
+info: |
   ArrayBuffer.prototype.slice ( start, end )
 
   ...

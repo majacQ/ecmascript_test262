@@ -4,7 +4,6 @@
 /*---
 description: Variable binding is initialized to `undefined` in outer scope (Function declaration in the `case` clause of a `switch` statement in eval code)
 esid: sec-web-compat-evaldeclarationinstantiation
-es6id: B.3.3.3
 flags: [generated, noStrict]
 includes: [fnGlobalObject.js, propertyHelper.js]
 info: |
@@ -21,10 +20,11 @@ info: |
   'var global = fnGlobalObject();\
   assert.sameValue(f, undefined, "binding is initialized to `undefined`");\
   \
-  verifyEnumerable(global, "f");\
-  verifyWritable(global, "f");\
-  verifyConfigurable(global, "f");\
-switch (1) {' +
+  verifyProperty(global, "f", {\
+    enumerable: true,\
+    writable: true,\
+    configurable: true\
+  });switch (1) {' +
   '  case 1:' +
   '    function f() {  }' +
   '}\

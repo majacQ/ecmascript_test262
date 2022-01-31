@@ -3,14 +3,13 @@
 /*---
 es6id: 13.1
 description: >
-    function declarations in statement position in strict mode:
+    function declarations in statement position:
     for ( ;;) Statement
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
-flags: [onlyStrict]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 for (;false;) function g() {}
 

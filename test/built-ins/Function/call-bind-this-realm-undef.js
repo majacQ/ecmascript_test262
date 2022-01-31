@@ -2,9 +2,8 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-ecmascript-function-objects-call-thisargument-argumentslist
-es6id: 9.2.1
 description: The "this" value is set to the global This value
-info: >
+info: |
   [...]
   6. Perform OrdinaryCallBindThis(F, calleeContext, thisArgument).
   [...]
@@ -19,6 +18,7 @@ info: >
         ii. Let globalEnvRec be globalEnv's EnvironmentRecord.
         iii. Let thisValue be globalEnvRec.[[GlobalThisValue]].
   [...]
+features: [cross-realm]
 ---*/
 
 var other = $262.createRealm().global;

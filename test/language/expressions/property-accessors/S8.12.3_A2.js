@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     [[Get]](P) method should return undefined when property P does not exist
     both in instance and prototype
 es5id: 8.12.3_A2
@@ -16,7 +16,7 @@ var __obj={};
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (__obj.propFoo !== undefined){
-  $ERROR('#1: var __obj={}; __obj.propFoo === undefined. Actual: ' + (__obj.propFoo));
+  throw new Test262Error('#1: var __obj={}; __obj.propFoo === undefined. Actual: ' + (__obj.propFoo));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ if (__obj.propFoo !== undefined){
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (__obj['propFoo'] !== undefined){
-  $ERROR('#2: var __obj={}; __obj[\'propFoo\'] === undefined. Actual: ' + (__obj['propFoo']));
+  throw new Test262Error('#2: var __obj={}; __obj[\'propFoo\'] === undefined. Actual: ' + (__obj['propFoo']));
 }
 //
 //////////////////////////////////////////////////////////////////////////////

@@ -3,75 +3,125 @@
 
 /*---
 info: Operator use ToString
-es5id: 15.1.2.2_A1_T7
-es6id: 18.2.5
 esid: sec-parseint-string-radix
 description: If Type(value) is Object, evaluate ToPrimitive(value, String)
 ---*/
 
 //CHECK#1
-var object = {valueOf: function() {return 1}};
-assert.sameValue(parseInt(object), NaN, "{valueOf: function() {return 1}}");
+var object = {
+  valueOf: function() {
+    return 1
+  }
+};
+assert.sameValue(parseInt(object), NaN, 'parseInt({valueOf: function() {return 1}}) must return NaN');
 
 //CHECK#2
-var object = {valueOf: function() {return 1}, toString: function() {return 0}};
-if (parseInt(object) !== 0) {
-  $ERROR('#2: var object = {valueOf: function() {return 1}, toString: function() {return 0}}; parseInt(object) === 0. Actual: ' + (parseInt(object)));
-}
+var object = {
+  valueOf: function() {
+    return 1
+  },
+  toString: function() {
+    return 0
+  }
+};
+
+assert.sameValue(
+  parseInt(object),
+  0,
+  'parseInt({valueOf: function() {return 1}, toString: function() {return 0}}) must return 0'
+);
 
 //CHECK#3
-var object = {valueOf: function() {return 1}, toString: function() {return {}}};
-if (parseInt(object) !== 1) {
-  $ERROR('#3: var object = {valueOf: function() {return 1}, toString: function() {return {}}}; parseInt(object) === 1. Actual: ' + (parseInt(object)));
-}
+var object = {
+  valueOf: function() {
+    return 1
+  },
+  toString: function() {
+    return {}
+  }
+};
+
+assert.sameValue(
+  parseInt(object),
+  1,
+  'parseInt({valueOf: function() {return 1}, toString: function() {return {}}}) must return 1'
+);
 
 //CHECK#4
 try {
-  var object = {valueOf: function() {throw "error"}, toString: function() {return 1}};
-  if (parseInt(object) !== 1) {
-    $ERROR('#4.1: var object = {valueOf: function() {throw "error"}, toString: function() {return 1}}; parseInt(object) === 1. Actual: ' + (parseInt(object)));
-  }
+  var object = {
+    valueOf: function() {
+      throw "error"
+    },
+    toString: function() {
+      return 1
+    }
+  };
+
+  assert.sameValue(
+    parseInt(object),
+    1,
+    'parseInt({valueOf: function() {throw \\"error\\"}, toString: function() {return 1}}) must return 1'
+  );
 }
 catch (e) {
-  if (e === "error") {
-    $ERROR('#4.2: var object = {valueOf: function() {throw "error"}, toString: function() {return 1}}; parseInt(object) not throw "error"');
-  } else {
-    $ERROR('#4.3: var object = {valueOf: function() {throw "error"}, toString: function() {return 1}}; parseInt(object) not throw Error. Actual: ' + (e));
-  }
+  assert.notSameValue(e, "error", 'The value of `e` is not "error"');
 }
 
 //CHECK#5
-var object = {toString: function() {return 1}};
-if (parseInt(object) !== 1) {
-  $ERROR('#5: var object = {toString: function() {return 1}}; parseInt(object) === 1. Actual: ' + (parseInt(object)));
-}
+var object = {
+  toString: function() {
+    return 1
+  }
+};
+assert.sameValue(parseInt(object), 1, 'parseInt({toString: function() {return 1}}) must return 1');
 
 //CHECK#6
-var object = {valueOf: function() {return {}}, toString: function() {return 1}}
-if (parseInt(object) !== 1) {
-  $ERROR('#6: var object = {valueOf: function() {return {}}, toString: function() {return 1}}; parseInt(object) === 1. Actual: ' + (parseInt(object)));
+var object = {
+  valueOf: function() {
+    return {}
+  },
+  toString: function() {
+    return 1
+  }
 }
+
+assert.sameValue(
+  parseInt(object),
+  1,
+  'parseInt({valueOf: function() {return {}}, toString: function() {return 1}}) must return 1'
+);
 
 //CHECK#7
 try {
-  var object = {valueOf: function() {return 1}, toString: function() {throw "error"}};
+  var object = {
+    valueOf: function() {
+      return 1
+    },
+    toString: function() {
+      throw "error"
+    }
+  };
   parseInt(object);
-  $ERROR('#7.1: var object = {valueOf: function() {return 1}, toString: function() {throw "error"}}; parseInt(object) throw "error". Actual: ' + (parseInt(object)));
+  Test262Error.thrower('#7.1: var object = {valueOf: function() {return 1}, toString: function() {throw "error"}}; parseInt(object) throw "error". Actual: ' + (parseInt(object)));
 }
 catch (e) {
-  if (e !== "error") {
-    $ERROR('#7.2: var object = {valueOf: function() {return 1}, toString: function() {throw "error"}}; parseInt(object) throw "error". Actual: ' + (e));
-  }
+  assert.sameValue(e, "error", 'The value of `e` is "error"');
 }
 
 //CHECK#8
 try {
-  var object = {valueOf: function() {return {}}, toString: function() {return {}}};
+  var object = {
+    valueOf: function() {
+      return {}
+    },
+    toString: function() {
+      return {}
+    }
+  };
   parseInt(object);
-  $ERROR('#8.1: var object = {valueOf: function() {return {}}, toString: function() {return {}}}; parseInt(object) throw TypeError. Actual: ' + (parseInt(object)));
+  Test262Error.thrower('#8.1: var object = {valueOf: function() {return {}}, toString: function() {return {}}}; parseInt(object) throw TypeError. Actual: ' + (parseInt(object)));
 }
 catch (e) {
-  if ((e instanceof TypeError) !== true) {
-    $ERROR('#8.2: var object = {valueOf: function() {return {}}, toString: function() {return {}}}; parseInt(object) throw TypeError. Actual: ' + (e));
-  }
+  assert.sameValue(e instanceof TypeError, true, 'The result of `(e instanceof TypeError)` is true');
 }

@@ -4,20 +4,21 @@
 
 /*---
 esid: sec-array.prototype.concat
-es6id: 22.1.3.1_3
 description: Array.prototype.concat array like length to string throws
+features: [Symbol.isConcatSpreadable]
 ---*/
-function MyError() {}
-var obj = {
-  "length": { toString: function() {
-      throw new MyError();
-    }, valueOf: null
+var objWithPoisonedLengthToString = {
+  "length": {
+    toString: function() {
+      throw new Test262Error();
+    },
+    valueOf: null
   },
   "1": "A",
   "3": "B",
   "5": "C"
 };
-obj[Symbol.isConcatSpreadable] = true;
-assert.throws(MyError, function() {
-  [].concat(obj);
-});
+objWithPoisonedLengthToString[Symbol.isConcatSpreadable] = true;
+assert.throws(Test262Error, function() {
+  [].concat(objWithPoisonedLengthToString);
+}, '[].concat(objWithPoisonedLengthToString) throws a Test262Error exception');

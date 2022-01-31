@@ -7,11 +7,11 @@ description: >
 
     It is a Syntax Error if the LexicallyDeclaredNames of StatementList contains any duplicate entries.
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 {
   class A {}
   class A {}

@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-date.now
-es6id: 20.3.3.1
 description: >
   Date.now.name is "now".
-info: >
+info: |
   Date.now ( )
 
   17 ECMAScript Standard Built-in Objects:

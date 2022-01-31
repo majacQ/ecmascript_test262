@@ -3,7 +3,6 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-1-9
 description: Array.prototype.every applied to Function object
 ---*/
 
@@ -11,7 +10,7 @@ function callbackfn(val, idx, obj) {
   return !(obj instanceof Function);
 }
 
-var obj = function (a, b) {
+var obj = function(a, b) {
   return a + b;
 };
 obj[0] = 11;

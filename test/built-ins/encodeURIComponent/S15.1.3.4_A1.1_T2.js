@@ -3,8 +3,6 @@
 
 /*---
 info: If string.charAt(k) in [0xDC00 - 0xDFFF], throw URIError
-es5id: 15.1.3.4_A1.1_T2
-es6id: 18.2.6.5
 esid: sec-encodeuricomponent-uricomponent
 description: Complex tests
 includes: [decimalToHexString.js]
@@ -17,7 +15,6 @@ var indexO = 0;
 
 for (var index = 0xDC00; index <= 0xDFFF; index++) {
   count++;
-  var hex = decimalToHexString(index);
   try {
     encodeURIComponent(String.fromCharCode(index, 0x0041));
   } catch (e) {
@@ -30,11 +27,11 @@ for (var index = 0xDC00; index <= 0xDFFF; index++) {
       if ((indexP - indexO) !== 0) {
         var hexP = decimalToHexString(indexP);
         var hexO = decimalToHexString(indexO);
-        $ERROR('#' + hexO + '-' + hexP + ' ');
+        throw new Test262Error('#' + hexO + '-' + hexP + ' ');
       }
       else {
         var hexP = decimalToHexString(indexP);
-        $ERROR('#' + hexP + ' ');
+        throw new Test262Error('#' + hexP + ' ');
       }
       indexO = index;
     }
@@ -47,10 +44,10 @@ if (errorCount > 0) {
   if ((indexP - indexO) !== 0) {
     var hexP = decimalToHexString(indexP);
     var hexO = decimalToHexString(indexO);
-    $ERROR('#' + hexO + '-' + hexP + ' ');
+    throw new Test262Error('#' + hexO + '-' + hexP + ' ');
   } else {
     var hexP = decimalToHexString(indexP);
-    $ERROR('#' + hexP + ' ');
+    throw new Test262Error('#' + hexP + ' ');
   }
-  $ERROR('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
+  throw new Test262Error('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
 }

@@ -3,8 +3,6 @@
 
 /*---
 info: If B = 11110xxx (n = 4) and (k + 2) + 9 >= length, throw URIError
-es5id: 15.1.3.2_A1.6_T1
-es6id: 18.2.6.3
 esid: sec-decodeuricomponent-encodeduricomponent
 description: Complex tests. B = [0xF0 - 0xF7]
 includes: [decimalToHexString.js]
@@ -37,11 +35,11 @@ for (var index = 0xF0; index <= 0xF7; index++) {
         if ((indexP - indexO) !== 0) {
           var hexP = decimalToHexString(indexP);
           var hexO = decimalToHexString(indexO);
-          $ERROR('#' + hexO + '-' + hexP + ' ');
+          throw new Test262Error('#' + hexO + '-' + hexP + ' ');
         }
         else {
           var hexP = decimalToHexString(indexP);
-          $ERROR('#' + hexP + ' ');
+          throw new Test262Error('#' + hexP + ' ');
         }
         indexO = index;
       }
@@ -55,10 +53,10 @@ if (errorCount > 0) {
   if ((indexP - indexO) !== 0) {
     var hexP = decimalToHexString(indexP);
     var hexO = decimalToHexString(indexO);
-    $ERROR('#' + hexO + '-' + hexP + ' ');
+    throw new Test262Error('#' + hexO + '-' + hexP + ' ');
   } else {
     var hexP = decimalToHexString(indexP);
-    $ERROR('#' + hexP + ' ');
+    throw new Test262Error('#' + hexP + ' ');
   }
-  $ERROR('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
+  throw new Test262Error('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
 }

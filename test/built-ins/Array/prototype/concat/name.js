@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-array.prototype.concat
-es6id: 22.1.3.1
 description: >
   Array.prototype.concat.name is "concat".
-info: >
+info: |
   Array.prototype.concat ( ...arguments )
 
   17 ECMAScript Standard Built-in Objects:
@@ -20,7 +19,11 @@ info: >
 includes: [propertyHelper.js]
 ---*/
 
-assert.sameValue(Array.prototype.concat.name, "concat");
+assert.sameValue(
+  Array.prototype.concat.name,
+  "concat",
+  'The value of Array.prototype.concat.name is expected to be "concat"'
+);
 
 verifyNotEnumerable(Array.prototype.concat, "name");
 verifyNotWritable(Array.prototype.concat, "name");

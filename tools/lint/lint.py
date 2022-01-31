@@ -2,20 +2,54 @@
 # Copyright (C) 2017 Mike Pennisi. All rights reserved.
 # This code is governed by the BSD license found in the LICENSE file.
 
+from __future__ import print_function
+
 import argparse
+import inflect
+import os
+try:
+    from pip._internal import main as pip
+    from pip._internal.req import parse_requirements, InstallRequirement
+except ImportError:
+    from pip import main as pip
+    from pip.req import parse_requirements, InstallRequirement
 import sys
 
+ie = inflect.engine()
+
+try:
+    __import__('yaml')
+except ImportError:
+    for item in parse_requirements("./tools/lint/requirements.txt", session="test262"):
+        if isinstance(item, InstallRequirement):
+            requirement = item.name
+
+            if len(str(item.req.specifier)) > 0:
+                requirement = "{}{}".format(requirement, item.req.specifier)
+
+            # print(requirement)
+            pip(['install', requirement])
+
+
 from lib.collect_files import collect_files
+from lib.checks.esid import CheckEsid
 from lib.checks.features import CheckFeatures
 from lib.checks.frontmatter import CheckFrontmatter
+from lib.checks.harnessfeatures import CheckHarnessFeatures
+from lib.checks.harness import CheckHarness
+from lib.checks.includes import CheckIncludes
 from lib.checks.license import CheckLicense
 from lib.checks.negative import CheckNegative
+from lib.checks.filename import CheckFileName
+from lib.checks.nopadding import CheckNoPadding
+from lib.checks.flags import CheckFlags
+from lib.checks.posix import CheckPosix
 from lib.eprint import eprint
 import lib.frontmatter
-import lib.whitelist
+import lib.exceptions
 
 parser = argparse.ArgumentParser(description='Test262 linting tool')
-parser.add_argument('--whitelist',
+parser.add_argument('--exceptions',
         type=argparse.FileType('r'),
         help='file containing expected linting errors')
 parser.add_argument('path',
@@ -23,9 +57,19 @@ parser.add_argument('path',
         help='file name or directory of files to lint')
 
 checks = [
-        CheckFrontmatter(), CheckFeatures('features.txt'), CheckLicense(),
-        CheckNegative()
-    ]
+    CheckEsid(),
+    CheckFileName(),
+    CheckFrontmatter(),
+    CheckFeatures('features.txt'),
+    CheckHarnessFeatures(),
+    CheckHarness(),
+    CheckIncludes(),
+    CheckLicense(),
+    CheckNegative(),
+    CheckNoPadding(),
+    CheckFlags(),
+    CheckPosix(),
+]
 
 def lint(file_names):
     errors = dict()
@@ -46,34 +90,32 @@ def lint(file_names):
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    if args.whitelist:
-        whitelist = lib.whitelist.parse(args.whitelist)
+    if args.exceptions:
+        exceptions = lib.exceptions.parse(args.exceptions)
     else:
-        whitelist = dict()
+        exceptions = dict()
 
     files = [path for _path in args.path for path in collect_files(_path)]
     file_count = len(files)
-    print 'Linting %s file%s.' % (file_count, 's' if file_count != 1 else '')
+    print('Linting %s %s' % (file_count, ie.plural('file', file_count)))
 
     all_errors = lint(files)
     unexpected_errors = dict(all_errors)
 
-    for file_name, failures in all_errors.iteritems():
-        if file_name not in whitelist:
+    for file_name, failures in all_errors.items():
+        if file_name not in exceptions:
             continue
-        if set(failures.keys()) == whitelist[file_name]:
+        if set(failures.keys()) == exceptions[file_name]:
             del unexpected_errors[file_name]
 
     error_count = len(unexpected_errors)
-    s = 's' if error_count != 1 else ''
-
-    print 'Linting complete. %s error%s found.' % (error_count, s)
+    print('Linting complete. %s %s found.' % (error_count, ie.plural('error', error_count)))
 
     if error_count == 0:
         sys.exit(0)
 
-    for file_name, failures in unexpected_errors.iteritems():
-        for ID, message in failures.iteritems():
-            eprint('%s: %s - %s' % (file_name, ID, message))
+    for file_name, failures in iter(sorted(unexpected_errors.items())):
+        for ID, message in failures.items():
+            eprint('%s: %s - %s' % (os.path.abspath(file_name), ID, message))
 
     sys.exit(1)

@@ -3,13 +3,14 @@
 
 /*---
 description: Object.prototype.propertyIsEnumerable with symbol and toString conversion
-info: >
+info: |
   19.1.3.4 Object.prototype.propertyIsEnumerable ( V )
 
   1. Let P be ToPropertyKey(V).
   2. ReturnIfAbrupt(P).
   ...
 es6id: 19.1.3.4
+features: [Symbol]
 ---*/
 
 var obj = {};
@@ -22,7 +23,7 @@ var wrapper = {
     return sym;
   },
   valueOf: function() {
-    $ERROR("valueOf() called");
+    throw new Test262Error("valueOf() called");
   }
 };
 

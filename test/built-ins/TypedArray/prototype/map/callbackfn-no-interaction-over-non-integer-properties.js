@@ -5,7 +5,7 @@
 esid: sec-%typedarray%.prototype.map
 description: >
   Does not interact over non-integer properties
-info: >
+info: |
   22.2.3.19 %TypedArray%.prototype.map ( callbackfn [ , thisArg ] )
 
   ...
@@ -14,8 +14,8 @@ info: >
     b. Let kValue be ? Get(O, Pk).
     c. Let mappedValue be ? Call(callbackfn, T, « kValue, k, O »).
   ...
-includes: [testTypedArray.js, compareArray.js]
-features: [Symbol]
+includes: [testTypedArray.js]
+features: [Symbol, TypedArray]
 ---*/
 
 testWithTypedArrayConstructors(function(TA) {
@@ -28,6 +28,7 @@ testWithTypedArrayConstructors(function(TA) {
 
   sample.map(function() {
     results.push(arguments);
+    return 0;
   });
 
   assert.sameValue(results.length, 2, "results.length");

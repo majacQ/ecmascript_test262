@@ -5,10 +5,10 @@ es6id: 13.1
 description: >
     const declarations without initialiser
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 const x;
 

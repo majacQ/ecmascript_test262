@@ -16,9 +16,9 @@ description: >
     ReservedWord : FutureReservedWord
 
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 var af = enum => 1;

@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the [[Construct]] property for a Function object F is called:
     A new native ECMAScript object is created.
     Invoke the [[Call]] property of F, providing just created native ECMAScript object as the this value and providing the argument
@@ -27,7 +27,7 @@ var __obj__ = new __func(__FRST, __SCND);
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (__obj__.first !== undefined) {
-	$ERROR('#1: __obj__.first === undefined. Actual: __obj__.first==='+__obj__.first);
+	throw new Test262Error('#1: __obj__.first === undefined. Actual: __obj__.first==='+__obj__.first);
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ if (__obj__.first !== undefined) {
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (__obj__.second !== __SCND) {
-	$ERROR('#2: __obj__.second === __SCND. Actual: __obj__.second ==='+__obj__.second);
+	throw new Test262Error('#2: __obj__.second === __SCND. Actual: __obj__.second ==='+__obj__.second);
 }
 //
 //////////////////////////////////////////////////////////////////////////////

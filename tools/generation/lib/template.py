@@ -5,9 +5,9 @@ import os, re
 import codecs, yaml
 from collections import OrderedDict
 
-from util.find_comments import find_comments
-from util.parse_yaml import parse_yaml
-from test import Test
+from .util.find_comments import find_comments
+from .util.parse_yaml import parse_yaml
+from .test import Test
 
 indentPattern = re.compile(r'^(\s*)')
 interpolatePattern = re.compile(r'\{\s*(\S+)\s*\}')
@@ -50,10 +50,10 @@ def indent(text, prefix = '    ', js_value = False):
     return '\n'.join(indented)
 
 class Template:
-    def __init__(self, filename):
+    def __init__(self, filename, encoding):
         self.filename = filename
 
-        with open(filename) as template_file:
+        with codecs.open(filename, 'r', encoding) as template_file:
             self.source = template_file.read()
 
         self.attribs = dict()
@@ -93,18 +93,16 @@ class Template:
                 continue
 
             match = interpolatePattern.match(comment['source'])
-
-            if match == None:
-                continue
-
-            self.regions.insert(0, dict(name=match.group(1), **comment))
+            if match:
+                self.regions.insert(0, dict(name=match.group(1), **comment))
 
     def expand_regions(self, source, context):
         lines = source.split('\n')
 
         for region in self.regions:
+            region_name = region['name']
             whitespace = indentPattern.match(lines[region['lineno']]).group(1)
-            value = context['regions'].get(region['name'], '')
+            value = context['regions'].get(region_name, '')
 
             str_char = region.get('in_string')
             if str_char:
@@ -112,8 +110,18 @@ class Template:
                 value = value.replace(str_char, safe_char)
                 value = value.replace('\n', '\\\n')
 
+            if "codepoints" in context['region_options'].get(region_name, set()):
+                str_from_cp = chr
+                try:
+                    # In Python 2, explicitly work on code points
+                    str_from_cp = unichr
+                except NameError: pass
+                value = "".join(str_from_cp(int(cp, 16)) for cp in value.split())
+            else:
+                value = indent(value, whitespace, True).lstrip()
+
             source = source[:region['firstchar']] + \
-                indent(value, whitespace, True).lstrip() + \
+                value + \
                 source[region['lastchar']:]
 
         setup = context['regions'].get('setup')
@@ -154,21 +162,9 @@ class Template:
         features += self.attribs['meta'].get('features', [])
         features = list(OrderedDict.fromkeys(features))
         if len(features):
-            lines += ['features: ' + yaml.dump(features).strip()]
+            lines += ['features: ' + re.sub('\n\s*', ' ', yaml.dump(features, default_flow_style=True).strip())]
 
-        flags = ['generated']
-        flags += case_values['meta'].get('flags', [])
-        flags += self.attribs['meta'].get('flags', [])
-        flags = list(OrderedDict.fromkeys(flags))
-        lines += ['flags: ' + yaml.dump(flags).strip()]
-
-        includes = []
-        includes += case_values['meta'].get('includes', [])
-        includes += self.attribs['meta'].get('includes', [])
-        includes = list(OrderedDict.fromkeys(includes))
-        if len(includes):
-            lines += ['includes: ' + yaml.dump(includes).strip()]
-
+        # Reconcile "negative" meta data before "flags"
         if case_values['meta'].get('negative'):
             if self.attribs['meta'].get('negative'):
                 raise Exception('Cannot specify negative in case and template file')
@@ -176,10 +172,24 @@ class Template:
         else:
             negative = self.attribs['meta'].get('negative')
 
+        flags = ['generated']
+        flags += case_values['meta'].get('flags', [])
+        flags += self.attribs['meta'].get('flags', [])
+        flags = list(OrderedDict.fromkeys(flags))
+        if 'async' in flags and negative and negative.get('phase') == 'parse' and negative.get('type') == 'SyntaxError':
+            flags.remove('async')
+        lines += ['flags: ' + re.sub('\n\s*', ' ', yaml.dump(flags, default_flow_style=True).strip())]
+
+        includes = []
+        includes += case_values['meta'].get('includes', [])
+        includes += self.attribs['meta'].get('includes', [])
+        includes = list(OrderedDict.fromkeys(includes))
+        if len(includes):
+            lines += ['includes: ' + re.sub('\n\s*', ' ', yaml.dump(includes, default_flow_style=True).strip())]
+
         if negative:
             lines += ['negative:']
-            as_yaml = yaml.dump(negative,
-                                default_flow_style=False)
+            as_yaml = yaml.dump(negative, default_flow_style=False)
             lines += indent(as_yaml.strip(), '  ').split('\n')
 
         info = []
@@ -200,8 +210,11 @@ class Template:
         return '\n'.join(lines)
 
     def expand(self, case_filename, case_name, case_values, encoding):
-        frontmatter = self._frontmatter(case_filename, case_values)
-        body = self.expand_regions(self.source, case_values)
-
+        assert encoding == 'utf-8'
+        def get_source():
+            frontmatter = self._frontmatter(case_filename, case_values)
+            body = self.expand_regions(self.source, case_values)
+            return codecs.encode(frontmatter + '\n' + body, encoding)
         return Test(self.attribs['meta']['path'] + case_name + '.js',
-            source=codecs.encode(frontmatter + '\n' + body, encoding))
+            dynamic_source=get_source,
+            source_file_names=(self.filename, case_filename))

@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     TryStatement: "try Block Catch" or "try Block Finally" or "try Block
     Catch Finally"
 es5id: 12.14_A16_T8
@@ -10,11 +10,11 @@ description: >
     Block: "{ StatementList }". Catch: "catch (Identifier ) Block".
     Checking if execution of "try{} catch(){finally{}" fails
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 // CHECK#1
 try{}

@@ -3,12 +3,14 @@
 
 /*---
 esid: sec-array.prototype.indexof
-es5id: 15.4.4.14-3-8
 description: >
     Array.prototype.indexOf - value of 'length' is a number (value is
     Infinity)
 ---*/
 
-        var obj = { 0: 0, length: Infinity };
+var obj = {
+  0: 0,
+  length: Infinity
+};
 
 assert.sameValue(Array.prototype.indexOf.call(obj, 0), 0, 'Array.prototype.indexOf.call(obj, 0)');

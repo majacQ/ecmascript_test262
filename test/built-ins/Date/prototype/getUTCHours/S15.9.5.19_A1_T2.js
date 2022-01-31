@@ -4,14 +4,17 @@
 /*---
 info: The Date.prototype property "getUTCHours" has { DontEnum } attributes
 esid: sec-date.prototype.getutchours
-es5id: 15.9.5.19_A1_T2
 description: Checking absence of DontDelete attribute
 ---*/
+assert.notSameValue(
+  delete Date.prototype.getUTCHours,
+  false,
+  'The value of delete Date.prototype.getUTCHours is not false'
+);
 
-if (delete Date.prototype.getUTCHours  === false) {
-  $ERROR('#1: The Date.prototype.getUTCHours property has not the attributes DontDelete');
-}
+assert(
+  !Date.prototype.hasOwnProperty('getUTCHours'),
+  'The value of !Date.prototype.hasOwnProperty(\'getUTCHours\') is expected to be true'
+);
 
-if (Date.prototype.hasOwnProperty('getUTCHours')) {
-  $ERROR('#2: The Date.prototype.getUTCHours property has not the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

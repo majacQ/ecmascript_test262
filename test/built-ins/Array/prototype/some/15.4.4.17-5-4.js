@@ -3,21 +3,21 @@
 
 /*---
 esid: sec-array.prototype.some
-es5id: 15.4.4.17-5-4
 description: >
     Array.prototype.some - thisArg is object from object
     template(prototype)
 ---*/
 
-  var res = false;
-  function callbackfn(val, idx, obj)
-  {
-    return this.res;
-  }
+var res = false;
 
-  function foo(){}
-  foo.prototype.res = true;
-  var f = new foo();
-  var arr = [1];
+function callbackfn(val, idx, obj)
+{
+  return this.res;
+}
 
-assert.sameValue(arr.some(callbackfn,f), true, 'arr.some(callbackfn,f)');
+function foo() {}
+foo.prototype.res = true;
+var f = new foo();
+var arr = [1];
+
+assert.sameValue(arr.some(callbackfn, f), true, 'arr.some(callbackfn,f)');

@@ -4,7 +4,7 @@
 esid: sec-%typedarray%.prototype.reduce
 description: >
   Instance buffer can be detached during loop
-info: >
+info: |
   22.2.3.20 %TypedArray%.prototype.reduce ( callbackfn [ , initialValue ] )
 
   %TypedArray%.prototype.reduce is a distinct function that implements the same
@@ -23,21 +23,20 @@ info: >
       k, O »).
   ...
 includes: [detachArrayBuffer.js, testTypedArray.js]
+features: [TypedArray]
 ---*/
 
 testWithTypedArrayConstructors(function(TA) {
   var loops = 0;
   var sample = new TA(2);
 
-  assert.throws(TypeError, function() {
-    sample.reduce(function() {
-      if (loops === 1) {
-        throw new Test262Error("callbackfn called twice");
-      }
+  sample.reduce(function() {
+    if (loops === 0) {
       $DETACHBUFFER(sample.buffer);
-      loops++;
-    }, 0);
-  });
+    }
+    loops++;
+    return true;
+  }, 0);
 
-  assert.sameValue(loops, 1, "callbackfn called only once");
+  assert.sameValue(loops, 2);
 });

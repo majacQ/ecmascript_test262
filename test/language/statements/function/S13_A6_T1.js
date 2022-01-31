@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     FunctionDeclaration can be overrided by other FunctionDeclaration with
     the same Identifier
 es5id: 13_A6_T1
@@ -22,7 +22,7 @@ var __A = __func();
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (__store__func !== __func) {
-	$ERROR('#1: __store__func === __func. Actual: __store__func ==='+__store__func);
+	throw new Test262Error('#1: __store__func === __func. Actual: __store__func ==='+__store__func);
 }
 //
 ////////////////////////////////////////////////////////////////////////////// 
@@ -30,7 +30,7 @@ if (__store__func !== __func) {
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (__1 !== __A) {
-	$ERROR('#2: __1 === __A. Actual: __1 ==='+__1);
+	throw new Test262Error('#2: __1 === __A. Actual: __1 ==='+__1);
 }
 //
 //////////////////////////////////////////////////////////////////////////////

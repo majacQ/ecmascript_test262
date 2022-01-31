@@ -2,18 +2,21 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype.toTimeString property "length" has { ReadOnly, !
     DontDelete, DontEnum } attributes
 esid: sec-date.prototype.totimestring
-es5id: 15.9.5.4_A3_T2
 description: Checking DontDelete attribute
 ---*/
+assert.sameValue(
+  delete Date.prototype.toTimeString.length,
+  true,
+  'The value of `delete Date.prototype.toTimeString.length` is expected to be true'
+);
 
-if (delete Date.prototype.toTimeString.length  !== true) {
-  $ERROR('#1: The Date.prototype.toTimeString.length property does not have the attributes DontDelete');
-}
+assert(
+  !Date.prototype.toTimeString.hasOwnProperty('length'),
+  'The value of !Date.prototype.toTimeString.hasOwnProperty(\'length\') is expected to be true'
+);
 
-if (Date.prototype.toTimeString.hasOwnProperty('length')) {
-  $ERROR('#2: The Date.prototype.toTimeString.length property does not have the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

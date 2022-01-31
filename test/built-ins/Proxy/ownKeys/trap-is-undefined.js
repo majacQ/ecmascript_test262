@@ -6,15 +6,16 @@ description: >
     [[OwnPropertyKeys]] ( )
 
     6. If trap is undefined, then Return target.[[OwnPropertyKeys]]()
+features: [Proxy]
 ---*/
 
 var target = {
-    foo: 1,
-    bar: 2
+  foo: 1,
+  bar: 2
 };
 var p = new Proxy(target, {});
 
-var keys = Object.keys(p);
+var keys = Object.getOwnPropertyNames(p);
 
 assert.sameValue(keys[0], "foo");
 assert.sameValue(keys[1], "bar");

@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-path: language/block-scope/syntax/redeclaration/async-generator-declaration-attempt-to-
+path: language/block-scope/syntax/redeclaration/async-generator-name-redeclaration-attempt-with-
 name: AsyncGeneratorDeclaration in BlockStatement
 esid: sec-block-static-semantics-early-errors
 info: |
@@ -11,11 +11,11 @@ info: |
   It is a Syntax Error if the LexicallyDeclaredNames of StatementList contains
   any duplicate entries.
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 features: [async-iteration]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 { async function* f() {} /*{ body }*/ }

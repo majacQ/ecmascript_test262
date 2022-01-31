@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-html-like-comments
-es6id: B1.3
 description: >
     Arbitrary character sequence not permitted before HTMLCloseComment token
 info: |
@@ -16,11 +15,11 @@ info: |
     MultiLineComment ::
       /* FirstCommentLine[opt] LineTerminator MultiLineCommentChars[opt] * / HTMLCloseComment[opt]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 /*
 */ the comment should not include these characters, regardless of AnnexB extensions -->

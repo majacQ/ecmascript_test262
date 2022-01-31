@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the Function constructor is called with one argument then body be that argument and the following steps are taken:
     i) Call ToString(body)
     ii) If P is not parsable as a FormalParameterListopt then throw a SyntaxError exception
@@ -16,12 +16,12 @@ description: Value of the function constructor argument is "var 1=1;"
 
 var body = "var 1=1;";
 
-//CHECK#1
 try {
   var f = new Function(body);
-  $ERROR('#1: If body is not parsable as FunctionBody then throw a SyntaxError exception');
+  throw new Test262Error('#1: If body is not parsable as FunctionBody then throw a SyntaxError exception');
 } catch (e) {
-  if (!(e instanceof SyntaxError)) {
-  	$ERROR('#1.1: If body is not parsable as FunctionBody then throw a SyntaxError exception');
-  }
+  assert(
+    e instanceof SyntaxError,
+    'The result of evaluating (e instanceof SyntaxError) is expected to be true'
+  );
 }

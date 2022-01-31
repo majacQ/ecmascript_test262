@@ -4,6 +4,7 @@
 /*---
 description: Use yield value in a array spread position (Generator Function declaration)
 esid: prod-GeneratorDeclaration
+features: [generators]
 flags: [generated]
 includes: [compareArray.js]
 info: |
@@ -11,6 +12,7 @@ info: |
 
     GeneratorDeclaration :
       function * BindingIdentifier ( FormalParameters ) { GeneratorBody }
+
 
     Array Initializer
 
@@ -34,7 +36,7 @@ iter.next(false);
 item = iter.next(['a', 'b', 'c']);
 item = iter.next(item.value);
 
-assert(compareArray(item.value, arr));
+assert.compareArray(item.value, arr);
 assert.sameValue(item.done, false);
 
 assert.sameValue(callCount, 1);

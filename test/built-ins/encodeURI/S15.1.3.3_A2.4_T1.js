@@ -2,12 +2,10 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     If string.charAt(k) in [0xD800 - 0xDBFF] and string.charAt(k+1) in
     [0xDC00 � 0xDFFF], return 4 octets (000wwwxx xxxxyyyy yyzzzzzz ->
     11110www 10xxxxxx 10yyyyyy 10zzzzzz)
-es5id: 15.1.3.3_A2.4_T1
-es6id: 18.2.6.4
 esid: sec-encodeuri-uri
 description: >
     Complex tests, use RFC 3629, string.charAt(k+1) in [0xDC00,
@@ -41,11 +39,11 @@ for (var index = 0xD800; index <= 0xDBFF; index++) {
         if ((indexP - indexO) !== 0) {
           var hexP = decimalToHexString(indexP);
           var hexO = decimalToHexString(indexO);
-          $ERROR('#' + hexO + '-' + hexP + ' ');
+          throw new Test262Error('#' + hexO + '-' + hexP + ' ');
         }
         else {
           var hexP = decimalToHexString(indexP);
-          $ERROR('#' + hexP + ' ');
+          throw new Test262Error('#' + hexP + ' ');
         }
         indexO = index;
       }
@@ -60,10 +58,10 @@ if (errorCount > 0) {
   if ((indexP - indexO) !== 0) {
     var hexP = decimalToHexString(indexP);
     var hexO = decimalToHexString(indexO);
-    $ERROR('#' + hexO + '-' + hexP + ' ');
+    throw new Test262Error('#' + hexO + '-' + hexP + ' ');
   } else {
     var hexP = decimalToHexString(indexP);
-    $ERROR('#' + hexP + ' ');
+    throw new Test262Error('#' + hexP + ' ');
   }
-  $ERROR('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
+  throw new Test262Error('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
 }

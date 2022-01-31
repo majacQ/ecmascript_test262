@@ -3,25 +3,23 @@
 
 /*---
 info: The length property of eval has the attribute DontEnum
-es5id: 15.1.2.1_A4.1
-es6id: 18.2.1
 esid: sec-eval-x
 description: Checking use propertyIsEnumerable, for-in
 ---*/
 
 //CHECK#1
 if (eval.propertyIsEnumerable('length') !== false) {
-  $ERROR('#1: eval.propertyIsEnumerable(\'length\') === false. Actual: ' + (eval.propertyIsEnumerable('length')));
+  throw new Test262Error('#1: eval.propertyIsEnumerable(\'length\') === false. Actual: ' + (eval.propertyIsEnumerable('length')));
 }
 
 //CHECK#2
 var result = true;
-for (p in eval){
+for (p in eval) {
   if (p === "length") {
     result = false;
   }
 }
 
 if (result !== true) {
-  $ERROR('#2: result = true; for (p in eval) { if (p === "length") result = false; };  result === true;');
+  throw new Test262Error('#2: result = true; for (p in eval) { if (p === "length") result = false; };  result === true;');
 }

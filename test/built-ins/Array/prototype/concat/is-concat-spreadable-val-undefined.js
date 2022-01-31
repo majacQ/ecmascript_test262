@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.prototype.concat
-es6id: 22.1.3.1
 description: >
     The `Symbol.isConcatSpreadable` property is defined as the value `undefined`
-info: >
+info: |
     1. Let O be ToObject(this value).
     2. ReturnIfAbrupt(O).
     3. Let A be ArraySpeciesCreate(O, 0).
@@ -39,4 +38,4 @@ var result;
 item[Symbol.isConcatSpreadable] = undefined;
 result = [].concat(item);
 
-assert.sameValue(result.length, 0);
+assert.sameValue(result.length, 0, 'The value of result.length is expected to be 0');

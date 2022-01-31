@@ -3,29 +3,28 @@
 
 /*---
 esid: sec-array.prototype.indexof
-es5id: 15.4.4.14-9-a-19
 description: >
     Array.prototype.indexOf - decreasing length of array does not
     delete non-configurable properties
 flags: [noStrict]
 ---*/
 
-        var arr = [0, 1, 2];
+var arr = [0, 1, 2];
 
-        Object.defineProperty(arr, "2", {
-            get: function () {
-                return "unconfigurable";
-            },
-            configurable: false
-        });
+Object.defineProperty(arr, "2", {
+  get: function() {
+    return "unconfigurable";
+  },
+  configurable: false
+});
 
-        Object.defineProperty(arr, "1", {
-            get: function () {
-                arr.length = 2;
-                return 1;
-            },
-            configurable: true
-        });
+Object.defineProperty(arr, "1", {
+  get: function() {
+    arr.length = 2;
+    return 1;
+  },
+  configurable: true
+});
 
 
 assert.sameValue(arr.indexOf("unconfigurable"), 2, 'arr.indexOf("unconfigurable")');

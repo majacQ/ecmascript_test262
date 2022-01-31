@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The [[Prototype]] property of the newly constructed object
     is set to the original Array prototype object, the one that
     is the initial value of Array.prototype
@@ -12,9 +12,12 @@ description: >
     this property
 ---*/
 
-//CHECK#1
 Array.prototype.myproperty = 42;
 var x = Array();
-assert.sameValue(x.myproperty, 42);
+assert.sameValue(x.myproperty, 42, 'The value of x.myproperty is expected to be 42');
 
-assert.sameValue(Object.prototype.hasOwnProperty.call(x, 'myproperty'), false);
+assert.sameValue(
+  Object.prototype.hasOwnProperty.call(x, 'myproperty'),
+  false,
+  'Object.prototype.hasOwnProperty.call(Array(), "myproperty") must return false'
+);

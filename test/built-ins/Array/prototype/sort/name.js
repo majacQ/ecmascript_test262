@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-array.prototype.sort
-es6id: 22.1.3.24
 description: >
   Array.prototype.sort.name is "sort".
-info: >
+info: |
   Array.prototype.sort (comparefn)
 
   17 ECMAScript Standard Built-in Objects:

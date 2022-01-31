@@ -3,8 +3,6 @@
 
 /*---
 info: The length property of parseFloat has the attribute ReadOnly
-es5id: 15.1.2.3_A7.3
-es6id: 18.2.4
 esid: sec-parsefloat-string
 description: Checking if varying the length property fails
 includes: [propertyHelper.js]
@@ -14,5 +12,5 @@ includes: [propertyHelper.js]
 var x = parseFloat.length;
 verifyNotWritable(parseFloat, "length", null, Infinity);
 if (parseFloat.length !== x) {
-  $ERROR('#1: x = parseFloat.length; parseFloat.length = Infinity; parseFloat.length === x. Actual: ' + (parseFloat.length));
+  throw new Test262Error('#1: x = parseFloat.length; parseFloat.length = Infinity; parseFloat.length === x. Actual: ' + (parseFloat.length));
 }

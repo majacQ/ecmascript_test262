@@ -4,14 +4,13 @@
 /*---
 info: The Date.prototype property "getTime" has { DontEnum } attributes
 esid: sec-date.prototype.getseconds
-es5id: 15.9.5.9_A1_T2
 description: Checking absence of DontDelete attribute
 ---*/
+assert.notSameValue(delete Date.prototype.getTime, false, 'The value of delete Date.prototype.getTime is not false');
 
-if (delete Date.prototype.getTime  === false) {
-  $ERROR('#1: The Date.prototype.getTime property has not the attributes DontDelete');
-}
+assert(
+  !Date.prototype.hasOwnProperty('getTime'),
+  'The value of !Date.prototype.hasOwnProperty(\'getTime\') is expected to be true'
+);
 
-if (Date.prototype.hasOwnProperty('getTime')) {
-  $ERROR('#2: The Date.prototype.getTime property has not the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

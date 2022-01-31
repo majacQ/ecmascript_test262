@@ -2,13 +2,11 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     parseInt may interpret only a leading portion of the string as
     a number value; it ignores any characters that cannot be interpreted as part
     of the notation of an decimal literal, and no indication is given that any such
     characters were ignored.
-es5id: 15.1.2.2_A8
-es6id: 18.2.5
 esid: sec-parseint-string-radix
 description: Complex test without eval
 includes: [decimalToHexString.js]
@@ -21,9 +19,8 @@ var indexP;
 var indexO = 0;
 for (var index = 0; index <= 65535; index++) {
   if ((index < 0x0030) || (index > 0x0039) &&
-      (index < 0x0041) || (index > 0x005A) &&
-      (index < 0x0061) || (index > 0x007A)) {
-    var hex = decimalToHexString(index);
+    (index < 0x0041) || (index > 0x005A) &&
+    (index < 0x0061) || (index > 0x007A)) {
     if (parseInt("1Z" + String.fromCharCode(index), 36) !== 71) {
       if (indexO === 0) {
         indexO = index;
@@ -32,11 +29,11 @@ for (var index = 0; index <= 65535; index++) {
           if ((indexP - indexO) !== 0) {
             var hexP = decimalToHexString(indexP);
             var hexO = decimalToHexString(indexO);
-            $ERROR('#' + hexO + '-' + hexP + ' ');
+            throw new Test262Error('#' + hexO + '-' + hexP + ' ');
           }
           else {
             var hexP = decimalToHexString(indexP);
-            $ERROR('#' + hexP + ' ');
+            throw new Test262Error('#' + hexP + ' ');
           }
           indexO = index;
         }
@@ -52,10 +49,10 @@ if (errorCount > 0) {
   if ((indexP - indexO) !== 0) {
     var hexP = decimalToHexString(indexP);
     var hexO = decimalToHexString(indexO);
-    $ERROR('#' + hexO + '-' + hexP + ' ');
+    throw new Test262Error('#' + hexO + '-' + hexP + ' ');
   } else {
     var hexP = decimalToHexString(indexP);
-    $ERROR('#' + hexP + ' ');
+    throw new Test262Error('#' + hexP + ' ');
   }
-  $ERROR('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
+  throw new Test262Error('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
 }

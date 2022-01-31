@@ -1,7 +1,6 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.16
 esid: sec-array.prototype.map
 description: >
     An undefined value for the @@species constructor triggers the creation  of
@@ -32,7 +31,9 @@ var array = [];
 var maxLength = Math.pow(2, 32);
 var cbCount = 0;
 var setCount = 0;
-var cb = function() { cbCount += 1; };
+var cb = function() {
+  cbCount += 1;
+};
 var proxy = new Proxy(array, {
   get: function(_, name) {
     if (name === 'length') {

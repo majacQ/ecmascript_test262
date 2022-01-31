@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The internal helper function CharacterRange takes two CharSet parameters A and B and performs the
     following:
     2. Let a be the one character in CharSet A.
@@ -16,11 +16,14 @@ description: >
     the correct exception
 ---*/
 
-//CHECK#1
 try {
-  $ERROR('#1.1: /[\\ad-G]/.exec("a") throw SyntaxError. Actual: ' + (new RegExp("[\\ad-G]").exec("a")));
+  throw new Test262Error('#1.1: /[\\ad-G]/.exec("a") throw SyntaxError. Actual: ' + (new RegExp("[\\ad-G]").exec("a")));
 } catch (e) {
-  if((e instanceof SyntaxError) !== true){
-    $ERROR('#1.2: /[\\ad-G]/.exec("a") throw SyntaxError. Actual: ' + (e));
-  }
+  assert.sameValue(
+    e instanceof SyntaxError,
+    true,
+    'The result of evaluating (e instanceof SyntaxError) is expected to be true'
+  );
 }
+
+// TODO: Convert to assert.throws() format.

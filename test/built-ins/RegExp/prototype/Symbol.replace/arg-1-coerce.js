@@ -4,7 +4,7 @@
 /*---
 description: Type coercion of first argument
 es6id: 21.2.5.8
-info: >
+info: |
     21.2.5.8 RegExp.prototype [ @@replace ] ( string, replaceValue )
 
     [...]
@@ -15,7 +15,7 @@ features: [Symbol.replace]
 
 var arg = {
   valueOf: function() {
-    $ERROR('This method should not be invoked.');
+    throw new Test262Error('This method should not be invoked.');
   },
   toString: function() {
     return 'toString value';

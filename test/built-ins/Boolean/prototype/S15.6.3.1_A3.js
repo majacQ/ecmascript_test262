@@ -4,19 +4,14 @@
 /*---
 info: Boolean.prototype has the attribute DontDelete
 esid: sec-boolean.prototype
-es5id: 15.6.3.1_A3
 description: Checking if deleting the Boolean.prototype property fails
 includes: [propertyHelper.js]
+flags: [onlyStrict]
 ---*/
 
 // CHECK#1
 verifyNotConfigurable(Boolean, "prototype");
 
-try {
-  if (delete Boolean.prototype !== false) {
-    $ERROR('#1: Boolean.prototype has the attribute DontDelete');
-  }
-} catch (e) {
-  if (e instanceof Test262Error) throw e;
-  assert(e instanceof TypeError);
-}
+assert.throws(TypeError, () => {
+  delete Boolean.prototype;
+});

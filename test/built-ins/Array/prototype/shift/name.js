@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-array.prototype.shift
-es6id: 22.1.3.21
 description: >
   Array.prototype.shift.name is "shift".
-info: >
+info: |
   Array.prototype.shift ( )
 
   17 ECMAScript Standard Built-in Objects:

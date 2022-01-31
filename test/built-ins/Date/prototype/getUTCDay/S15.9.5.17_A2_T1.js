@@ -4,14 +4,16 @@
 /*---
 info: The "length" property of the "getUTCDay" is 0
 esid: sec-date.prototype.getutcdaty
-es5id: 15.9.5.17_A2_T1
 description: The "length" property of the "getUTCDay" is 0
 ---*/
+assert.sameValue(
+  Date.prototype.getUTCDay.hasOwnProperty("length"),
+  true,
+  'Date.prototype.getUTCDay.hasOwnProperty("length") must return true'
+);
 
-if(Date.prototype.getUTCDay.hasOwnProperty("length") !== true){
-  $ERROR('#1: The getUTCDay has a "length" property');
-}
-
-if(Date.prototype.getUTCDay.length !== 0){
-  $ERROR('#2: The "length" property of the getUTCDay is 0');
-}
+assert.sameValue(
+  Date.prototype.getUTCDay.length,
+  0,
+  'The value of Date.prototype.getUTCDay.length is expected to be 0'
+);

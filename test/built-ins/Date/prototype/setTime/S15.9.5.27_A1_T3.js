@@ -4,16 +4,15 @@
 /*---
 info: The Date.prototype property "setTime" has { DontEnum } attributes
 esid: sec-date.prototype.settime
-es5id: 15.9.5.27_A1_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.propertyIsEnumerable('setTime'),
+  'The value of !Date.prototype.propertyIsEnumerable(\'setTime\') is expected to be true'
+);
 
-if (Date.prototype.propertyIsEnumerable('setTime')) {
-  $ERROR('#1: The Date.prototype.setTime property has the attribute DontEnum');
+for (var x in Date.prototype) {
+  assert.notSameValue(x, "setTime", 'The value of x is not "setTime"');
 }
 
-for(var x in Date.prototype) {
-  if(x === "setTime") {
-    $ERROR('#2: The Date.prototype.setTime has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

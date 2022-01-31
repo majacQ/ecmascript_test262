@@ -3,11 +3,12 @@
 /*---
 description: |
     Used in website/scripts/sth.js
+defines: [setTimeout]
 ---*/
 //setTimeout is not available, hence this script was loaded
 if (Promise === undefined && this.setTimeout === undefined) {
   if(/\$DONE()/.test(code))
-    $ERROR("Async test capability is not supported in your test environment");
+    throw new Test262Error("Async test capability is not supported in your test environment");
 }
 
 if (Promise !== undefined && this.setTimeout === undefined) {

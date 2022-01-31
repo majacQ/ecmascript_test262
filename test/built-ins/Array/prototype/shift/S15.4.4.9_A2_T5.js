@@ -2,11 +2,10 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The shift function is intentionally generic.
     It does not require that its this value be an Array object
 esid: sec-array.prototype.shift
-es5id: 15.4.4.9_A2_T5
 description: >
     Operator use ToNumber from length.  If Type(value) is Object,
     evaluate ToPrimitive(value, Number)
@@ -15,85 +14,111 @@ description: >
 var obj = {};
 obj.shift = Array.prototype.shift;
 
-//CHECK#1
 obj[0] = -1;
-obj.length = {valueOf: function() {return 1}};
+obj.length = {
+  valueOf() {
+    return 1
+  }
+};
 var shift = obj.shift();
-if (shift !== -1) {
-  $ERROR('#1: obj[0] = -1; obj.length = {valueOf: function() {return 1}}  obj.shift() === -1. Actual: ' + (shift));
-}
+assert.sameValue(shift, -1, 'The value of shift is expected to be -1');
 
-//CHECK#2
 obj[0] = -1;
-obj.length = {valueOf: function() {return 1}, toString: function() {return 0}};
+obj.length = {
+  valueOf() {
+    return 1
+  },
+  toString() {
+    return 0
+  }
+};
 var shift = obj.shift();
-if (shift !== -1) {
-  $ERROR('#0: obj[0] = -1; obj.length = {valueOf: function() {return 1}, toString: function() {return 0}}  obj.shift() === -1. Actual: ' + (shift));
-}
+assert.sameValue(shift, -1, 'The value of shift is expected to be -1');
 
-//CHECK#3
 obj[0] = -1;
-obj.length = {valueOf: function() {return 1}, toString: function() {return {}}};
+obj.length = {
+  valueOf() {
+    return 1
+  },
+  toString() {
+    return {}
+  }
+};
 var shift = obj.shift();
-if (shift !== -1) {
-  $ERROR('#3: obj[0] = -1; obj.length = {valueOf: function() {return 1}, toString: function() {return {}}}  obj.shift() === -1. Actual: ' + (shift));
-}
+assert.sameValue(shift, -1, 'The value of shift is expected to be -1');
 
-//CHECK#4
 try {
   obj[0] = -1;
-  obj.length = {valueOf: function() {return 1}, toString: function() {throw "error"}};
+  obj.length = {
+    valueOf() {
+      return 1
+    },
+    toString() {
+      throw "error"
+    }
+  };
   var shift = obj.shift();
-if (shift !== -1) {
-    $ERROR('#4.1: obj[0] = -1; obj.length = {valueOf: function() {return 1}, toString: function() {throw "error"}}; obj.shift() === ",". Actual: ' + (shift));
-  }
+  assert.sameValue(shift, -1, 'The value of shift is expected to be -1');
 }
 catch (e) {
-  if (e === "error") {
-    $ERROR('#4.2: obj[0] = -1; obj.length = {valueOf: function() {return 1}, toString: function() {throw "error"}}; obj.shift() not throw "error"');
-  } else {
-    $ERROR('#4.3: obj[0] = -1; obj.length = {valueOf: function() {return 1}, toString: function() {throw "error"}}; obj.shift() not throw Error. Actual: ' + (e));
+  assert.notSameValue(e, "error", 'The value of e is not "error"');
+}
+
+obj[0] = -1;
+obj.length = {
+  toString() {
+    return 0
+  }
+};
+var shift = obj.shift();
+assert.sameValue(shift, undefined, 'The value of shift is expected to equal undefined');
+
+obj[0] = -1;
+obj.length = {
+  valueOf() {
+    return {}
+  },
+  toString() {
+    return 0
   }
 }
-
-//CHECK#5
-obj[0] = -1;
-obj.length = {toString: function() {return 0}};
 var shift = obj.shift();
-if (shift !== undefined) {
-  $ERROR('#5: obj[0] = -1; obj.length = {toString: function() {return 0}}  obj.shift() === undefined. Actual: ' + (shift));
-}
+assert.sameValue(shift, undefined, 'The value of shift is expected to equal undefined');
 
-//CHECK#6
-obj[0] = -1;
-obj.length = {valueOf: function() {return {}}, toString: function() {return 0}}
-var shift = obj.shift();
-if (shift !== undefined) {
-  $ERROR('#6: obj[0] = -1; obj.length = {valueOf: function() {return {}}, toString: function() {return 0}}  obj.shift() === undefined. Actual: ' + (shift));
-}
-
-//CHECK#7
 try {
   obj[0] = -1;
-  obj.length = {valueOf: function() {throw "error"}, toString: function() {return 0}};
+  obj.length = {
+    valueOf() {
+      throw "error"
+    },
+    toString() {
+      return 0
+    }
+  };
   var shift = obj.shift();
-  $ERROR('#7.1: obj[0] = -1; obj.length = {valueOf: function() {throw "error"}, toString: function() {return 0}}; obj.shift() throw "error". Actual: ' + (shift));
+  throw new Test262Error('#7.1: obj[0] = -1; obj.length = {valueOf() {throw "error"}, toString() {return 0}}; obj.shift() throw "error". Actual: ' + (shift));
 }
 catch (e) {
-  if (e !== "error") {
-    $ERROR('#7.2: obj[0] = -1; obj.length = {valueOf: function() {throw "error"}, toString: function() {return 0}}; obj.shift() throw "error". Actual: ' + (e));
-  }
+  assert.sameValue(e, "error", 'The value of e is expected to be "error"');
 }
 
-//CHECK#8
 try {
   obj[0] = -1;
-  obj.length = {valueOf: function() {return {}}, toString: function() {return {}}};
+  obj.length = {
+    valueOf() {
+      return {}
+    },
+    toString() {
+      return {}
+    }
+  };
   var shift = obj.shift();
-  $ERROR('#8.1: obj[0] = -1; obj.length = {valueOf: function() {return {}}, toString: function() {return {}}}  obj.shift() throw TypeError. Actual: ' + (shift));
+  throw new Test262Error('#8.1: obj[0] = -1; obj.length = {valueOf() {return {}}, toString() {return {}}}  obj.shift() throw TypeError. Actual: ' + (shift));
 }
 catch (e) {
-  if ((e instanceof TypeError) !== true) {
-    $ERROR('#8.2: obj[0] = -1; obj.length = {valueOf: function() {return {}}, toString: function() {return {}}}  obj.shift() throw TypeError. Actual: ' + (e));
-  }
+  assert.sameValue(
+    e instanceof TypeError,
+    true,
+    'The result of evaluating (e instanceof TypeError) is expected to be true'
+  );
 }

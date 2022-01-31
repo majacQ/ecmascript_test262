@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-array.prototype.tolocalestring
-es6id: 22.1.3.26
 description: >
   Array.prototype.toLocaleString.name is "toLocaleString".
-info: >
+info: |
   Array.prototype.toLocaleString ( [ reserved1 [ , reserved2 ] ] )
 
   17 ECMAScript Standard Built-in Objects:

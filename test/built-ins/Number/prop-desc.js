@@ -2,11 +2,10 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-es6id: 20.1.1.1
 esid: sec-number-constructor-number-value
 description: >
   Property descriptor of Number
-info: >
+info: |
   17 ECMAScript Standard Built-in Objects:
 
   Every other data property described in clauses 18 through 26 and in Annex B.2

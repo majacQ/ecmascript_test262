@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.prototype.fill
-es6id: 22.1.3.6
 description: >
   Fills all the elements with `value` from a defaul start and index.
-info: >
+info: |
   22.1.3.6 Array.prototype.fill (value [ , start [ , end ] ] )
 
   ...
@@ -25,14 +24,10 @@ info: >
 includes: [compareArray.js]
 ---*/
 
-assert(compareArray([].fill(8), []));
+assert.compareArray([].fill(8), [], '[].fill(8) must return []');
 
-assert(compareArray(
-  [0, 0].fill(),
-  [undefined, undefined]
-));
+assert.compareArray([0, 0].fill(), [undefined, undefined], '[0, 0].fill() must return [undefined, undefined]');
 
-assert(
-  compareArray([0, 0, 0].fill(8), [8, 8, 8]),
-  'Default start and end indexes are 0 and this.length'
+assert.compareArray([0, 0, 0].fill(8), [8, 8, 8],
+  '[0, 0, 0].fill(8) must return [8, 8, 8]'
 );

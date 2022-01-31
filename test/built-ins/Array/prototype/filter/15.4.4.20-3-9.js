@@ -3,21 +3,24 @@
 
 /*---
 esid: sec-array.prototype.filter
-es5id: 15.4.4.20-3-9
 description: >
     Array.prototype.filter - value of 'length' is a number (value is
     -Infinity)
 ---*/
 
-        var accessed = false;
-        function callbackfn(val, idx, obj) {
-            accessed = true;
-            return true;
-        }
+var accessed = false;
 
-        var obj = { 0: 9, length: -Infinity };
+function callbackfn(val, idx, obj) {
+  accessed = true;
+  return true;
+}
 
-        var newArr = Array.prototype.filter.call(obj, callbackfn);
+var obj = {
+  0: 9,
+  length: -Infinity
+};
+
+var newArr = Array.prototype.filter.call(obj, callbackfn);
 
 assert.sameValue(newArr.length, 0, 'newArr.length');
 assert.sameValue(accessed, false, 'accessed');

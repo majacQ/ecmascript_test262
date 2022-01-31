@@ -4,8 +4,7 @@
 /*---
 description: Spread operation follows [[OwnPropertyKeys]] order (SuperCall)
 esid: sec-super-keyword-runtime-semantics-evaluation
-es6id: 12.3.5.1
-features: [object-spread]
+features: [Symbol, object-spread]
 flags: [generated]
 includes: [compareArray.js]
 info: |
@@ -39,7 +38,7 @@ var callCount = 0;
 
 class Test262ParentClass {
   constructor(obj) {
-    assert(compareArray(calls, [1, 'z', 'a', "Symbol(foo)"]));
+    assert.compareArray(calls, [1, 'z', 'a', "Symbol(foo)"]);
     assert.sameValue(Object.keys(obj).length, 3);
     callCount += 1;
   }

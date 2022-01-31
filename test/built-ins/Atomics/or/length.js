@@ -6,7 +6,7 @@
 esid: sec-atomics.or
 description: >
   Atomics.or.length is 3.
-info: >
+info: |
   Atomics.or ( ia, index, val )
 
   17 ECMAScript Standard Built-in Objects:
@@ -21,10 +21,12 @@ info: >
     object has the attributes { [[Writable]]: false, [[Enumerable]]: false,
     [[Configurable]]: true }.
 includes: [propertyHelper.js]
+features: [Atomics]
 ---*/
 
-assert.sameValue(Atomics.or.length, 3);
-
-verifyNotEnumerable(Atomics.or, "length");
-verifyNotWritable(Atomics.or, "length");
-verifyConfigurable(Atomics.or, "length");
+verifyProperty(Atomics.or, 'length', {
+  value: 3,
+  enumerable: false,
+  writable: false,
+  configurable: true,
+});

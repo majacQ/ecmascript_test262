@@ -3,26 +3,25 @@
 
 /*---
 esid: sec-array.prototype.filter
-es5id: 15.4.4.20-9-c-i-20
 description: >
     Array.prototype.filter - element to be retrieved is own accessor
     property without a get function that overrides an inherited
     accessor property on an Array
 ---*/
 
-        function callbackfn(val, idx, obj) {
-            return undefined === val && idx === 0;
-        }
+function callbackfn(val, idx, obj) {
+  return undefined === val && idx === 0;
+}
 
-        var arr = [];
+var arr = [];
 
-        Object.defineProperty(arr, "0", {
-            set: function () { },
-            configurable: true
-        });
+Object.defineProperty(arr, "0", {
+  set: function() {},
+  configurable: true
+});
 
-            Array.prototype[0] = 100;
-            var newArr = arr.filter(callbackfn);
+Array.prototype[0] = 100;
+var newArr = arr.filter(callbackfn);
 
 assert.sameValue(newArr.length, 1, 'newArr.length');
 assert.sameValue(newArr[0], undefined, 'newArr[0]');

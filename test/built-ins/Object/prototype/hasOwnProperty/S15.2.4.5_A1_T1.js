@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the hasOwnProperty method is called with argument V, the following steps are taken:
     i) Let O be this object
     ii) Call ToString(V)
@@ -13,14 +13,13 @@ description: >
     Checking type of the Object.prototype.hasOwnProperty and the
     returned result
 ---*/
+assert.sameValue(
+  typeof Object.prototype.hasOwnProperty,
+  "function",
+  'The value of `typeof Object.prototype.hasOwnProperty` is expected to be "function"'
+);
 
-//CHECK#1
-if (typeof Object.prototype.hasOwnProperty !== "function") {
-  $ERROR('#1: hasOwnProperty method is defined');
-}
-
-//CHECK#2
-if (!(Object.prototype.hasOwnProperty("hasOwnProperty"))) {
-  $ERROR('#2: hasOwnProperty method works properly');
-}
-//
+assert(
+  !!Object.prototype.hasOwnProperty("hasOwnProperty"),
+  'The value of !!Object.prototype.hasOwnProperty("hasOwnProperty") is expected to be true'
+);

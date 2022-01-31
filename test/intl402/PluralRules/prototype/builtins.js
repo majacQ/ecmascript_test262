@@ -8,7 +8,9 @@ description: >
     built-in objects defined by the introduction of chapter 17 of the
     ECMAScript Language Specification.
 author: Zibi Braniecki
-includes: [testBuiltInObject.js]
 ---*/
 
-testBuiltInObject(Intl.PluralRules.prototype, false, false, ["constructor", "select", "resolvedOptions"]);
+assert(Object.isExtensible(Intl.PluralRules.prototype), "Built-in objects must be extensible.");
+
+assert.sameValue(Object.getPrototypeOf(Intl.PluralRules.prototype), Object.prototype,
+                 "Built-in prototype objects must have Object.prototype as their prototype.");

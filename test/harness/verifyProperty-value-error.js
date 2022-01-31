@@ -8,7 +8,7 @@ description: >
         verifyProperty()
         ...
 
-includes: [propertyHelper.js,sta.js]
+includes: [propertyHelper.js]
 ---*/
 
 var threw = false;
@@ -29,11 +29,11 @@ try {
     );
   }
 
-  if (err.message !== 'descriptor value should be 2 Expected SameValue(«1», «0») to be true') {
-    $ERROR('The error thrown did not define the specified message.');
+  if (err.message !== 'descriptor value should be 2') {
+    throw new Error('The error thrown did not define the specified message.');
   }
 }
 
 if (threw === false) {
-  $ERROR('Expected a Test262Error, but no error was thrown.');
+  throw new Error('Expected a Test262Error, but no error was thrown.');
 }

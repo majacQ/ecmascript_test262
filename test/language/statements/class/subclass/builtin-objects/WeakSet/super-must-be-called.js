@@ -3,7 +3,7 @@
 /*---
 es6id: 23.4.1
 description: Super need to be called to initialize internals
-info: >
+info: |
   23.4.1 The WeakSet Constructor
 
   ...
@@ -14,6 +14,7 @@ info: >
   the WeakSet constructor to create and initialize the subclass instance with
   the internal state necessary to support the WeakSet.prototype built-in
   methods.
+features: [WeakSet]
 ---*/
 
 class WS1 extends WeakSet {

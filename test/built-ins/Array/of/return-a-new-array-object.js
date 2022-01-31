@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.of
-es6id: 22.1.2.3
 description: >
   Returns a new Array.
-info: >
+info: |
   Array.of ( ...items )
 
   1. Let len be the actual number of arguments passed to this function.
@@ -20,22 +19,22 @@ info: >
 ---*/
 
 var result = Array.of();
-assert(result instanceof Array, 'Array.of() returns a new Array');
+assert(result instanceof Array, 'The result of evaluating (result instanceof Array) is expected to be true');
 
 result = Array.of.call(undefined);
 assert(
   result instanceof Array,
-  'this is not a constructor'
+  'The result of evaluating (result instanceof Array) is expected to be true'
 );
 
 result = Array.of.call(Math.cos);
 assert(
   result instanceof Array,
-  'this is a builtin function with no [[Construct]] slot'
+  'The result of evaluating (result instanceof Array) is expected to be true'
 );
 
 result = Array.of.call(Math.cos.bind(Math));
 assert(
   result instanceof Array,
-  'this is a bound builtin function with no [[Construct]] slot'
+  'The result of evaluating (result instanceof Array) is expected to be true'
 );

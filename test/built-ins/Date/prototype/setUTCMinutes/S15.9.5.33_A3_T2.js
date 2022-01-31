@@ -2,18 +2,21 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype.setUTCMinutes property "length" has { ReadOnly, !
     DontDelete, DontEnum } attributes
 esid: sec-date.prototype.setutcminutes
-es5id: 15.9.5.33_A3_T2
 description: Checking DontDelete attribute
 ---*/
+assert.sameValue(
+  delete Date.prototype.setUTCMinutes.length,
+  true,
+  'The value of `delete Date.prototype.setUTCMinutes.length` is expected to be true'
+);
 
-if (delete Date.prototype.setUTCMinutes.length  !== true) {
-  $ERROR('#1: The Date.prototype.setUTCMinutes.length property does not have the attributes DontDelete');
-}
+assert(
+  !Date.prototype.setUTCMinutes.hasOwnProperty('length'),
+  'The value of !Date.prototype.setUTCMinutes.hasOwnProperty(\'length\') is expected to be true'
+);
 
-if (Date.prototype.setUTCMinutes.hasOwnProperty('length')) {
-  $ERROR('#2: The Date.prototype.setUTCMinutes.length property does not have the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

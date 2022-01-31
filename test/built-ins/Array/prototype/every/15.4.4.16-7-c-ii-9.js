@@ -3,18 +3,17 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-7-c-ii-9
 description: >
     Array.prototype.every - callbackfn is called with 0 formal
     parameter
 ---*/
 
-        var called = 0;
+var called = 0;
 
-        function callbackfn() {
-            called++;
-            return true;
-        }
+function callbackfn() {
+  called++;
+  return true;
+}
 
 assert([11, 12].every(callbackfn), '[11, 12].every(callbackfn) !== true');
 assert.sameValue(called, 2, 'called');

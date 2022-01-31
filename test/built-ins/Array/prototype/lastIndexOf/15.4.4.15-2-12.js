@@ -3,24 +3,25 @@
 
 /*---
 esid: sec-array.prototype.lastindexof
-es5id: 15.4.4.15-2-12
 description: >
     Array.prototype.lastIndexOf - 'length' is own accessor property
     without a get function that overrides an inherited accessor
     property on an Array-like object
 ---*/
 
-            Object.defineProperty(Object.prototype, "length", {
-                get: function () {
-                    return 20;
-                },
-                configurable: true
-            });
+Object.defineProperty(Object.prototype, "length", {
+  get: function() {
+    return 20;
+  },
+  configurable: true
+});
 
-            var obj = { 1: 1 };
-            Object.defineProperty(obj, "length", {
-                set: function () { },
-                configurable: true
-            });
+var obj = {
+  1: 1
+};
+Object.defineProperty(obj, "length", {
+  set: function() {},
+  configurable: true
+});
 
 assert.sameValue(Array.prototype.lastIndexOf.call(obj, 1), -1, 'Array.prototype.lastIndexOf.call(obj, 1)');

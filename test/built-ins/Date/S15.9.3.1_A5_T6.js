@@ -1,7 +1,7 @@
 // Copyright 2009 the Sputnik authors.  All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-info: >
+info: |
     The [[Value]] property of the newly constructed object
     is set by following steps:
     8. If Result(1) is not NaN and 0 <= ToInteger(Result(1)) <= 99, Result(8) is
@@ -12,7 +12,6 @@ info: >
     12. Set the [[Value]] property of the newly constructed object to
     TimeClip(UTC(Result(11)))
 esid: sec-date-year-month-date-hours-minutes-seconds-ms
-es5id: 15.9.3.1_A5_T6
 description: 7 arguments, (year, month, date, hours, minutes, seconds, ms)
 includes: [assertRelativeDateMs.js]
 ---*/

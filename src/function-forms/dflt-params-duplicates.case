@@ -6,7 +6,7 @@ desc: >
   elements.
 template: syntax
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
   14.1.2 Static Semantics: Early Errors
@@ -25,6 +25,6 @@ features: [default-parameters]
 ---*/
 
 //- setup
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 //- params
 x = 0, x

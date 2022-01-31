@@ -4,14 +4,18 @@
 /*---
 info: The Date.prototype property "toLocaleString" has { DontEnum } attributes
 esid: sec-date.prototype.tolocalestring
-es5id: 15.9.5.5_A1_T2
 description: Checking absence of DontDelete attribute
 ---*/
 
-if (delete Date.prototype.toLocaleString  === false) {
-  $ERROR('#1: The Date.prototype.toLocaleString property has not the attributes DontDelete');
-}
+assert.notSameValue(
+  delete Date.prototype.toLocaleString,
+  false,
+  'The value of delete Date.prototype.toLocaleString is not false'
+);
 
-if (Date.prototype.hasOwnProperty('toLocaleString')) {
-  $ERROR('#2: The Date.prototype.toLocaleString property has not the attributes DontDelete');
-}
+assert(
+  !Date.prototype.hasOwnProperty('toLocaleString'),
+  'The value of !Date.prototype.hasOwnProperty(\'toLocaleString\') is expected to be true'
+);
+
+// TODO: Convert to verifyProperty() format.

@@ -3,43 +3,46 @@
 
 /*---
 esid: sec-array.prototype.reduce
-es5id: 15.4.4.21-9-c-i-13
 description: >
     Array.prototype.reduce - element to be retrieved is own accessor
     property that overrides an inherited accessor property on an
     Array-like object
 ---*/
 
-        var testResult = false;
-        var initialValue = 0;
-        function callbackfn(prevVal, curVal, idx, obj) {
-            if (idx === 1) {
-                testResult = (curVal === "11");
-            }
-        }
+var testResult = false;
+var initialValue = 0;
 
-        var proto = { 0: 0, 2: 2};
+function callbackfn(prevVal, curVal, idx, obj) {
+  if (idx === 1) {
+    testResult = (curVal === "11");
+  }
+}
 
-        Object.defineProperty(proto, "1", {
-            get: function () {
-                return 1;
-            },
-            configurable: true
-        });
+var proto = {
+  0: 0,
+  2: 2
+};
 
-        var Con = function () { };
-        Con.prototype = proto;
+Object.defineProperty(proto, "1", {
+  get: function() {
+    return 1;
+  },
+  configurable: true
+});
 
-        var child = new Con();
-        child.length = 3;
+var Con = function() {};
+Con.prototype = proto;
 
-        Object.defineProperty(child, "1", {
-            get: function () {
-                return "11";
-            },
-            configurable: true
-        });
+var child = new Con();
+child.length = 3;
 
-        Array.prototype.reduce.call(child, callbackfn, initialValue);
+Object.defineProperty(child, "1", {
+  get: function() {
+    return "11";
+  },
+  configurable: true
+});
+
+Array.prototype.reduce.call(child, callbackfn, initialValue);
 
 assert(testResult, 'testResult !== true');

@@ -14,11 +14,11 @@ info: |
   3. Return ContainsUndefinedContinueTarget of LabelledItem with arguments
      iterationSet and newLabelSet.
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 do {
   test262: {

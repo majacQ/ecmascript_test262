@@ -7,7 +7,7 @@ esid: sec-asyncgenerator-definitions-propertydefinitionevaluation
 features: [default-parameters, async-iteration]
 flags: [generated]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     AsyncGeneratorMethod :
@@ -42,7 +42,7 @@ info: |
       ...BindingPattern[?Yield]
 
 ---*/
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 0, {
   async *method(...x = []) {

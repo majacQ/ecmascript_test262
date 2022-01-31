@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     A TypeError exception is thrown if the this value is not an object for
     which the value of the internal [[Class]] property is "RegExp"
 es5id: 15.10.6.3_A2_T1
@@ -13,11 +13,14 @@ var __instance = new Object;
 
 __instance.test = RegExp.prototype.test;
 
-//CHECK#1
 try {
-  $ERROR('#1.1: __instance = new Object; __instance.test = RegExp.prototype.test; __instance.test("message to investigate"). Actual: ' + (__instance.test("message to investigate")));
+  throw new Test262Error('#1.1: __instance = new Object; __instance.test = RegExp.prototype.test; __instance.test("message to investigate"). Actual: ' + (__instance.test("message to investigate")));
 } catch (e) {
-  if ((e instanceof TypeError) !== true) {
-    $ERROR('#1.2: __instance = new Object; __instance.test = RegExp.prototype.test. Actual: ' + (e));
-  }
+  assert.sameValue(
+    e instanceof TypeError,
+    true,
+    'The result of evaluating (e instanceof TypeError) is expected to be true'
+  );
 }
+
+// TODO: Convert to assert.throws() format.

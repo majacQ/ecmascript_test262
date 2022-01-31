@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Labelled statements are only used in conjunction with labelled
     break and continue statements
 es5id: 12.12_A1_T1
@@ -17,5 +17,5 @@ lbl: for(var i in object){
 }
 
 if(!(result === 1)){
-  $ERROR("'break label' should break execution of labelled iteration statement");
+  throw new Test262Error("'break label' should break execution of labelled iteration statement");
 }

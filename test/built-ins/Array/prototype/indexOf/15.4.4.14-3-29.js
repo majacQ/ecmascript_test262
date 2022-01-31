@@ -3,18 +3,17 @@
 
 /*---
 esid: sec-array.prototype.indexof
-es5id: 15.4.4.14-3-29
 description: >
     Array.prototype.indexOf - value of 'length' is boundary value
     (2^32 + 1)
 ---*/
 
-        var targetObj = {};
-        var obj = {
-            0: targetObj,
-            1: 4294967297,
-            length: 4294967297
-        };
+var targetObj = {};
+var obj = {
+  0: targetObj,
+  1: 4294967297,
+  length: 4294967297
+};
 
 assert.sameValue(Array.prototype.indexOf.call(obj, targetObj), 0, 'Array.prototype.indexOf.call(obj, targetObj)');
 assert.sameValue(Array.prototype.indexOf.call(obj, 4294967297), 1, 'Array.prototype.indexOf.call(obj, 4294967297)');

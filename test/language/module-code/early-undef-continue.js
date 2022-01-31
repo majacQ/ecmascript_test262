@@ -7,11 +7,11 @@ description: >
     with arguments « » and « » is true.
 flags: [module]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 while (false) {
   continue undef;

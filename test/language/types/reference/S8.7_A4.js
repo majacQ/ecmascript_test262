@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Object Modification Resulting in a New Object for Not a Self-Modified
     Object leads to loss of integrity
 es5id: 8.7_A4
@@ -24,7 +24,7 @@ item += "ing";
 // The values of item and itemRef are NOT equal, as a whole
 // new string object has been created
 if( item == itemRef ){
-  $ERROR('#1: var item = new String("test"); var itemRef = item; item += "ing"; item != itemRef');
+  throw new Test262Error('#1: var item = new String("test"); var itemRef = item; item += "ing"; item != itemRef');
 };
 //
 //////////////////////////////////////////////////////////////////////////////

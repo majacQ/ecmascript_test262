@@ -3,7 +3,7 @@
 
 /*---
 esid: sec-array.prototype.tolocalestring
-info: >
+info: |
     The elements of the array are converted to strings using their
     toLocaleString methods, and these strings are then concatenated, separated
     by occurrences of a separator string that has been derived in an
@@ -13,11 +13,14 @@ description: it is the function that should be invoked
 ---*/
 
 var n = 0;
-var obj = {toLocaleString: function() {n++}};
+var obj = {
+  toLocaleString: function() {
+    n++
+  }
+};
 var arr = [undefined, obj, null, obj, obj];
 arr.toLocaleString();
 
-//CHECK#1
 if (n !== 3) {
-  $ERROR('#1: var n = 0; var obj = {toLocaleString: function() {n++}}; var arr = [undefined, obj, null, obj, obj]; arr.toLocaleString(); n === 3. Actual: ' + (n));
+  throw new Test262Error('#1: var n = 0; var obj = {toLocaleString: function() {n++}}; var arr = [undefined, obj, null, obj, obj]; arr.toLocaleString(); n === 3. Actual: ' + (n));
 }

@@ -2,10 +2,10 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-description: |
+description: >
     Objects whose specified symbol property is not enumerable do not satisfy the
     assertion.
-includes: [propertyHelper.js,sta.js]
+includes: [propertyHelper.js]
 features: [Symbol]
 ---*/
 var threw = false;
@@ -28,5 +28,5 @@ try {
 }
 
 if (threw === false) {
-  $ERROR('Expected a Test262Error, but no error was thrown.');
+  throw new Error('Expected a Test262Error, but no error was thrown.');
 }

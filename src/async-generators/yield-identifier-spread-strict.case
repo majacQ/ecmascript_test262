@@ -15,12 +15,12 @@ info: |
 features: [object-spread]
 flags: [onlyStrict]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
 //- setup
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 //- body
   return {
      ...(function() {

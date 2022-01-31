@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Since arguments property has attribute { DontDelete }, only its elements
     can be deleted
 es5id: 13_A11_T4
@@ -22,7 +22,7 @@ function __func(){
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (!__func("A","B",1,2)) {
-	$ERROR('#1: Since arguments property has attribute { DontDelete }, but elements of arguments can be deleted');
+	throw new Test262Error('#1: Since arguments property has attribute { DontDelete }, but elements of arguments can be deleted');
 }
 //
 //////////////////////////////////////////////////////////////////////////////

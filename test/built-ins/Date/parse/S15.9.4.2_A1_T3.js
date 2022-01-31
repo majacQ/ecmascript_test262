@@ -4,16 +4,15 @@
 /*---
 info: The Date property "parse" has { DontEnum } attributes
 esid: sec-date.parse
-es5id: 15.9.4.2_A1_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.propertyIsEnumerable('parse'),
+  'The value of !Date.propertyIsEnumerable(\'parse\') is expected to be true'
+);
 
-if (Date.propertyIsEnumerable('parse')) {
-  $ERROR('#1: The Date.parse property has the attribute DontEnum');
+for (var x in Date) {
+  assert.notSameValue(x, "parse", 'The value of x is not "parse"');
 }
 
-for(var x in Date) {
-  if(x === "parse") {
-    $ERROR('#2: The Date.parse has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

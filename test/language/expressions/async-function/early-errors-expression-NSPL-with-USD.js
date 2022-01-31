@@ -7,10 +7,10 @@ esid: pending
 description: >
   It is a Syntax Error if ContainsUseStrict of AsyncConciseBody is *true* and IsSimpleParameterList of ArrowParameters is *false*.
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 (async function (x = 1) {"use strict"})

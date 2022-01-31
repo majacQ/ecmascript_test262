@@ -4,21 +4,14 @@
 /*---
 info: Check ToLength(length) for non Array objects
 esid: sec-array.prototype.slice
-es5id: 15.4.4.10_A3_T1
 description: length = 4294967296
 ---*/
 
-var obj = {};
-obj.slice = Array.prototype.slice;
-obj[0] = "x";
-obj[4294967295] = "y";
-obj.length = 4294967296;
-
-try {
-  var arr = obj.slice(0,4294967296);
-  $ERROR('#1: var obj = {}; obj.slice = Array.prototype.slice; obj[0] = "x"; obj[4294967295] = "y"; obj.length = 4294967296; var arr = obj.slice(0,4294967296); lead to throwing exception.');
-} catch (e) {
-  if (!(e instanceof RangeError)) {
-    $ERROR('#1.1: var obj = {}; obj.slice = Array.prototype.slice; obj[0] = "x"; obj[4294967295] = "y"; obj.length = 4294967296; var arr = obj.slice(0,4294967296); lead to throwing exception. Exception is instance of RangeError. Actual: exception is '+e);
-  }
-}
+assert.throws(RangeError, () => {
+  var obj = {};
+  obj.slice = Array.prototype.slice;
+  obj[0] = "x";
+  obj[4294967295] = "y";
+  obj.length = 4294967296;
+  obj.slice(0, 4294967296);
+});

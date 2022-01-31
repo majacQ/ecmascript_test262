@@ -3,8 +3,6 @@
 
 /*---
 info: If B1 = 0xxxxxxxx ([0x00 - 0x7F]), return B1
-es5id: 15.1.3.2_A2.2_T1
-es6id: 18.2.6.3
 esid: sec-decodeuricomponent-encodeduricomponent
 description: Complex tests, use RFC 3629
 includes: [decimalToHexString.js]
@@ -28,11 +26,11 @@ for (var indexB1 = 0x00; indexB1 <= 0x7F; indexB1++) {
       if ((indexP - indexO) !== 0) {
         var hexP = decimalToHexString(indexP);
         var hexO = decimalToHexString(indexO);
-        $ERROR('#' + hexO + '-' + hexP + ' ');
+        throw new Test262Error('#' + hexO + '-' + hexP + ' ');
       }
       else {
         var hexP = decimalToHexString(indexP);
-        $ERROR('#' + hexP + ' ');
+        throw new Test262Error('#' + hexP + ' ');
       }
       indexO = index;
     }
@@ -45,10 +43,10 @@ if (errorCount > 0) {
   if ((indexP - indexO) !== 0) {
     var hexP = decimalToHexString(indexP);
     var hexO = decimalToHexString(indexO);
-    $ERROR('#' + hexO + '-' + hexP + ' ');
+    throw new Test262Error('#' + hexO + '-' + hexP + ' ');
   } else {
     var hexP = decimalToHexString(indexP);
-    $ERROR('#' + hexP + ' ');
+    throw new Test262Error('#' + hexP + ' ');
   }
-  $ERROR('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
+  throw new Test262Error('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
 }

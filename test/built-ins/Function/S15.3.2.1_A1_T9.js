@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the Function constructor is called with one argument then body be that argument and the following steps are taken:
     i) Call ToString(body)
     ii) If P is not parsable as a FormalParameterListopt then throw a SyntaxError exception
@@ -18,12 +18,5 @@ description: >
 
 var f = new Function("return arguments[0];");
 
-//CHECK#1
-if (!(f instanceof Function)) {
-  $ERROR('#3: When the Function constructor is called with one argument then body be that argument and the following steps are taken...');
-}
-
-//CHECK#2
-if (f("A") !== "A") {
-  $ERROR('#2: When the Function constructor is called with one argument then body be that argument and the following steps are taken...');
-}
+assert(f instanceof Function, 'The result of evaluating (f instanceof Function) is expected to be true');
+assert.sameValue(f("A"), "A", 'f("A") must return "A"');

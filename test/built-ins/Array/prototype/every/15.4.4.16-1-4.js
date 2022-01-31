@@ -3,11 +3,11 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-1-4
 description: Array.prototype.every applied to Boolean object
 ---*/
 
 var accessed = false;
+
 function callbackfn(val, idx, obj) {
   accessed = true;
   return obj instanceof Boolean;

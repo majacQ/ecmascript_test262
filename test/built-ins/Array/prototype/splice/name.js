@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-array.prototype.splice
-es6id: 22.1.3.25
 description: >
   Array.prototype.splice.name is "splice".
-info: >
+info: |
   Array.prototype.splice (start, deleteCount , ...items )
 
   17 ECMAScript Standard Built-in Objects:

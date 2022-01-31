@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The toString function is not generic; it throws a TypeError exception if
     its this value is not a callable object.
 es5id: 15.3.4.2_A16
@@ -16,4 +16,4 @@ var obj = {toString: Function.prototype.toString};
 
 assert.throws(TypeError, function() {
   String(obj);
-});
+}, 'String(obj) throws a TypeError exception');

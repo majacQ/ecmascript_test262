@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.of
-es6id: 22.1.2.3
 description: >
   Calls the length setter if available
-info: >
+info: |
   Array.of ( ...items )
 
   ...
@@ -29,9 +28,9 @@ function Pack() {
 
 var result = Array.of.call(Pack, 'wolves', 'cards', 'cigarettes', 'lies');
 
-assert.sameValue(hits, 1, 'instance length setter called once');
+assert.sameValue(hits, 1, 'The value of hits is expected to be 1');
 assert.sameValue(
   value, 4,
-  'setter is called with the number of Array.of arguments'
+  'The value of value is expected to be 4'
 );
-assert.sameValue(_this_, result, 'setter is called with the new object');
+assert.sameValue(_this_, result, 'The value of _this_ is expected to equal the value of result');

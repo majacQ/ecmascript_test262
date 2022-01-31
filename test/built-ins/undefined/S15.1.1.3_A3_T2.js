@@ -3,8 +3,6 @@
 
 /*---
 info: The undefined is DontDelete
-es5id: 15.1.1.3_A3.1
-es6id: 18.1.3
 esid: sec-undefined
 description: Use delete
 flags: [noStrict]
@@ -12,5 +10,5 @@ flags: [noStrict]
 
 // CHECK#1
 if (delete undefined !== false) {
-	$ERROR('#1: delete undefined === false. Actual: ' + (delete undefined));
+  throw new Test262Error('#1: delete undefined === false. Actual: ' + (delete undefined));
 }

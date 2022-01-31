@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.prototype.findindex
-es6id: 22.1.3.9
 description: >
   Throws a TypeError exception if predicate is not callable.
-info: >
+info: |
   22.1.3.9 Array.prototype.findIndex ( predicate[ , thisArg ] )
 
   ...

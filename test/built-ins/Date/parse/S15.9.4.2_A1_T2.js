@@ -4,14 +4,9 @@
 /*---
 info: The Date property "parse" has { DontEnum } attributes
 esid: sec-date.parse
-es5id: 15.9.4.2_A1_T2
 description: Checking absence of DontDelete attribute
 ---*/
+assert.notSameValue(delete Date.parse, false, 'The value of delete Date.parse is not false');
+assert(!Date.hasOwnProperty('parse'), 'The value of !Date.hasOwnProperty(\'parse\') is expected to be true');
 
-if (delete Date.parse  === false) {
-  $ERROR('#1: The Date.parse property has not the attributes DontDelete');
-}
-
-if (Date.hasOwnProperty('parse')) {
-  $ERROR('#2: The Date.parse property has not the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

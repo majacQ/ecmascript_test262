@@ -4,7 +4,6 @@
 description: >
   Error thrown when accessing the instance's `then` method (closing iterator)
 esid: sec-promise.race
-es6id: 25.4.4.3
 info: |
     11. Let result be PerformPromiseRace(iteratorRecord, C, promiseCapability).
     12. If result is an abrupt completion,
@@ -30,7 +29,10 @@ var returnCount = 0;
 iter[Symbol.iterator] = function() {
   return {
     next: function() {
-      return { done: false, value: promise };
+      return {
+        done: false,
+        value: promise
+      };
     },
     return: function() {
       returnCount += 1;

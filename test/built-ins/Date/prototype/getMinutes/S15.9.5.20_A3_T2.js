@@ -3,17 +3,21 @@
 
 /*---
 esid: sec-date.prototype.getminutes
-info: >
+info: |
     The Date.prototype.getMinutes property "length" has { ReadOnly, !
     DontDelete, DontEnum } attributes
 es5id: 15.9.5.20_A3_T2
 description: Checking DontDelete attribute
 ---*/
+assert.sameValue(
+  delete Date.prototype.getMinutes.length,
+  true,
+  'The value of `delete Date.prototype.getMinutes.length` is expected to be true'
+);
 
-if (delete Date.prototype.getMinutes.length  !== true) {
-  $ERROR('#1: The Date.prototype.getMinutes.length property does not have the attributes DontDelete');
-}
+assert(
+  !Date.prototype.getMinutes.hasOwnProperty('length'),
+  'The value of !Date.prototype.getMinutes.hasOwnProperty(\'length\') is expected to be true'
+);
 
-if (Date.prototype.getMinutes.hasOwnProperty('length')) {
-  $ERROR('#2: The Date.prototype.getMinutes.length property does not have the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

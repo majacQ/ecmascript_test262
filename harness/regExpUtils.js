@@ -1,23 +1,32 @@
-// Copyright (C) 2017 Ecma International.  All rights reserved.
+// Copyright (C) 2017 Mathias Bynens.  All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 description: |
     Collection of functions used to assert the correctness of RegExp objects.
+defines: [buildString, testPropertyEscapes, matchValidator]
 ---*/
 
-function buildString({ loneCodePoints, ranges }) {
+function buildString(args) {
+  // Use member expressions rather than destructuring `args` for improved
+  // compatibility with engines that only implement assignment patterns
+  // partially or not at all.
+  const loneCodePoints = args.loneCodePoints;
+  const ranges = args.ranges;
   const CHUNK_SIZE = 10000;
-  let result = String.fromCodePoint(...loneCodePoints);
-  for (const [start, end] of ranges) {
+  let result = Reflect.apply(String.fromCodePoint, null, loneCodePoints);
+  for (let i = 0; i < ranges.length; i++) {
+    const range = ranges[i];
+    const start = range[0];
+    const end = range[1];
     const codePoints = [];
     for (let length = 0, codePoint = start; codePoint <= end; codePoint++) {
       codePoints[length++] = codePoint;
       if (length === CHUNK_SIZE) {
-        result += String.fromCodePoint(...codePoints);
+        result += Reflect.apply(String.fromCodePoint, null, codePoints);
         codePoints.length = length = 0;
       }
     }
-    result += String.fromCodePoint(...codePoints);
+    result += Reflect.apply(String.fromCodePoint, null, codePoints);
   }
   return result;
 }
@@ -35,5 +44,20 @@ function testPropertyEscapes(regex, string, expression) {
         `\`${ expression }\` should match U+${ hex } (\`${ symbol }\`)`
       );
     }
+  }
+}
+
+// Returns a function that will validate RegExp match result
+//
+// Example:
+//
+//    var validate = matchValidator(['b'], 1, 'abc');
+//    validate(/b/.exec('abc'));
+//
+function matchValidator(expectedEntries, expectedIndex, expectedInput) {
+  return function(match) {
+    assert.compareArray(match, expectedEntries, 'Match entries');
+    assert.sameValue(match.index, expectedIndex, 'Match index');
+    assert.sameValue(match.input, expectedInput, 'Match input');
   }
 }

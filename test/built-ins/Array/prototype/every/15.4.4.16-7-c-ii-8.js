@@ -3,20 +3,23 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-7-c-ii-8
 description: >
     Array.prototype.every - element changed by callbackfn on previous
     iterations is observed
 ---*/
 
-        var obj = { 0: 11, 1: 12, length: 2 };
+var obj = {
+  0: 11,
+  1: 12,
+  length: 2
+};
 
-        function callbackfn(val, idx, o) {
-            if (idx === 0) {
-                obj[idx + 1] = 8;
-            }
-            return val > 10;
-        }
+function callbackfn(val, idx, o) {
+  if (idx === 0) {
+    obj[idx + 1] = 8;
+  }
+  return val > 10;
+}
 
 
 

@@ -6,9 +6,9 @@ author: Brian Terlson <brian.terlson@microsoft.com>
 esid: pending
 description: It is a SyntaxError if FormalParameters contains await
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 async function foo (await) {  }

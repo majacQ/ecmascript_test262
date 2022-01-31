@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the Object(value) is called and the value is null, undefined or not supplied,
     create and return a new Object object if the object constructor had been called with the same arguments (15.2.2.1)
 es5id: 15.2.1.1_A1_T3
@@ -12,23 +12,29 @@ description: Creating Object() and checking its properties
 var __obj = Object();
 
 var n__obj = new Object();
- 
-if (__obj.toString() !== n__obj.toString()){
-	$ERROR('#1');	
-}
 
-if (__obj.constructor !== n__obj.constructor) {
-	$ERROR('#2');
-}
+assert.sameValue(
+  __obj.toString(),
+  n__obj.toString(),
+  '__obj.toString() must return the same value returned by n__obj.toString()'
+);
 
-if (__obj.prototype !== n__obj.prototype) {
-	$ERROR('#3');
-}	
+assert.sameValue(
+  __obj.constructor,
+  n__obj.constructor,
+  'The value of __obj.constructor is expected to equal the value of n__obj.constructor'
+);
 
-if (__obj.toLocaleString() !== n__obj.toLocaleString()) {
-	$ERROR('#4');
-}
+assert.sameValue(
+  __obj.prototype,
+  n__obj.prototype,
+  'The value of __obj.prototype is expected to equal the value of n__obj.prototype'
+);
 
-if (typeof __obj !== typeof n__obj) {
-	$ERROR('#5');
-}
+assert.sameValue(
+  __obj.toLocaleString(),
+  n__obj.toLocaleString(),
+  '__obj.toLocaleString() must return the same value returned by n__obj.toLocaleString()'
+);
+
+assert.sameValue(typeof __obj, typeof n__obj, 'The value of `typeof __obj` is expected to be typeof n__obj');

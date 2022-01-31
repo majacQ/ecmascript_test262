@@ -9,7 +9,7 @@ description: Global execution context - Other Properties
 
 //CHECK#1
 for (var x in this) {
-  if ( x === 'Math' ) {
-    $ERROR("#1: 'Math' have attribute DontEnum");
+  if (x === 'Math') {
+    throw new Test262Error("#1: 'Math' have attribute DontEnum");
   }
 }

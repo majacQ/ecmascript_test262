@@ -3,8 +3,7 @@
 
 /*---
 esid: sec-date.prototype.toisostring
-es5id: 15.9.5.43-0-3
 description: Date.prototype.toISOString must exist as a function
 ---*/
 
-assert.sameValue(typeof (Date.prototype.toISOString), "function", 'typeof (Date.prototype.toISOString)');
+assert.sameValue(typeof(Date.prototype.toISOString), "function", 'typeof (Date.prototype.toISOString)');

@@ -2,15 +2,13 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The value of the internal [[Prototype]] property of the Boolean
     constructor is the Function prototype object
 esid: sec-boolean.prototype
-es5id: 15.6.3_A2
 description: Checking prototype of the Boolean constructor
 ---*/
-
-//CHECK#1
-if (!(Function.prototype.isPrototypeOf(Boolean))) {
-  $ERROR('#1: the value of the internal [[Prototype]] property of the Boolean constructor is the Function prototype object.');
-}
+assert(
+  Function.prototype.isPrototypeOf(Boolean),
+  'Function.prototype.isPrototypeOf(Boolean) must return true'
+);

@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-json.parse
-es6id: 24.3.1
 description: Behavior when revived value is a Proxy exotic object
 info: |
   [...]
@@ -35,7 +34,10 @@ info: |
 features: [Proxy]
 ---*/
 
-var objectProxy = new Proxy({ length: 0, other: 0 }, {});
+var objectProxy = new Proxy({
+  length: 0,
+  other: 0
+}, {});
 var arrayProxy = new Proxy([], {});
 var arrayProxyProxy = new Proxy(arrayProxy, {});
 var visitedOther, injectProxy;

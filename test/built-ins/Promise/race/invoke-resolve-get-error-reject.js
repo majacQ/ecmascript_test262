@@ -5,7 +5,6 @@
 description: >
   Error retrieving the constructor's `resolve` method (promise rejection)
 esid: sec-promise.race
-es6id: 25.4.4.3
 info: |
     11. Let result be PerformPromiseRace(iteratorRecord, C, promiseCapability).
     12. If result is an abrupt completion,
@@ -32,7 +31,7 @@ Object.defineProperty(Promise, 'resolve', {
 });
 
 Promise.race([new Promise(function() {})]).then(function() {
-  $ERROR('The promise should be rejected');
+  throw new Test262Error('The promise should be rejected');
 }, function(reason) {
   assert.sameValue(reason, error);
 }).then($DONE, $DONE);

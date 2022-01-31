@@ -2,11 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     If B = 110xxxxx (n = 2) and string.charAt(k + 3) not equal "%", throw
     URIError
-es5id: 15.1.3.1_A1.7_T1
-es6id: 18.2.6.2
 esid: sec-decodeuri-encodeduri
 description: Complex tests. B = [0xC0 - 0xDF]
 includes: [decimalToHexString.js]
@@ -32,11 +30,11 @@ for (var index = 0xC0; index <= 0xDF; index++) {
       if ((indexP - indexO) !== 0) {
         var hexP = decimalToHexString(indexP);
         var hexO = decimalToHexString(indexO);
-        $ERROR('#' + hexO + '-' + hexP + ' ');
+        throw new Test262Error('#' + hexO + '-' + hexP + ' ');
       }
       else {
         var hexP = decimalToHexString(indexP);
-        $ERROR('#' + hexP + ' ');
+        throw new Test262Error('#' + hexP + ' ');
       }
       indexO = index;
     }
@@ -49,10 +47,10 @@ if (errorCount > 0) {
   if ((indexP - indexO) !== 0) {
     var hexP = decimalToHexString(indexP);
     var hexO = decimalToHexString(indexO);
-    $ERROR('#' + hexO + '-' + hexP + ' ');
+    throw new Test262Error('#' + hexO + '-' + hexP + ' ');
   } else {
     var hexP = decimalToHexString(indexP);
-    $ERROR('#' + hexP + ' ');
+    throw new Test262Error('#' + hexP + ' ');
   }
-  $ERROR('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
+  throw new Test262Error('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
 }

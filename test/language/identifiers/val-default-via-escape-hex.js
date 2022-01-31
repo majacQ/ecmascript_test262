@@ -7,10 +7,10 @@ description: >
     SyntaxError expected: reserved words used as Identifier
     Names in UTF8: default
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 var def\u{61}ult = 123;

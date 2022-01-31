@@ -3,13 +3,11 @@
 
 /*---
 info: The length property of eval is 1
-es5id: 15.1.2.1_A4.4
-es6id: 18.2.1
 esid: sec-eval-x
 description: eval.length === 1
 ---*/
 
 //CHECK#1
 if (eval.length !== 1) {
-  $ERROR('#1: eval.length === 1. Actual: ' + (eval.length));
+  throw new Test262Error('#1: eval.length === 1. Actual: ' + (eval.length));
 }

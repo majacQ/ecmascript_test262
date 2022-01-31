@@ -3,7 +3,6 @@
 
 /*---
 esid: sec-promise.all
-es6id: 25.4.4.1
 description: >
   Error when advancing the provided iterable (rejecting promise)
 info: |
@@ -37,7 +36,7 @@ Object.defineProperty(poisonedDone, 'done', {
 });
 Object.defineProperty(poisonedDone, 'value', {
   get: function() {
-    $ERROR('The `value` property should not be accessed.');
+    $DONE('The `value` property should not be accessed.');
   }
 });
 
@@ -50,7 +49,7 @@ iterStepThrows[Symbol.iterator] = function() {
 };
 
 Promise.all(iterStepThrows).then(function() {
-  $ERROR('The promise should be rejected.');
+  $DONE('The promise should be rejected.');
 }, function(reason) {
   assert.sameValue(reason, error);
 }).then($DONE, $DONE);

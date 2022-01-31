@@ -1,11 +1,10 @@
 // Copyright (C) 2015 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 23.3.3.1
 esid: sec-weakmap.prototype.constructor
 description: >
   WeakMap.prototype.constructor value and property descriptor
-info: >
+info: |
   The initial value of WeakMap.prototype.constructor is the %WeakMap%
   intrinsic object.
 

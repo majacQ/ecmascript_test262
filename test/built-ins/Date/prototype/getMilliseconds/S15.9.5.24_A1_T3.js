@@ -7,13 +7,13 @@ info: The Date.prototype property "getMilliseconds" has { DontEnum } attributes
 es5id: 15.9.5.24_A1_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.propertyIsEnumerable('getMilliseconds'),
+  'The value of !Date.prototype.propertyIsEnumerable(\'getMilliseconds\') is expected to be true'
+);
 
-if (Date.prototype.propertyIsEnumerable('getMilliseconds')) {
-  $ERROR('#1: The Date.prototype.getMilliseconds property has the attribute DontEnum');
+for (var x in Date.prototype) {
+  assert.notSameValue(x, "getMilliseconds", 'The value of x is not "getMilliseconds"');
 }
 
-for(var x in Date.prototype) {
-  if(x === "getMilliseconds") {
-    $ERROR('#2: The Date.prototype.getMilliseconds has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

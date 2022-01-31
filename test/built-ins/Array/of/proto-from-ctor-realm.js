@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.of
-es6id: 22.1.2.3
 description: Default [[Prototype]] value derived from realm of the constructor
 info: |
     [...]
@@ -18,6 +17,7 @@ info: |
        a. Let realm be ? GetFunctionRealm(constructor).
        b. Let proto be realm's intrinsic object named intrinsicDefaultProto.
     [...]
+features: [cross-realm]
 ---*/
 
 var other = $262.createRealm().global;
@@ -26,4 +26,8 @@ C.prototype = null;
 
 var a = Array.of.call(C, 1, 2, 3);
 
-assert.sameValue(Object.getPrototypeOf(a), other.Object.prototype);
+assert.sameValue(
+  Object.getPrototypeOf(a),
+  other.Object.prototype,
+  'Object.getPrototypeOf(Array.of.call(C, 1, 2, 3)) returns other.Object.prototype'
+);

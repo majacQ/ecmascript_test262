@@ -3,16 +3,15 @@
 
 /*---
 esid: sec-array.prototype.map
-es5id: 15.4.4.19-5-9
 description: Array.prototype.map - Function object can be used as thisArg
 ---*/
 
-        var objFunction = function () { };
+var objFunction = function() {};
 
-        function callbackfn(val, idx, obj) {
-            return this === objFunction;
-        }
+function callbackfn(val, idx, obj) {
+  return this === objFunction;
+}
 
-        var testResult = [11].map(callbackfn, objFunction);
+var testResult = [11].map(callbackfn, objFunction);
 
 assert.sameValue(testResult[0], true, 'testResult[0]');

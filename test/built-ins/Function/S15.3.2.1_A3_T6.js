@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the Function constructor is called with arguments p, body the following steps are taken:
     i) Let Result(i) be the first argument
     ii) Let P be ToString(Result(i))
@@ -20,12 +20,12 @@ description: >
 
 var body = "return true;";
 
-//CHECK#1
 try {
-  var f = new Function(null,body);
-  $ERROR('#1: If P is not parsable as a FormalParameterList_opt then throw a SyntaxError exception');
+  var f = new Function(null, body);
+  throw new Test262Error('#1: If P is not parsable as a FormalParameterList_opt then throw a SyntaxError exception');
 } catch (e) {
-  if (!(e instanceof SyntaxError)) {
-  	$ERROR('#1.1: If P is not parsable as a FormalParameterList_opt then throw a SyntaxError exception');
-  }
+  assert(
+    e instanceof SyntaxError,
+    'The result of evaluating (e instanceof SyntaxError) is expected to be true'
+  );
 }

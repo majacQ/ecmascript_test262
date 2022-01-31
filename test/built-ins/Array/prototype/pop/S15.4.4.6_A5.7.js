@@ -4,19 +4,11 @@
 /*---
 info: The pop property of Array can't be used as constructor
 esid: sec-array.prototype.pop
-es5id: 15.4.4.6_A5.7
 description: >
     If property does not implement the internal [[Construct]] method,
     throw a TypeError exception
 ---*/
 
-//CHECK#1
-
-try {
+assert.throws(TypeError, () => {
   new Array.prototype.pop();
-  $ERROR('#1.1: new Array.prototype.pop() throw TypeError. Actual: ' + (new Array.prototype.pop()));
-} catch (e) {
-  if ((e instanceof TypeError) !== true) {
-    $ERROR('#1.2: new Array.prototype.pop() throw TypeError. Actual: ' + (e));
-  }
-}
+});

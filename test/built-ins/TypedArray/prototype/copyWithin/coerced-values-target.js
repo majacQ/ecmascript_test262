@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-%typedarray%.prototype.copywithin
-es6id: 22.2.3.5
 description: >
   target argument is coerced to an integer value.
-info: >
+info: |
   22.2.3.5 %TypedArray%.prototype.copyWithin (target, start [ , end ] )
 
   %TypedArray%.prototype.copyWithin is a distinct function that implements the
@@ -23,6 +22,7 @@ info: >
   3. Let relativeTarget be ? ToInteger(target).
   ...
 includes: [compareArray.js, testTypedArray.js]
+features: [TypedArray]
 ---*/
 
 testWithTypedArrayConstructors(function(TA) {
@@ -88,5 +88,13 @@ testWithTypedArrayConstructors(function(TA) {
       [0, 0, 1, 2]
     ),
     '1.5 float value coerced to integer 1'
+  );
+
+  assert(
+    compareArray(
+      new TA([0, 1, 2, 3]).copyWithin({}, 1),
+      [1, 2, 3, 3]
+    ),
+    'object value coerced to integer 0'
   );
 });

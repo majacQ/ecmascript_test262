@@ -8,11 +8,11 @@ description: >
     Identifier in a PropertySetParameterList of a PropertyAssignment
     that is contained in strict code
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 flags: [onlyStrict]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 var obj = { set _11_1_5_1_fun(eval) {}};

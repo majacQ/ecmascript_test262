@@ -3,7 +3,7 @@
 /*---
 es6id: 23.3.1
 description: Subclassing the WeakMap object
-info: >
+info: |
   23.3.1 The WeakMap Constructor
 
   ...
@@ -14,6 +14,7 @@ info: >
   the WeakMap constructor to create and initialize the subclass instance with
   the internal state necessary to support the WeakMap.prototype built-in
   methods.
+features: [WeakMap]
 ---*/
 
 class WM extends WeakMap {}

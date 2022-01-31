@@ -2,19 +2,24 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype property "toLocaleDateString" has { DontEnum }
     attributes
 esid: sec-date.prototype.tolocaledatestring
-es5id: 15.9.5.6_A1_T1
 description: Checking absence of ReadOnly attribute
 ---*/
 
 var x = Date.prototype.toLocaleDateString;
-if(x === 1)
+if (x === 1) {
   Date.prototype.toLocaleDateString = 2;
-else
+} else {
   Date.prototype.toLocaleDateString = 1;
-if (Date.prototype.toLocaleDateString === x) {
-  $ERROR('#1: The Date.prototype.toLocaleDateString has not the attribute ReadOnly');
 }
+
+assert.notSameValue(
+  Date.prototype.toLocaleDateString,
+  x,
+  'The value of Date.prototype.toLocaleDateString is expected to not equal the value of `x`'
+);
+
+// TODO: Convert to verifyProperty() format.

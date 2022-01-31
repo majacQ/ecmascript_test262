@@ -3,11 +3,10 @@
 
 /*---
 esid: sec-array.prototype.foreach
-es5id: 15.4.4.18-1-2
 description: Array.prototype.forEach applied to null
 ---*/
 
 
 assert.throws(TypeError, function() {
-            Array.prototype.forEach.call(null); // TypeError is thrown if value is null
+  Array.prototype.forEach.call(null); // TypeError is thrown if value is null
 });

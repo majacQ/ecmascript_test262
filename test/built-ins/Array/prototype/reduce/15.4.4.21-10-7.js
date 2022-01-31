@@ -3,16 +3,18 @@
 
 /*---
 esid: sec-array.prototype.reduce
-es5id: 15.4.4.21-10-7
 description: >
     Array.prototype.reduce - subclassed array with length 1 and
     initialvalue provided
 ---*/
 
-  foo.prototype = [1];
-  function foo() {}
-  var f = new foo();
+foo.prototype = [1];
 
-  function cb(prevVal, curVal, idx, obj){return prevVal + curVal;}
+function foo() {}
+var f = new foo();
 
-assert.sameValue(f.reduce(cb,-1), 0, 'f.reduce(cb,-1)');
+function cb(prevVal, curVal, idx, obj) {
+  return prevVal + curVal;
+}
+
+assert.sameValue(f.reduce(cb, -1), 0, 'f.reduce(cb,-1)');

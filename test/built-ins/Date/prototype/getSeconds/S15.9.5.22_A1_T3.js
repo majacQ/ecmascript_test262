@@ -4,16 +4,15 @@
 /*---
 info: The Date.prototype property "getSeconds" has { DontEnum } attributes
 esid: sec-date.prototype.getseconds
-es5id: 15.9.5.22_A1_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.propertyIsEnumerable('getSeconds'),
+  'The value of !Date.prototype.propertyIsEnumerable(\'getSeconds\') is expected to be true'
+);
 
-if (Date.prototype.propertyIsEnumerable('getSeconds')) {
-  $ERROR('#1: The Date.prototype.getSeconds property has the attribute DontEnum');
+for (var x in Date.prototype) {
+  assert.notSameValue(x, "getSeconds", 'The value of x is not "getSeconds"');
 }
 
-for(var x in Date.prototype) {
-  if(x === "getSeconds") {
-    $ERROR('#2: The Date.prototype.getSeconds has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

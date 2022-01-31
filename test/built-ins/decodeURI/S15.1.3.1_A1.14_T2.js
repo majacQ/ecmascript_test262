@@ -2,11 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     If B = 1110xxxx (n = 3) and C != 10xxxxxx (C - first of octets after B),
     throw URIError
-es5id: 15.1.3.1_A1.14_T2
-es6id: 18.2.6.2
 esid: sec-decodeuri-encodeduri
 description: Complex tests. B = [0xE0 - 0xEF], C = [0x00, 0x7F]
 includes: [decimalToHexString.js]
@@ -38,11 +36,11 @@ for (var indexB = 0xE0; indexB <= 0xEF; indexB++) {
         if ((indexP - indexO) !== 0) {
           var hexP = decimalToHexString(indexP);
           var hexO = decimalToHexString(indexO);
-          $ERROR('#' + hexO + '-' + hexP + ' ');
+          throw new Test262Error('#' + hexO + '-' + hexP + ' ');
         }
         else {
           var hexP = decimalToHexString(indexP);
-          $ERROR('#' + hexP + ' ');
+          throw new Test262Error('#' + hexP + ' ');
         }
         indexO = indexB;
       }
@@ -56,10 +54,10 @@ if (errorCount > 0) {
   if ((indexP - indexO) !== 0) {
     var hexP = decimalToHexString(indexP);
     var hexO = decimalToHexString(indexO);
-    $ERROR('#' + hexO + '-' + hexP + ' ');
+    throw new Test262Error('#' + hexO + '-' + hexP + ' ');
   } else {
     var hexP = decimalToHexString(indexP);
-    $ERROR('#' + hexP + ' ');
+    throw new Test262Error('#' + hexP + ' ');
   }
-  $ERROR('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
+  throw new Test262Error('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
 }

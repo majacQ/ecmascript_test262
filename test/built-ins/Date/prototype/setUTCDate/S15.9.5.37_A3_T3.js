@@ -2,20 +2,19 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype.setUTCDate property "length" has { ReadOnly,
     DontDelete, DontEnum } attributes
 esid: sec-date.prototype.setutcdate
-es5id: 15.9.5.37_A3_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.setUTCDate.propertyIsEnumerable('length'),
+  'The value of !Date.prototype.setUTCDate.propertyIsEnumerable(\'length\') is expected to be true'
+);
 
-if (Date.prototype.setUTCDate.propertyIsEnumerable('length')) {
-  $ERROR('#1: The Date.prototype.setUTCDate.length property has the attribute DontEnum');
+for (var x in Date.prototype.setUTCDate) {
+  assert.notSameValue(x, "length", 'The value of x is not "length"');
 }
 
-for(var x in Date.prototype.setUTCDate) {
-  if(x === "length") {
-    $ERROR('#2: The Date.prototype.setUTCDate.length has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

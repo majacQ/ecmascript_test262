@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the [[Construct]] property for a Function object F is called:
     A new native ECMAScript object is created.
     It gets the value of the [[Prototype]] property of the F(Denote it PROTO_VAL).
@@ -18,7 +18,7 @@ __FACTORY.prototype=1;
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (typeof __FACTORY.prototype !== 'number') {
-	$ERROR('#1: typeof __FACTORY.prototype === \'number\'. Actual: typeof __FACTORY.prototype ==='+(typeof __FACTORY.prototype));
+	throw new Test262Error('#1: typeof __FACTORY.prototype === \'number\'. Actual: typeof __FACTORY.prototype ==='+(typeof __FACTORY.prototype));
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ var __device = new __FACTORY();
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (!(Object.prototype.isPrototypeOf(__device))) {
-	$ERROR('#2: Object.prototype.isPrototypeOf(__device) === true');
+	throw new Test262Error('#2: Object.prototype.isPrototypeOf(__device) === true');
 }
 //
 //////////////////////////////////////////////////////////////////////////////

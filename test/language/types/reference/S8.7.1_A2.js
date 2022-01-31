@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Delete operator can't delete reference, so it returns false to be applyed
     to reference
 es5id: 8.7.1_A2
@@ -16,7 +16,7 @@ var y = 1;
 //CHECK#1
 var result = delete y;
 if(result){
-  $ERROR('#1: y = 1; (delete y) === false. Actual: ' + result);
+  throw new Test262Error('#1: y = 1; (delete y) === false. Actual: ' + result);
 };
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ if(result){
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (y !== 1) {
-  $ERROR('#2: y = 1; delete y; y === 1. Actual: ' + (y));
+  throw new Test262Error('#2: y = 1; delete y; y === 1. Actual: ' + (y));
 }
 //
 //////////////////////////////////////////////////////////////////////////////

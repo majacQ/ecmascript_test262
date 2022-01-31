@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Since a function is an object, it might be set to [[Prototype]] property of a new created object through [[Construct]] property,
     but [[call]] property must fail with TypeError error
 es5id: 13.2.2_A2
@@ -18,7 +18,7 @@ try{
     __PROTO.type=__PLANT;
 }
 catch(e){
-    $ERROR('#0: __PROTO.type=__PLANT does not lead to throwing exception')
+    throw new Test262Error('#0: __PROTO.type=__PLANT does not lead to throwing exception')
 }
 
 function __FACTORY(){};
@@ -31,10 +31,10 @@ var __rose = new __FACTORY();
 //CHECK#1
 try{
     __rose();
-    $ERROR('#1: __rose() lead to throwing exception');
+    throw new Test262Error('#1: __rose() lead to throwing exception');
 } catch(e){
     if (!(e instanceof TypeError)) {
-    	$ERROR('#2: Exception Type is TypeError. Actual: exception ==='+e);
+    	throw new Test262Error('#2: Exception Type is TypeError. Actual: exception ==='+e);
     }
 }
 //

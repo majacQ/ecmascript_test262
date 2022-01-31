@@ -4,9 +4,10 @@
 /*---
 description: yield is a reserved keyword within generator function bodies and may not be used as a binding identifier. (Generator Function declaration)
 esid: prod-GeneratorDeclaration
+features: [generators]
 flags: [generated]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     14.4 Generator Function Definitions
@@ -14,13 +15,14 @@ info: |
     GeneratorDeclaration :
       function * BindingIdentifier ( FormalParameters ) { GeneratorBody }
 
+
     BindingIdentifier : Identifier
 
     It is a Syntax Error if this production has a [Yield] parameter and
     StringValue of Identifier is "yield".
 
 ---*/
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 function *gen() {
   var yield;

@@ -5,7 +5,7 @@ esid: sec-proxy-object-internal-methods-and-internal-slots-ownpropertykeys
 description: >
     The returned list must not have entries whose type does not match
     « String, Symbol ».
-info: >
+info: |
     [[OwnPropertyKeys]] ( )
 
     ...
@@ -21,10 +21,11 @@ info: >
       ...
       d. If Type(next) is not an element of elementTypes,
           throw a TypeError exception.
+features: [Proxy]
 ---*/
 
 var p = new Proxy({}, {
-  ownKeys() {
+  ownKeys: function() {
     return [undefined];
   }
 });

@@ -4,7 +4,6 @@
 /*---
 description: Variable binding is initialized to `undefined` in outer scope (Funtion declaration in the `default` clause of a `switch` statement in the global scope)
 esid: sec-web-compat-globaldeclarationinstantiation
-es6id: B.3.3.2
 flags: [generated, noStrict]
 includes: [fnGlobalObject.js, propertyHelper.js]
 info: |
@@ -20,9 +19,11 @@ info: |
 var global = fnGlobalObject();
 assert.sameValue(f, undefined, 'binding is initialized to `undefined`');
 
-verifyEnumerable(global, 'f');
-verifyWritable(global, 'f');
-verifyNotConfigurable(global, 'f');
+verifyProperty(global, "f", {
+  enumerable: true,
+  writable: true,
+  configurable: false
+});
 
 switch (1) {
   default:

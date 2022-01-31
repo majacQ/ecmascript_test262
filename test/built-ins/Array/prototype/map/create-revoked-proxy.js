@@ -1,7 +1,6 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.16
 esid: sec-array.prototype.map
 description: Abrupt completion from constructor that is a revoked Proxy object
 info: |
@@ -26,7 +25,9 @@ features: [Proxy]
 var o = Proxy.revocable([], {});
 var ctorCount = 0;
 var cbCount = 0;
-var cb = function() { cbCount += 1; };
+var cb = function() {
+  cbCount += 1;
+};
 
 Object.defineProperty(o.proxy, 'constructor', {
   get: function() {

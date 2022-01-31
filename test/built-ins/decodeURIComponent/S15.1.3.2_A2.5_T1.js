@@ -2,12 +2,10 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     If B1 = 11110xxx ([0xF0 - 0x0F4]), B2, B3, B4 = 10xxxxxxx ([0x80 -
     0xBF]), without [B1, B2] = [0xF0, 0x80 - 0x9F], [0xF4, 0x90 - 0xBF],
     return UTF8(B1, B2, B3, B4)
-es5id: 15.1.3.2_A2.5_T1
-es6id: 18.2.6.3
 esid: sec-decodeuricomponent-encodeduricomponent
 description: Complex tests, use RFC 3629
 includes: [decimalToHexString.js]
@@ -41,11 +39,11 @@ for (var indexB1 = 0xF0; indexB1 <= 0xF4; indexB1++) {
             if ((indexP - indexO) !== 0) {
               var hexP = decimalToHexString(indexP);
               var hexO = decimalToHexString(indexO);
-              $ERROR('#' + hexO + '-' + hexP + ' ');
+              throw new Test262Error('#' + hexO + '-' + hexP + ' ');
             }
             else {
               var hexP = decimalToHexString(indexP);
-              $ERROR('#' + hexP + ' ');
+              throw new Test262Error('#' + hexP + ' ');
             }
             indexO = index;
           }
@@ -61,10 +59,10 @@ if (errorCount > 0) {
   if ((indexP - indexO) !== 0) {
     var hexP = decimalToHexString(indexP);
     var hexO = decimalToHexString(indexO);
-    $ERROR('#' + hexO + '-' + hexP + ' ');
+    throw new Test262Error('#' + hexO + '-' + hexP + ' ');
   } else {
     var hexP = decimalToHexString(indexP);
-    $ERROR('#' + hexP + ' ');
+    throw new Test262Error('#' + hexP + ' ');
   }
-  $ERROR('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
+  throw new Test262Error('Total error: ' + errorCount + ' bad Unicode character in ' + count + ' ');
 }

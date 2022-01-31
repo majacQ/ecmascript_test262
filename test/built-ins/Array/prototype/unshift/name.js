@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-array.prototype.unshift
-es6id: 22.1.3.28
 description: >
   Array.prototype.unshift.name is "unshift".
-info: >
+info: |
   Array.prototype.unshift ( ...items )
 
   17 ECMAScript Standard Built-in Objects:

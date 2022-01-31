@@ -4,16 +4,15 @@
 /*---
 info: The Date.prototype property "getUTCSeconds" has { DontEnum } attributes
 esid: sec-date.prototype.getutcseconds
-es5id: 15.9.5.23_A1_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.propertyIsEnumerable('getUTCSeconds'),
+  'The value of !Date.prototype.propertyIsEnumerable(\'getUTCSeconds\') is expected to be true'
+);
 
-if (Date.prototype.propertyIsEnumerable('getUTCSeconds')) {
-  $ERROR('#1: The Date.prototype.getUTCSeconds property has the attribute DontEnum');
+for (var x in Date.prototype) {
+  assert.notSameValue(x, "getUTCSeconds", 'The value of x is not "getUTCSeconds"');
 }
 
-for(var x in Date.prototype) {
-  if(x === "getUTCSeconds") {
-    $ERROR('#2: The Date.prototype.getUTCSeconds has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

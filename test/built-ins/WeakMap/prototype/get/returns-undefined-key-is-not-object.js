@@ -1,11 +1,10 @@
 // Copyright (C) 2015 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 23.3.3.3
 esid: sec-weakmap.prototype.get
 description: >
   Returns undefined when key is not an Object.
-info: >
+info: |
   WeakMap.prototype.get ( key )
 
   ...
@@ -13,6 +12,7 @@ info: >
   slot.
   5. If Type(key) is not Object, return undefined.
   ...
+features: [Symbol]
 ---*/
 
 var map = new WeakMap();

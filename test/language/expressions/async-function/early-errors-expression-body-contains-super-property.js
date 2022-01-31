@@ -6,11 +6,11 @@ author: Brian Terlson <brian.terlson@microsoft.com>
 esid: pending
 description: It is a syntax error if AsyncFunctionBody contains SuperProperty is true
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 (async function foo (foo) { super.prop });
 

@@ -6,11 +6,11 @@ info: Only AssignmentExpression is admitted when variable is initialized
 es5id: 12.2_A8_T5
 description: Checking if execution of "var --x" fails
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1

@@ -1,7 +1,6 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.15
 esid: sec-array.prototype.map
 description: Prefer Array constructor of current realm record
 info: |
@@ -21,6 +20,7 @@ info: |
           i. If SameValue(C, realmC.[[Intrinsics]].[[%Array%]]) is true, let C
              be undefined.
     [...]
+features: [cross-realm, Symbol.species]
 ---*/
 
 var array = [];

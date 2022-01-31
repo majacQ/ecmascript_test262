@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.of
-es6id: 22.1.2.3
 description: >
   Return abrupt from setting the length property.
-info: >
+info: |
   Array.of ( ...items )
 
   ...
@@ -24,4 +23,4 @@ function T() {
 
 assert.throws(Test262Error, function() {
   Array.of.call(T);
-});
+}, 'Array.of.call(T) throws a Test262Error exception');

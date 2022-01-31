@@ -3,7 +3,9 @@
 /*---
 description: |
     Collection of assertion functions used throughout test262
+defines: [assert]
 ---*/
+
 
 function assert(mustBeTrue, message) {
   if (mustBeTrue === true) {
@@ -11,9 +13,9 @@ function assert(mustBeTrue, message) {
   }
 
   if (message === undefined) {
-    message = 'Expected true but got ' + String(mustBeTrue);
+    message = 'Expected true but got ' + assert._toString(mustBeTrue);
   }
-  $ERROR(message);
+  throw new Test262Error(message);
 }
 
 assert._isSameValue = function (a, b) {
@@ -27,7 +29,12 @@ assert._isSameValue = function (a, b) {
 };
 
 assert.sameValue = function (actual, expected, message) {
-  if (assert._isSameValue(actual, expected)) {
+  try {
+    if (assert._isSameValue(actual, expected)) {
+      return;
+    }
+  } catch (error) {
+    throw new Test262Error(message + ' (_isSameValue operation threw) ' + error);
     return;
   }
 
@@ -37,9 +44,9 @@ assert.sameValue = function (actual, expected, message) {
     message += ' ';
   }
 
-  message += 'Expected SameValue(«' + String(actual) + '», «' + String(expected) + '») to be true';
+  message += 'Expected SameValue(«' + assert._toString(actual) + '», «' + assert._toString(expected) + '») to be true';
 
-  $ERROR(message);
+  throw new Test262Error(message);
 };
 
 assert.notSameValue = function (actual, unexpected, message) {
@@ -53,14 +60,15 @@ assert.notSameValue = function (actual, unexpected, message) {
     message += ' ';
   }
 
-  message += 'Expected SameValue(«' + String(actual) + '», «' + String(unexpected) + '») to be false';
+  message += 'Expected SameValue(«' + assert._toString(actual) + '», «' + assert._toString(unexpected) + '») to be false';
 
-  $ERROR(message);
+  throw new Test262Error(message);
 };
 
 assert.throws = function (expectedErrorConstructor, func, message) {
+  var expectedName, actualName;
   if (typeof func !== "function") {
-    $ERROR('assert.throws requires two arguments: the error constructor ' +
+    throw new Test262Error('assert.throws requires two arguments: the error constructor ' +
       'and a function to run');
     return;
   }
@@ -75,21 +83,36 @@ assert.throws = function (expectedErrorConstructor, func, message) {
   } catch (thrown) {
     if (typeof thrown !== 'object' || thrown === null) {
       message += 'Thrown value was not an object!';
-      $ERROR(message);
+      throw new Test262Error(message);
     } else if (thrown.constructor !== expectedErrorConstructor) {
-      message += 'Expected a ' + expectedErrorConstructor.name + ' but got a ' + thrown.constructor.name;
-      $ERROR(message);
+      expectedName = expectedErrorConstructor.name;
+      actualName = thrown.constructor.name;
+      if (expectedName === actualName) {
+        message += 'Expected a ' + expectedName + ' but got a different error constructor with the same name';
+      } else {
+        message += 'Expected a ' + expectedName + ' but got a ' + actualName;
+      }
+      throw new Test262Error(message);
     }
     return;
   }
 
   message += 'Expected a ' + expectedErrorConstructor.name + ' to be thrown but no exception was thrown at all';
-  $ERROR(message);
+  throw new Test262Error(message);
 };
 
-assert.throws.early = function(err, code) {
-  let wrappedCode = `function wrapperFn() { ${code} }`;
-  let ieval = eval;
+assert._toString = function (value) {
+  try {
+    if (value === 0 && 1 / value === -Infinity) {
+      return '-0';
+    }
 
-  assert.throws(err, () => { Function(wrappedCode); }, `Function: ${code}`);
+    return String(value);
+  } catch (err) {
+    if (err.name === 'TypeError') {
+      return Object.prototype.toString.call(value);
+    }
+
+    throw err;
+  }
 };

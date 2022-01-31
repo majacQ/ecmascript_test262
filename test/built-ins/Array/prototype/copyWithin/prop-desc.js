@@ -2,9 +2,8 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.prototype.copywithin
-es6id: 22.1.3.3
 description: Property type and descriptor.
-info: >
+info: |
   22.1.3.3 Array.prototype.copyWithin (target, start [ , end ] )
 
   17 ECMAScript Standard Built-in Objects

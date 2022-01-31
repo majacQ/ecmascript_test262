@@ -3,13 +3,11 @@
 
 /*---
 info: The length property of parseFloat is 1
-es5id: 15.1.2.3_A7.4
-es6id: 18.2.4
 esid: sec-parsefloat-string
 description: parseFloat.length === 1
 ---*/
 
 //CHECK#1
 if (parseFloat.length !== 1) {
-  $ERROR('#1: parseFloat.length === 1. Actual: ' + (parseFloat.length));
+  throw new Test262Error('#1: parseFloat.length === 1. Actual: ' + (parseFloat.length));
 }

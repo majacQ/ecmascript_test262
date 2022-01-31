@@ -4,15 +4,20 @@
 /*---
 info: The Date.prototype property "setUTCSeconds" has { DontEnum } attributes
 esid: sec-date.prototype.setutcseconds
-es5id: 15.9.5.31_A1_T1
 description: Checking absence of ReadOnly attribute
 ---*/
 
 var x = Date.prototype.setUTCSeconds;
-if(x === 1)
+if (x === 1) {
   Date.prototype.setUTCSeconds = 2;
-else
+} else {
   Date.prototype.setUTCSeconds = 1;
-if (Date.prototype.setUTCSeconds === x) {
-  $ERROR('#1: The Date.prototype.setUTCSeconds has not the attribute ReadOnly');
 }
+
+assert.notSameValue(
+  Date.prototype.setUTCSeconds,
+  x,
+  'The value of Date.prototype.setUTCSeconds is expected to not equal the value of `x`'
+);
+
+// TODO: Convert to verifyProperty() format.

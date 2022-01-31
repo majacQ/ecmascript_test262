@@ -4,14 +4,14 @@
 /*---
 description: >
     It is a Syntax Error if HasDirectSuper of MethodDefinition is true.
-es6id: 12.2.5.1
+esid: sec-object-initializer-static-semantics-early-errors
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 ({
-  method(param = super) {}
+  method(param = super()) {}
 });

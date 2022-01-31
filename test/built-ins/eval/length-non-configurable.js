@@ -3,25 +3,23 @@
 
 /*---
 info: The length property of eval does not have the attribute DontDelete
-es5id: 15.1.2.1_A4.2
-es6id: 18.2.1
 esid: sec-eval-x
 description: Checking use hasOwnProperty, delete
 ---*/
 
 //CHECK#1
 if (eval.hasOwnProperty('length') !== true) {
-  $ERROR('#1: eval.hasOwnProperty(\'length\') === true. Actual: ' + (eval.hasOwnProperty('length')));
+  throw new Test262Error('#1: eval.hasOwnProperty(\'length\') === true. Actual: ' + (eval.hasOwnProperty('length')));
 }
 
 delete eval.length;
 
 //CHECK#2
 if (eval.hasOwnProperty('length') !== false) {
-  $ERROR('#2: delete eval.length; eval.hasOwnProperty(\'length\') === false. Actual: ' + (eval.hasOwnProperty('length')));
+  throw new Test262Error('#2: delete eval.length; eval.hasOwnProperty(\'length\') === false. Actual: ' + (eval.hasOwnProperty('length')));
 }
 
 //CHECK#3
 if (eval.length === undefined) {
-  $ERROR('#3: delete eval.length; eval.length !== undefined');
+  throw new Test262Error('#3: delete eval.length; eval.length !== undefined');
 }

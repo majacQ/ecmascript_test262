@@ -4,10 +4,6 @@
 /*---
 info: The Date constructor has the property "parse"
 esid: sec-date-constructor
-es5id: 15.9.4_A2
 description: Checking existence of the property "parse"
 ---*/
-
-if(!Date.hasOwnProperty("parse")){
-  $ERROR('#1: The Date constructor has the property "parse"');
-}
+assert(Date.hasOwnProperty("parse"), 'Date.hasOwnProperty("parse") must return true');

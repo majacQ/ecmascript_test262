@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     RegExp.prototype.exec(string) Performs a regular expression match of ToString(string) against the regular expression and
     returns an Array object containing the results of the match, or null if the string did not match
 es5id: 15.10.6.2_A1_T8
@@ -11,11 +11,10 @@ description: >
     and RegExp is /[a-z]/
 ---*/
 
-//CHECK#1
 try {
-  $ERROR('#1.1: /[a-z]/.exec({toString:void 0, valueOf:function(){throw "invalof"}}) throw "invalof". Actual: ' + (/[a-z]/.exec({toString:void 0, valueOf:function(){throw "invalof"}})));
+  throw new Test262Error('#1.1: /[a-z]/.exec({toString:void 0, valueOf:function(){throw "invalof"}}) throw "invalof". Actual: ' + (/[a-z]/.exec({toString:void 0, valueOf:function(){throw "invalof"}})));
 } catch (e) {
-  if (e !== "invalof") {
-    $ERROR('#1.2: /[a-z]/.exec({toString:void 0, valueOf:function(){throw "invalof"}}) throw "invalof". Actual: ' + (e));
-  }
+  assert.sameValue(e, "invalof", 'The value of e is expected to be "invalof"');
 }
+
+// TODO: Convert to assert.throws() format.

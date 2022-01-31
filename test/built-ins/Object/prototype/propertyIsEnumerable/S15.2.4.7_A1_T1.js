@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The propertyIsEnumerable method does not consider objects in the
     prototype chain
 es5id: 15.2.4.7_A1_T1
@@ -10,32 +10,36 @@ description: >
     Calling the propertyIsEnumerable method for object in the
     prototype chain
 ---*/
+assert.sameValue(
+  typeof Object.prototype.propertyIsEnumerable,
+  "function",
+  'The value of `typeof Object.prototype.propertyIsEnumerable` is expected to be "function"'
+);
 
-//CHECK#1
-if (typeof Object.prototype.propertyIsEnumerable !== "function") {
-  $ERROR('#1: propertyIsEnumerable method is defined');
+var proto = {
+  rootprop: "avis"
+};
+
+function AVISFACTORY(name) {
+  this.name = name
 }
-
-var proto={rootprop:"avis"};
-
-function AVISFACTORY(name){this.name=name};
 
 AVISFACTORY.prototype = proto;
 
-var seagull= new AVISFACTORY("seagull");
+var seagull = new AVISFACTORY("seagull");
 
-//CHECK#2
-if (typeof seagull.propertyIsEnumerable !== "function") {
-  $ERROR('#2: propertyIsEnumerable method is accessed');
-}
+assert.sameValue(
+  typeof seagull.propertyIsEnumerable,
+  "function",
+  'The value of `typeof seagull.propertyIsEnumerable` is expected to be "function"'
+);
 
-//CHECK#3
-if (!(seagull.propertyIsEnumerable("name"))) {
-  $ERROR('#3: propertyIsEnumerable method works properly');
-}
+assert(
+  !!seagull.propertyIsEnumerable("name"),
+  'The value of !!seagull.propertyIsEnumerable("name") is expected to be true'
+);
 
-//CHECK#4
-if (seagull.propertyIsEnumerable("rootprop")) {
-  $ERROR('#4: propertyIsEnumerable method does not consider objects in the prototype chain');
-}
-//
+assert(
+  !seagull.propertyIsEnumerable("rootprop"),
+  'The value of !seagull.propertyIsEnumerable("rootprop") is expected to be true'
+);

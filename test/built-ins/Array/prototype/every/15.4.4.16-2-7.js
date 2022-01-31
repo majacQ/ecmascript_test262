@@ -3,7 +3,6 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-2-7
 description: >
     Array.prototype.every applied to Array-like object, 'length' is an
     own accessor property
@@ -17,11 +16,11 @@ function callbackfn2(val, idx, obj) {
   return val > 11;
 }
 
-var obj = { };
+var obj = {};
 
 Object.defineProperty(obj, "length", {
-  get: function () {
-      return 2;
+  get: function() {
+    return 2;
   },
   configurable: true
 });

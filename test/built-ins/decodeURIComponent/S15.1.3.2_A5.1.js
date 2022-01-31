@@ -3,25 +3,23 @@
 
 /*---
 info: The length property of decodeURIComponent has the attribute DontEnum
-es5id: 15.1.3.2_A5.1
-es6id: 18.2.6.3
 esid: sec-decodeuricomponent-encodeduricomponent
 description: Checking use propertyIsEnumerable, for-in
 ---*/
 
 //CHECK#1
 if (decodeURIComponent.propertyIsEnumerable('length') !== false) {
-  $ERROR('#1: decodeURIComponent.propertyIsEnumerable(\'length\') === false. Actual: ' + (decodeURIComponent.propertyIsEnumerable('length')));
+  throw new Test262Error('#1: decodeURIComponent.propertyIsEnumerable(\'length\') === false. Actual: ' + (decodeURIComponent.propertyIsEnumerable('length')));
 }
 
 //CHECK#2
 var result = true;
-for (var p in decodeURIComponent){
+for (var p in decodeURIComponent) {
   if (p === "length") {
     result = false;
   }
 }
 
 if (result !== true) {
-  $ERROR('#2: result = true; for (p in decodeURIComponent) { if (p === "length") result = false; }  result === true;');
+  throw new Test262Error('#2: result = true; for (p in decodeURIComponent) { if (p === "length") result = false; }  result === true;');
 }

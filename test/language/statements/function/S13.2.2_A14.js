@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Calling a function as a constructor is inadmissible as long as
     this.any_Function is declared by eval and called
 es5id: 13.2.2_A14
@@ -25,7 +25,7 @@ function FACTORY(){
 try {
 	var obj = new FACTORY();
 } catch (e) {
-	$ERROR('#1: var obj = new FACTORY() does not lead to throwing exception');
+	throw new Test262Error('#1: var obj = new FACTORY() does not lead to throwing exception');
 }
 //
 //////////////////////////////////////////////////////////////////////////////

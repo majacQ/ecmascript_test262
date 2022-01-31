@@ -1,7 +1,7 @@
 // Copyright (C) 2015 Caitlin Potter. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 
-/*--- 
+/*---
 description: Intrinsic %FunctionPrototype% has poisoned own property "caller"
 includes:
   - propertyHelper.js
@@ -18,7 +18,7 @@ assert.sameValue(typeof descriptor.set, 'function', '%FunctionPrototype%.caller 
 assert.sameValue(descriptor.get, descriptor.set, '%FunctionPrototype%.caller getter/setter are both %ThrowTypeError%');
 
 assert.throws(TypeError, function() {
-  return FunctionPrototype.caller;	
+  return FunctionPrototype.caller;
 });
 
 assert.throws(TypeError, function() {

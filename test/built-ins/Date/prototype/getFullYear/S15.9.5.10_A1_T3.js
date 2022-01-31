@@ -7,13 +7,13 @@ info: The Date.prototype property "getFullYear" has { DontEnum } attributes
 es5id: 15.9.5.10_A1_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.propertyIsEnumerable('getFullYear'),
+  'The value of !Date.prototype.propertyIsEnumerable(\'getFullYear\') is expected to be true'
+);
 
-if (Date.prototype.propertyIsEnumerable('getFullYear')) {
-  $ERROR('#1: The Date.prototype.getFullYear property has the attribute DontEnum');
+for (var x in Date.prototype) {
+  assert.notSameValue(x, "getFullYear", 'The value of x is not "getFullYear"');
 }
 
-for(var x in Date.prototype) {
-  if(x === "getFullYear") {
-    $ERROR('#2: The Date.prototype.getFullYear has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

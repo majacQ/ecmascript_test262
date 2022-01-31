@@ -12,26 +12,27 @@ flags: [async]
 var sequence = [];
 
 var p1 = Promise.resolve(1),
-    p2 = new Promise(function () {}),
-    p = Promise.race([p1, p2]);
+  p2 = new Promise(function() {}),
+  p = Promise.race([p1, p2]);
 
 sequence.push(1);
 
-p.then(function (arg) {
-    if (arg !== 1) {
-        $ERROR("Expected promise to be fulfilled with 1, got " + arg);
-    }
+p.then(function(result) {
+  assert.sameValue(result, 1, 'The value of result is expected to be 1');
 
-    sequence.push(4);
-    checkSequence(sequence, "This happens second");
+  sequence.push(4);
+  assert.sameValue(sequence.length, 4, 'The value of sequence.length is expected to be 4');
+  checkSequence(sequence, "This happens second");
 }).catch($DONE);
 
-Promise.resolve().then(function () {
-    sequence.push(3);
-    checkSequence(sequence, "This happens first");
-}).then(function () {
-    sequence.push(5);
-    checkSequence(sequence, "This happens third");
+Promise.resolve().then(function() {
+  sequence.push(3);
+  assert.sameValue(sequence.length, 3, 'The value of sequence.length is expected to be 3');
+  checkSequence(sequence, "This happens first");
+}).then(function() {
+  sequence.push(5);
+  assert.sameValue(sequence.length, 5, 'The value of sequence.length is expected to be 5');
+  checkSequence(sequence, "This happens third");
 }).then($DONE, $DONE);
 
 sequence.push(2);

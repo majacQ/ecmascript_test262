@@ -2,51 +2,50 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The [[Value]] property of the newly constructed object
     with supplied "undefined" argument should be NaN
 esid: sec-date-year-month-date-hours-minutes-seconds-ms
-es5id: 15.9.3.1_A6_T1
 description: 2 arguments, (year, month)
 ---*/
 
-function DateValue(year, month, date, hours, minutes, seconds, ms){
+function DateValue(year, month, date, hours, minutes, seconds, ms) {
   return new Date(year, month, date, hours, minutes, seconds, ms).valueOf();
 }
 
 var x;
 x = DateValue(1899, 11);
-assert.sameValue(x, NaN, "(1899, 11)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');
 
 x = DateValue(1899, 12);
-assert.sameValue(x, NaN, "(1899, 12)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');
 
 x = DateValue(1900, 0);
-assert.sameValue(x, NaN, "(1900, 0)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');
 
 x = DateValue(1969, 11);
-assert.sameValue(x, NaN, "(1969, 11)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');
 
 x = DateValue(1969, 12);
-assert.sameValue(x, NaN, "(1969, 12)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');
 
 x = DateValue(1970, 0);
-assert.sameValue(x, NaN, "(1970, 0)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');
 
 x = DateValue(1999, 11);
-assert.sameValue(x, NaN, "(1999, 11)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');
 
 x = DateValue(1999, 12);
-assert.sameValue(x, NaN, "(1999, 12)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');
 
 x = DateValue(2000, 0);
-assert.sameValue(x, NaN, "(2000, 0)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');
 
 x = DateValue(2099, 11);
-assert.sameValue(x, NaN, "(2099, 11)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');
 
 x = DateValue(2099, 12);
-assert.sameValue(x, NaN, "(2099, 12)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');
 
 x = DateValue(2100, 0);
-assert.sameValue(x, NaN, "(2100, 0)");
+assert.sameValue(x, NaN, 'The value of x is expected to equal NaN');

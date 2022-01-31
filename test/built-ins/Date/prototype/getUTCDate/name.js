@@ -3,10 +3,9 @@
 
 /*---
 esid: sec-date.prototype.getutcdate
-es6id: 20.3.4.12
 description: >
   Date.prototype.getUTCDate.name is "getUTCDate".
-info: >
+info: |
   Date.prototype.getUTCDate ( )
 
   17 ECMAScript Standard Built-in Objects:

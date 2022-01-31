@@ -4,7 +4,7 @@
 /*---
 description: Initialization from a RegExp-like object (with flag overrides)
 es6id: 21.2.3.1
-info: >
+info: |
     1. Let patternIsRegExp be IsRegExp(pattern).
     [...]
     6. Else if patternIsRegExp is true, then
@@ -25,7 +25,7 @@ var result;
 
 Object.defineProperty(obj, 'flags', {
   get: function() {
-    $ERROR('The `flags` property value should not be referenced.');
+    throw new Test262Error('The `flags` property value should not be referenced.');
   }
 });
 

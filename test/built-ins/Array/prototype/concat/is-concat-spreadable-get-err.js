@@ -1,10 +1,9 @@
 // Copyright (C) 2015 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.1
 esid: sec-array.prototype.concat
 description: Error thrown when accessing `Symbol.isConcatSpreadable` property
-info: >
+info: |
     1. Let O be ToObject(this value).
     2. ReturnIfAbrupt(O).
     3. Let A be ArraySpeciesCreate(O, 0).
@@ -36,4 +35,4 @@ Object.defineProperty(o, Symbol.isConcatSpreadable, {
 
 assert.throws(Test262Error, function() {
   Array.prototype.concat.call(o);
-});
+}, 'Array.prototype.concat.call(o) throws a Test262Error exception');

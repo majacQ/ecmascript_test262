@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When control enters an execution context for function code,
     an arguments object is created and initialised
 es5id: 10.6_A1
@@ -18,7 +18,7 @@ try{
   var x = f1();
 }
 catch(e){
-  $ERROR("#1: arguments doesn't exists");
+  throw new Test262Error("#1: arguments doesn't exists");
 }
 
 //CHECK#2
@@ -30,5 +30,5 @@ try{
   var x = f2();
 }
 catch(e){
-  $ERROR("#2: arguments doesn't exists");
+  throw new Test262Error("#2: arguments doesn't exists");
 }

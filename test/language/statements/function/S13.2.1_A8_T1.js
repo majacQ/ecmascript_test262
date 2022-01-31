@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the [[Call]] property for a Function object F is called, the following steps are taken:
     2. Evaluate F's FunctionBody;
     if Result.type is thrown then Result.value is thrown too
@@ -20,9 +20,9 @@ function __func(){
 
 try{
     var x=__func()
-    $ERROR('#0: var x=__func() lead to throwing exception');
+    throw new Test262Error('#0: var x=__func() lead to throwing exception');
 } catch(e){
     if (e !== "Catch Me If You Can") {
-    	$ERROR('#1: Exception === "Catch Me If You Can". Actual: exception ==='+e);
+    	throw new Test262Error('#1: Exception === "Catch Me If You Can". Actual: exception ==='+e);
     }
 }

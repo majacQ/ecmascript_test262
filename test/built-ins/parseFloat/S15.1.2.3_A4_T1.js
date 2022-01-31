@@ -2,56 +2,54 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Compute the longest prefix of Result(2), which might be Result(2) itself,
     which satisfies the syntax of a StrDecimalLiteral
-es5id: 15.1.2.3_A4_T1
-es6id: 18.2.4
 esid: sec-parsefloat-string
 description: Some wrong number
 ---*/
 
 //CHECK#1
 if (parseFloat("0x") !== 0) {
-  $ERROR('#1: parseFloat("0x") === 0. Actual: ' + (parseFloat("0x")));
+  throw new Test262Error('#1: parseFloat("0x") === 0. Actual: ' + (parseFloat("0x")));
 }
 
 //CHECK#2
 if (parseFloat("11x") !== 11) {
-  $ERROR('#2: parseFloat("11x") === 11. Actual: ' + (parseFloat("11x")));
+  throw new Test262Error('#2: parseFloat("11x") === 11. Actual: ' + (parseFloat("11x")));
 }
 
 //CHECK#3
 if (parseFloat("11s1") !== 11) {
-  $ERROR('#3: parseFloat("11s1") === 11. Actual: ' + (parseFloat("11s1")));
+  throw new Test262Error('#3: parseFloat("11s1") === 11. Actual: ' + (parseFloat("11s1")));
 }
 
 //CHECK#4
 if (parseFloat("11.s1") !== 11) {
-  $ERROR('#4: parseFloat("11.s1") === 11. Actual: ' + (parseFloat("11.s1")));
+  throw new Test262Error('#4: parseFloat("11.s1") === 11. Actual: ' + (parseFloat("11.s1")));
 }
 
 //CHECK#5
 if (parseFloat(".0s1") !== 0) {
-  $ERROR('#5: parseFloat(".0s1") === 0. Actual: ' + (parseFloat(".0s1")));
+  throw new Test262Error('#5: parseFloat(".0s1") === 0. Actual: ' + (parseFloat(".0s1")));
 }
 
 //CHECK#6
 if (parseFloat("1.s1") !== 1) {
-  $ERROR('#6: parseFloat("1.s1") === 1. Actual: ' + (parseFloat("1.s1")));
+  throw new Test262Error('#6: parseFloat("1.s1") === 1. Actual: ' + (parseFloat("1.s1")));
 }
 
 //CHECK#7
 if (parseFloat("1..1") !== 1) {
-  $ERROR('#7: parseFloat("1..1") === 1. Actual: ' + (parseFloat("1..1")));
+  throw new Test262Error('#7: parseFloat("1..1") === 1. Actual: ' + (parseFloat("1..1")));
 }
 
 //CHECK#8
 if (parseFloat("0.1.1") !== 0.1) {
-  $ERROR('#8: parseFloat("0.1.1") === 0.1. Actual: ' + (parseFloat("0.1.1")));
+  throw new Test262Error('#8: parseFloat("0.1.1") === 0.1. Actual: ' + (parseFloat("0.1.1")));
 }
 
 //CHECK#9
 if (parseFloat("0. 1") !== 0) {
-  $ERROR('#9: parseFloat("0. 1") === 0. Actual: ' + (parseFloat("0. 1")));
+  throw new Test262Error('#9: parseFloat("0. 1") === 0. Actual: ' + (parseFloat("0. 1")));
 }

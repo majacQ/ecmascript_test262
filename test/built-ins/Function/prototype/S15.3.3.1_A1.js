@@ -10,18 +10,16 @@ includes: [propertyHelper.js]
 
 var obj = Function.prototype;
 
-verifyNotWritable(Function, "prototype", null, function(){return "shifted";});
+verifyNotWritable(Function, "prototype", null, function() {
+  return "shifted";
+});
 
-//CHECK#1
-if (Function.prototype !== obj) {
-  $ERROR('#1: the Function.prototype property has the attributes ReadOnly.');
-}
+assert.sameValue(Function.prototype, obj, 'The value of Function.prototype is expected to equal the value of obj');
 
-//CHECK#2
 try {
-  if(Function.prototype()!==undefined){
-   $ERROR('#2: the Function.prototype property has the attributes ReadOnly');
-  }
+  assert.sameValue(Function.prototype(), undefined, 'Function.prototype() returns undefined');
 } catch (e) {
-  $ERROR('#2.1: the Function.prototype property has the attributes ReadOnly: '+e);
+  throw new Test262Error('#2.1: the Function.prototype property has the attributes ReadOnly: ' + e);
 }
+
+// TODO: Convert to verifyProperty() format.

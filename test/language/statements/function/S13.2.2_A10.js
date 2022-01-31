@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Calling a function as a constructor is possible as long as
     this.any_Function is declared
 es5id: 13.2.2_A10
@@ -24,7 +24,7 @@ function FACTORY(){
 try {
 	var obj = new FACTORY();
 } catch (e) {
-	$ERROR('#1: var obj = new FACTORY() does not lead to throwing exception. Actual: Exception is '+e);
+	throw new Test262Error('#1: var obj = new FACTORY() does not lead to throwing exception. Actual: Exception is '+e);
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -32,7 +32,7 @@ try {
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (obj.id !== 5) {
-	$ERROR('#2: obj.id === 5. Actual: obj.id ==='+obj.id);
+	throw new Test262Error('#2: obj.id === 5. Actual: obj.id ==='+obj.id);
 }
 //
 //////////////////////////////////////////////////////////////////////////////

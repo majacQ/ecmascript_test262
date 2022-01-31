@@ -2,11 +2,10 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-es6id: 22.1.3.27
 esid: sec-array.prototype.tostring
 description: >
   Array.prototype.toString.length is 0.
-info: >
+info: |
   Array.prototype.toString ( )
 
   17 ECMAScript Standard Built-in Objects:

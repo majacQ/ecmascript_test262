@@ -1,7 +1,6 @@
 // Copyright (C) 2016 the V8 project authors. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
-es6id: 22.1.3.1
 esid: sec-array.prototype.concat
 description: Constructor is ignored for non-Array values
 info: |
@@ -15,7 +14,9 @@ info: |
     4. If isArray is false, return ? ArrayCreate(length).
 ---*/
 
-var obj = { length: 0 };
+var obj = {
+  length: 0
+};
 var callCount = 0;
 var result;
 Object.defineProperty(obj, 'constructor', {
@@ -26,8 +27,12 @@ Object.defineProperty(obj, 'constructor', {
 
 result = Array.prototype.concat.call(obj);
 
-assert.sameValue(callCount, 0, '`constructor` property not accessed');
-assert.sameValue(Object.getPrototypeOf(result), Array.prototype);
-assert(Array.isArray(result), 'result is an Array exotic object');
-assert.sameValue(result.length, 1, 'array created with appropriate length');
-assert.sameValue(result[0], obj);
+assert.sameValue(callCount, 0, 'The value of callCount is expected to be 0');
+assert.sameValue(
+  Object.getPrototypeOf(result),
+  Array.prototype,
+  'Object.getPrototypeOf(Array.prototype.concat.call(obj)) returns Array.prototype'
+);
+assert(Array.isArray(result), 'Array.isArray(result) must return true');
+assert.sameValue(result.length, 1, 'The value of result.length is expected to be 1');
+assert.sameValue(result[0], obj, 'The value of result[0] is expected to equal the value of obj');

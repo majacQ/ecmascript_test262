@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The RegExp.prototype.toString.length property does not have the attribute
     DontDelete
 es5id: 15.10.6.4_A9
@@ -10,18 +10,22 @@ description: >
     Checking if deleting the RegExp.prototype.toString.length property
     fails
 ---*/
+assert.sameValue(
+  RegExp.prototype.toString.hasOwnProperty('length'),
+  true,
+  'RegExp.prototype.toString.hasOwnProperty(\'length\') must return true'
+);
 
-//CHECK#0
-if ((RegExp.prototype.toString.hasOwnProperty('length') !== true)) {
-	$ERROR('#0: RegExp.prototype.toString.hasOwnProperty(\'length\') === true');
-}
+assert.sameValue(
+  delete RegExp.prototype.toString.length,
+  true,
+  'The value of `delete RegExp.prototype.toString.length` is expected to be true'
+);
 
-//CHECK#1
-if (delete RegExp.prototype.toString.length !== true) {
-	$ERROR('#1: delete RegExp.prototype.toString.length === true');
-}
+assert.sameValue(
+  RegExp.prototype.toString.hasOwnProperty('length'),
+  false,
+  'RegExp.prototype.toString.hasOwnProperty(\'length\') must return false'
+);
 
-//CHECK#2
-if (RegExp.prototype.toString.hasOwnProperty('length') !== false) {
-	$ERROR('#2: delete RegExp.prototype.toString.length; RegExp.prototype.toString.hasOwnProperty(\'length\') === false');
-}
+// TODO: Convert to verifyProperty() format.

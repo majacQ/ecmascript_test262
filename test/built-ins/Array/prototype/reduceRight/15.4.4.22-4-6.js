@@ -3,13 +3,12 @@
 
 /*---
 esid: sec-array.prototype.reduceright
-es5id: 15.4.4.22-4-6
 description: >
     Array.prototype.reduceRight throws TypeError if callbackfn is
     string
 ---*/
 
-  var arr = new Array(10);
+var arr = new Array(10);
 assert.throws(TypeError, function() {
-    arr.reduceRight("abc");
+  arr.reduceRight("abc");
 });

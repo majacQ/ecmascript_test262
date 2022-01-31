@@ -11,8 +11,6 @@ flags: [async]
 
 var arg = [];
 
-Promise.all(arg).then(function (result) {
-    if(result === arg) {
-        $ERROR("expected a new array from Promise.all but argument was re-used");
-    }
+Promise.all(arg).then(function(result) {
+  assert.notSameValue(result, arg, 'The value of result is expected to not equal the value of `arg`');
 }).then($DONE, $DONE);

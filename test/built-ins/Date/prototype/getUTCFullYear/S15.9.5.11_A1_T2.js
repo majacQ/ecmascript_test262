@@ -4,14 +4,17 @@
 /*---
 info: The Date.prototype property "getUTCFullYear" has { DontEnum } attributes
 esid: sec-date.prototype.getutcfullyear
-es5id: 15.9.5.11_A1_T2
 description: Checking absence of DontDelete attribute
 ---*/
+assert.notSameValue(
+  delete Date.prototype.getUTCFullYear,
+  false,
+  'The value of delete Date.prototype.getUTCFullYear is not false'
+);
 
-if (delete Date.prototype.getUTCFullYear  === false) {
-  $ERROR('#1: The Date.prototype.getUTCFullYear property has not the attributes DontDelete');
-}
+assert(
+  !Date.prototype.hasOwnProperty('getUTCFullYear'),
+  'The value of !Date.prototype.hasOwnProperty(\'getUTCFullYear\') is expected to be true'
+);
 
-if (Date.prototype.hasOwnProperty('getUTCFullYear')) {
-  $ERROR('#2: The Date.prototype.getUTCFullYear property has not the attributes DontDelete');
-}
+// TODO: Convert to verifyProperty() format.

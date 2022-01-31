@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-generatorvalidate
-es6id: 25.3.3.2
 description: >
   A TypeError should be thrown if the generator is in the "executing" state,
   and the generator should be marked as "completed"
@@ -33,6 +32,7 @@ info: |
   3. Assert: generator also has a [[GeneratorContext]] internal slot.
   4. Let state be generator.[[GeneratorState]].
   5. If state is "executing", throw a TypeError exception.
+features: [generators]
 ---*/
 
 var iter, result;

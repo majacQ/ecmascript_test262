@@ -5,7 +5,6 @@
 
 /*---
 esid: sec-array.prototype.concat
-es6id: 22.1.3.1_3
 description: array-concat-non-array
 includes: [compareArray.js]
 ---*/
@@ -19,8 +18,12 @@ class NonArray {
   }
 }
 
-var obj = new NonArray(1,2,3);
+var obj = new NonArray(1, 2, 3);
 var result = Array.prototype.concat.call(obj, 4, 5, 6);
-assert.sameValue(Array, result.constructor);
-assert.sameValue(result instanceof NonArray, false);
-assert(compareArray(result, [obj,4,5,6]));
+assert.sameValue(Array, result.constructor, 'The value of Array is expected to equal the value of result.constructor');
+assert.sameValue(
+  result instanceof NonArray,
+  false,
+  'The result of evaluating (result instanceof NonArray) is expected to be false'
+);
+assert.compareArray(result, [obj, 4, 5, 6], 'The value of result is expected to be [obj, 4, 5, 6]');

@@ -2,15 +2,15 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-description: > 
+description: >
   It is a Syntax Error if the NumericLiteralBase contains an ExponentPart.
 esid: sec-numeric-literal-static-semantics-early-errors
 features: [BigInt]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 0e0n;

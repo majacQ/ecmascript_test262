@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the Function constructor is called with arguments p, body the following steps are taken:
     i) Let Result(i) be the first argument
     ii) Let P be ToString(Result(i))
@@ -19,15 +19,20 @@ description: >
     'body';}}"
 ---*/
 
-var p = {toString:function(){throw 1;}};
-var body = {toString:function(){throw "body";}};
-
-//CHECK#1
-try {
-  var f = new Function(p,body);
-  $ERROR('#1: test failed');
-} catch (e) {
-  if (e !== 1) {
-  	$ERROR('#1.1: i) Let Result(i) be the first argument; ii) Let P be ToString(Result(i))');
+var p = {
+  toString: function() {
+    throw 1;
   }
+};
+var body = {
+  toString: function() {
+    throw "body";
+  }
+};
+
+try {
+  var f = new Function(p, body);
+  throw new Test262Error('#1: test failed');
+} catch (e) {
+  assert.sameValue(e, 1, 'The value of e is expected to be 1');
 }

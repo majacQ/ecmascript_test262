@@ -3,8 +3,6 @@
 
 /*---
 info: The parseFloat property can't be used as constructor
-es5id: 15.1.2.3_A7.7
-es6id: 18.2.4
 esid: sec-parsefloat-string
 description: >
     If property does not implement the internal [[Construct]] method,
@@ -15,9 +13,9 @@ description: >
 
 try {
   new parseFloat();
-  $ERROR('#1.1: new parseFloat() throw TypeError. Actual: ' + (new parseFloat()));
+  throw new Test262Error('#1.1: new parseFloat() throw TypeError. Actual: ' + (new parseFloat()));
 } catch (e) {
   if ((e instanceof TypeError) !== true) {
-    $ERROR('#1.2: new parseFloat() throw TypeError. Actual: ' + (e));
+    throw new Test262Error('#1.2: new parseFloat() throw TypeError. Actual: ' + (e));
   }
 }

@@ -3,27 +3,31 @@
 
 /*---
 esid: sec-array.prototype.reduceright
-es5id: 15.4.4.22-5-7
 description: >
     Array.prototype.reduceRight throws TypeError if 'length' is 0
     (subclassed Array, length overridden with obj w/o valueOf
     (toString)), no initVal
 ---*/
 
-  foo.prototype = new Array(1, 2, 3);
-  function foo() {}
-  var f = new foo();
+foo.prototype = new Array(1, 2, 3);
 
-  var o = { toString: function () { return '0';}};
-  f.length = o;
+function foo() {}
+var f = new foo();
 
-  // objects inherit the default valueOf method of the Object object;
-  // that simply returns the itself. Since the default valueOf() method
-  // does not return a primitive value, ES next tries to convert the object
-  // to a number by calling its toString() method and converting the
-  // resulting string to a number.
+var o = {
+  toString: function() {
+    return '0';
+  }
+};
+f.length = o;
 
-  function cb(){}
+// objects inherit the default valueOf method of the Object object;
+// that simply returns the itself. Since the default valueOf() method
+// does not return a primitive value, ES next tries to convert the object
+// to a number by calling its toString() method and converting the
+// resulting string to a number.
+
+function cb() {}
 assert.throws(TypeError, function() {
-    f.reduceRight(cb);
+  f.reduceRight(cb);
 });

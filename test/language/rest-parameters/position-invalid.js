@@ -5,9 +5,9 @@ es6id: 14.1
 description: >
     Rest parameter cannot be followed by another named parameter
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 function f(a, ...b, c) {}

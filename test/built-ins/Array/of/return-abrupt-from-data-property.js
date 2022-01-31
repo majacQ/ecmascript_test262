@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.of
-es6id: 22.1.2.3
 description: >
   Return abrupt from Data Property creation
-info: >
+info: |
   Array.of ( ...items )
 
   ...
@@ -32,7 +31,7 @@ function T1() {
 
 assert.throws(TypeError, function() {
   Array.of.call(T1, 'Bob');
-});
+}, 'Array.of.call(T1, "Bob") throws a TypeError exception');
 
 function T2() {
   Object.defineProperty(this, 0, {
@@ -44,4 +43,4 @@ function T2() {
 
 assert.throws(TypeError, function() {
   Array.of.call(T2, 'Bob');
-})
+}, 'Array.of.call(T2, "Bob") throws a TypeError exception')

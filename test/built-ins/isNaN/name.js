@@ -2,11 +2,10 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-es6id: 18.2.3
 esid: sec-isnan-number
 description: >
   isNaN.name is "isNaN".
-info: >
+info: |
   isNaN (number)
 
   17 ECMAScript Standard Built-in Objects:

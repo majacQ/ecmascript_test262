@@ -3,11 +3,10 @@
 
 /*---
 esid: sec-array.prototype.map
-es5id: 15.4.4.19-4-6
 description: Array.prototype.map throws TypeError if callbackfn is string
 ---*/
 
-  var arr = new Array(10);
+var arr = new Array(10);
 assert.throws(TypeError, function() {
-    arr.map("abc");
+  arr.map("abc");
 });

@@ -10,11 +10,11 @@ info: |
 
   It is a Syntax Error if the goal symbol of the syntactic grammar is Module.
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 flags: [module]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 await: 1;

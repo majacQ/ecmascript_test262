@@ -2,9 +2,8 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.prototype.values
-es6id: 22.1.3.29
 description: Array.prototype.values `name` property
-info: >
+info: |
     ES6 Section 17:
 
     Every built-in Function object, including constructors, that is not

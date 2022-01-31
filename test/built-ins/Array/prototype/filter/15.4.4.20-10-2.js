@@ -3,21 +3,20 @@
 
 /*---
 esid: sec-array.prototype.filter
-es5id: 15.4.4.20-10-2
 description: >
     Array.prototype.filter returns new Array with length equal to
     number of true returned by callbackfn
 ---*/
 
-  function callbackfn(val, idx, obj)
-  {
-    if(val % 2)
-      return true;
-    else
-      return false;
-  }
-  var srcArr = [1,2,3,4,5];
-  var resArr = srcArr.filter(callbackfn);
+function callbackfn(val, idx, obj)
+{
+  if (val % 2)
+    return true;
+  else
+    return false;
+}
+var srcArr = [1, 2, 3, 4, 5];
+var resArr = srcArr.filter(callbackfn);
 
 assert.sameValue(resArr.length, 3, 'resArr.length');
 assert.sameValue(resArr[0], 1, 'resArr[0]');

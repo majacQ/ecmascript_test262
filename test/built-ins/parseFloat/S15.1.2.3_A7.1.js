@@ -3,25 +3,23 @@
 
 /*---
 info: The length property of parseFloat has the attribute DontEnum
-es5id: 15.1.2.3_A7.1
-es6id: 18.2.4
 esid: sec-parsefloat-string
 description: Checking use propertyIsEnumerable, for-in
 ---*/
 
 //CHECK#1
 if (parseFloat.propertyIsEnumerable('length') !== false) {
-  $ERROR('#1: parseFloat.propertyIsEnumerable(\'length\') === false. Actual: ' + (parseFloat.propertyIsEnumerable('length')));
+  throw new Test262Error('#1: parseFloat.propertyIsEnumerable(\'length\') === false. Actual: ' + (parseFloat.propertyIsEnumerable('length')));
 }
 
 //CHECK#2
 var result = true;
-for (var p in parseFloat){
+for (var p in parseFloat) {
   if (p === "length") {
     result = false;
   }
 }
 
 if (result !== true) {
-  $ERROR('#2: result = true; for (p in parseFloat) { if (p === "length") result = false; }  result === true;');
+  throw new Test262Error('#2: result = true; for (p in parseFloat) { if (p === "length") result = false; }  result === true;');
 }

@@ -2,20 +2,11 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Result of boolean conversion from nonempty string value (length is not
     zero) is true; from empty String (length is zero) is false
 esid: sec-toboolean
-es5id: 9.2_A5_T3
 description: Any nonempty string convert to Boolean by explicit transformation
 ---*/
-
-// CHECK#1
-if (Boolean(" ") !== true) {
-  $ERROR('#1: Boolean(" ") === true. Actual: ' + (Boolean(" ")));
-}
-
-// CHECK#2
-if (Boolean("Nonempty String") !== true) {
-  $ERROR('#2: Boolean("Nonempty String") === true. Actual: ' + (Boolean("Nonempty String")));
-}
+assert.sameValue(Boolean(" "), true, 'Boolean(" ") must return true');
+assert.sameValue(Boolean("Nonempty String"), true, 'Boolean("Nonempty String") must return true');

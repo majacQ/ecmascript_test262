@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-dataview.prototype-@@tostringtag
-es6id: 24.2.4.21
 description: >
     `Symbol.toStringTag` property descriptor
-info: >
+info: |
     The initial value of the @@toStringTag property is the String value
     "DataView".
 
@@ -15,7 +14,11 @@ includes: [propertyHelper.js]
 features: [Symbol.toStringTag]
 ---*/
 
-assert.sameValue(DataView.prototype[Symbol.toStringTag], 'DataView');
+assert.sameValue(
+  DataView.prototype[Symbol.toStringTag],
+  'DataView',
+  'The value of DataView.prototype[Symbol.toStringTag] is expected to be "DataView"'
+);
 
 verifyNotEnumerable(DataView.prototype, Symbol.toStringTag);
 verifyNotWritable(DataView.prototype, Symbol.toStringTag);

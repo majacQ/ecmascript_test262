@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the propertyIsEnumerable method is called with argument V, the following steps are taken:
     i) Let O be this object
     ii) Call ToString(V)
@@ -14,30 +14,31 @@ description: >
     Argument of the propertyIsEnumerable method is a custom boolean
     property
 ---*/
+assert.sameValue(
+  typeof Object.prototype.propertyIsEnumerable,
+  "function",
+  'The value of `typeof Object.prototype.propertyIsEnumerable` is expected to be "function"'
+);
 
-//CHECK#1
-if (typeof Object.prototype.propertyIsEnumerable !== "function") {
-  $ERROR('#1: propertyIsEnumerable method is defined');
-}
+var obj = {
+  the_property: true
+};
 
-var obj = {the_property:true};
+assert.sameValue(
+  typeof obj.propertyIsEnumerable,
+  "function",
+  'The value of `typeof obj.propertyIsEnumerable` is expected to be "function"'
+);
 
-//CHECK#2
-if (typeof obj.propertyIsEnumerable !== "function") {
-  $ERROR('#2: propertyIsEnumerable method is accessed');
-}
+assert(
+  !!obj.propertyIsEnumerable("the_property"),
+  'The value of !!obj.propertyIsEnumerable("the_property") is expected to be true'
+);
 
-//CHECK#3
-if (!(obj.propertyIsEnumerable("the_property"))) {
-  $ERROR('#3: propertyIsEnumerable method works properly');
+var accum = "";
+for (var prop in obj) {
+  accum += prop;
 }
+assert.sameValue(accum.indexOf("the_property"), 0, 'accum.indexOf("the_property") must return 0');
 
-//CHECK#4
-var accum="";
-for(var prop in obj) {
-  accum+=prop;
-}
-if (accum.indexOf("the_property")!==0) {
-  $ERROR('#4: enumerating works properly');
-}
-//
+// TODO: Convert to verifyProperty() format.

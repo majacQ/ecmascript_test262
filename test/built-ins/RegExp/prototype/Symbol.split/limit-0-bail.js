@@ -4,7 +4,7 @@
 /*---
 es6id: 21.2.5.11
 description: No matching attempt is made when `limit` argument is `0`
-info: >
+info: |
     [...]
     21. If lim = 0, return A.
 features: [Symbol.split, Symbol.species]
@@ -17,7 +17,7 @@ var obj = {
 obj.constructor[Symbol.species] = function() {
   return {
     exec: function() {
-      $ERROR('No match should be attempted when `limit` is `0`.');
+      throw new Test262Error('No match should be attempted when `limit` is `0`.');
     }
   };
 };

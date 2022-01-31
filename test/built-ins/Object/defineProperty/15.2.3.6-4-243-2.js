@@ -16,25 +16,18 @@ flags: [onlyStrict]
 var arrObj = [];
 
 function getFunc() {
-    return 3;
+  return 3;
 }
 Object.defineProperty(arrObj, "1", {
-    get: getFunc,
-    configurable: true
+  get: getFunc,
+  configurable: true
 });
 
-try {
-    arrObj[1] = 4;
-} catch (e) {
-    verifyEqualTo(arrObj, "1", getFunc());
+assert.throws(TypeError, function() {
+  arrObj[1] = 4;
+});
+verifyEqualTo(arrObj, "1", getFunc());
 
-    verifyNotEnumerable(arrObj, "1");
+verifyNotEnumerable(arrObj, "1");
 
-    verifyConfigurable(arrObj, "1");
-
-    if (!(e instanceof TypeError)) {
-        $ERROR("Expected TypeError, got " + e);
-    }
-
-}
-
+verifyConfigurable(arrObj, "1");

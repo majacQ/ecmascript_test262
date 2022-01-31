@@ -2,18 +2,17 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     If thisArg is not null(defined) the called function is passed
     ToObject(thisArg) as the this value
 es5id: 15.3.4.4_A5_T6
 description: thisArg is new String()
 ---*/
 
-var obj=new String("soap");
+var obj = new String("soap");
 
-( function(){this.touched= true;}).call(obj);
+(function() {
+  this.touched = true;
+}).call(obj);
 
-//CHECK#1
-if (!(obj.touched)) {
-  $ERROR('#1: If thisArg is not null(defined) the called function is passed ToObject(thisArg) as the this value');
-}
+assert(obj.touched, 'The value of obj.touched is expected to be true');

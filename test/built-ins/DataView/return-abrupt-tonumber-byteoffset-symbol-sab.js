@@ -3,7 +3,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-es6id: 24.2.2.1
 esid: sec-dataview-buffer-byteoffset-bytelength
 description: >
   Return abrupt from ToNumber(symbol byteOffset)
@@ -13,7 +12,7 @@ info: |
   ...
   4. Let numberOffset be ? ToNumber(byteOffset).
   ...
-features: [SharedArrayBuffer]
+features: [SharedArrayBuffer, Symbol]
 ---*/
 
 var s = Symbol("1");

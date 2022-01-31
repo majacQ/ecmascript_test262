@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     RegExp.prototype.exec behavior depends on global property.
     Let global is true and let I = If ToInteger(lastIndex).
     Then if I<0 orI>length then set lastIndex to 0 and return null
@@ -14,12 +14,5 @@ var __re = /(?:ab|cd)\d?/g;
 __re.lastIndex=100;
 var __executed = __re.exec("aacd22 ");
 
-//CHECK#1
-if (__executed) {
-	$ERROR('#1: __re = /(?:ab|cd)\\d?/g; __re.lastIndex=100; __executed = __re.exec("aacd22 "); __executed === true');
-}
-
-//CHECK#2
-if (__re.lastIndex !== 0) {
-	$ERROR('#2: __re = /(?:ab|cd)\\d?/g; __re.lastIndex=100; __executed = __re.exec("aacd22 "); __re.lastIndex === 0. Actual: ' + (__re.lastIndex));
-}
+assert(!__executed, 'The value of !__executed is expected to be true');
+assert.sameValue(__re.lastIndex, 0, 'The value of __re.lastIndex is expected to be 0');

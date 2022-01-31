@@ -2,20 +2,19 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Date.prototype.toLocaleTimeString property "length" has { ReadOnly,
     DontDelete, DontEnum } attributes
 esid: sec-date.prototype.tolocaletimestring
-es5id: 15.9.5.7_A3_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.toLocaleTimeString.propertyIsEnumerable('length'),
+  'The value of !Date.prototype.toLocaleTimeString.propertyIsEnumerable(\'length\') is expected to be true'
+);
 
-if (Date.prototype.toLocaleTimeString.propertyIsEnumerable('length')) {
-  $ERROR('#1: The Date.prototype.toLocaleTimeString.length property has the attribute DontEnum');
+for (var x in Date.prototype.toLocaleTimeString) {
+  assert.notSameValue(x, "length", 'The value of x is not "length"');
 }
 
-for(var x in Date.prototype.toLocaleTimeString) {
-  if(x === "length") {
-    $ERROR('#2: The Date.prototype.toLocaleTimeString.length has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

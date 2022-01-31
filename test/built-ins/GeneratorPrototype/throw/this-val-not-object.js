@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-generator.prototype.throw
-es6id: 25.3.1.4
 description: >
   A TypeError should be thrown from GeneratorValidate (25.3.3.2) if the "this"
   value of `throw` is not an object.
@@ -17,7 +16,7 @@ info: |
   25.3.3.2 GeneratorValidate
 
   1. If Type(generator) is not Object, throw a TypeError exception.
-features: [Symbol]
+features: [generators, Symbol]
 ---*/
 
 function* g() {}
@@ -26,66 +25,90 @@ var symbol = Symbol();
 
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call(undefined); },
+  function() {
+    GeneratorPrototype.throw.call(undefined);
+  },
   'undefined (without value)'
 );
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call(undefined, 1); },
+  function() {
+    GeneratorPrototype.throw.call(undefined, 1);
+  },
   'undefined (with value)'
 );
 
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call(null); },
+  function() {
+    GeneratorPrototype.throw.call(null);
+  },
   'null (without value)'
 );
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call(null, 1); },
+  function() {
+    GeneratorPrototype.throw.call(null, 1);
+  },
   'null (with value)'
 );
 
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call(true); },
+  function() {
+    GeneratorPrototype.throw.call(true);
+  },
   'boolean (without value)'
 );
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call(true, 1); },
+  function() {
+    GeneratorPrototype.throw.call(true, 1);
+  },
   'boolean (with value)'
 );
 
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call('s'); },
+  function() {
+    GeneratorPrototype.throw.call('s');
+  },
   'string (without value)'
 );
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call('s', 1); },
+  function() {
+    GeneratorPrototype.throw.call('s', 1);
+  },
   'string (with value)'
 );
 
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call(1); },
+  function() {
+    GeneratorPrototype.throw.call(1);
+  },
   'number (without value)'
 );
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call(1, 1); },
+  function() {
+    GeneratorPrototype.throw.call(1, 1);
+  },
   'number (with value)'
 );
 
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call(symbol); },
+  function() {
+    GeneratorPrototype.throw.call(symbol);
+  },
   'symbol (without value)'
 );
 assert.throws(
   TypeError,
-  function() { GeneratorPrototype.throw.call(symbol, 1); },
+  function() {
+    GeneratorPrototype.throw.call(symbol, 1);
+  },
   'symbol (with value)'
 );

@@ -6,10 +6,10 @@ description: >
     ArrowFunction[In, Yield] :
       ArrowParameters[?Yield] [no LineTerminator here] => ConciseBody[?In]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 var af = ()
 => {};

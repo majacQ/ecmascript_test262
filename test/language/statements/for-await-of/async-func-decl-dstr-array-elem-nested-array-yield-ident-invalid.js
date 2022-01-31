@@ -5,9 +5,9 @@
 description: When a `yield` token appears within the DestructuringAssignmentTarget of a nested destructuring assignment outside of strict mode, it behaves as an IdentifierReference. (for-await-of statement in an async function declaration)
 esid: sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation
 features: [destructuring-binding, async-iteration]
-flags: [generated, onlyStrict, async]
+flags: [generated, onlyStrict]
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 info: |
     IterationStatement :
@@ -27,8 +27,8 @@ info: |
           lhs using AssignmentPattern as the goal symbol.
     [...]
 ---*/
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 async function fn() {
-  for await ([[x[yield]]] of [[[]]])
+  for await ([[x[yield]]] of [[[]]]) {}
 }

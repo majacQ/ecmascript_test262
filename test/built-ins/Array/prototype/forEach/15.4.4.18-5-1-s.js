@@ -3,19 +3,18 @@
 
 /*---
 esid: sec-array.prototype.foreach
-es5id: 15.4.4.18-5-1-s
 description: Array.prototype.forEach - thisArg not passed to strict callbackfn
 flags: [noStrict]
 ---*/
 
-  var innerThisCorrect = false;
+var innerThisCorrect = false;
 
-  function callbackfn(val, idx, obj) {
-    "use strict";
-    innerThisCorrect = this===undefined;
-    return true;
-  }
+function callbackfn(val, idx, obj) {
+  "use strict";
+  innerThisCorrect = this === undefined;
+  return true;
+}
 
-  [1].forEach(callbackfn);
+[1].forEach(callbackfn);
 
 assert(innerThisCorrect, 'innerThisCorrect !== true');

@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     When the [[Call]] property for a Function object is called,
     the body is evaluated and if evaluation result has type "normal", then "undefined" is returned
 es5id: 13.2.1_A9.1_T1
@@ -20,7 +20,7 @@ function __func(){
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (__func() !== undefined) {
-	$ERROR('#1: __func() === undefined. Actual: __func() ==='+__func());
+	throw new Test262Error('#1: __func() === undefined. Actual: __func() ==='+__func());
 };
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ if (__func() !== undefined) {
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (!x) {
-	$ERROR('#2: x === true. Actual: x === '+x);
+	throw new Test262Error('#2: x === true. Actual: x === '+x);
 }
 //
 //////////////////////////////////////////////////////////////////////////////

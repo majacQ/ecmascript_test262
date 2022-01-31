@@ -5,11 +5,11 @@
 es5id: 7.8.3-1gs
 description: Strict Mode - octal extension(010) is forbidden in strict mode
 negative:
-  phase: early
+  phase: parse
   type: SyntaxError
 flags: [onlyStrict]
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 var y = 010;

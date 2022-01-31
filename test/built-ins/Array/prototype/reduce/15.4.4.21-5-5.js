@@ -3,19 +3,19 @@
 
 /*---
 esid: sec-array.prototype.reduce
-es5id: 15.4.4.21-5-5
 description: >
     Array.prototype.reduce throws TypeError if 'length' is 0
     (subclassed Array, length overridden to '0' (type conversion)), no
     initVal
 ---*/
 
-  foo.prototype = new Array(1, 2, 3);
-  function foo() {}
-  var f = new foo();
-  f.length = '0';
+foo.prototype = new Array(1, 2, 3);
 
-  function cb(){}
+function foo() {}
+var f = new foo();
+f.length = '0';
+
+function cb() {}
 assert.throws(TypeError, function() {
-    f.reduce(cb);
+  f.reduce(cb);
 });

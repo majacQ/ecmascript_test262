@@ -3,14 +3,13 @@
 
 /*---
 esid: sec-array.prototype.some
-es5id: 15.4.4.17-7-c-iii-25
 description: >
     Array.prototype.some - return value of callbackfn is the Arguments
     object
 ---*/
 
-        function callbackfn(val, idx, obj) {
-            return arguments;
-        }
+function callbackfn(val, idx, obj) {
+  return arguments;
+}
 
 assert([11].some(callbackfn), '[11].some(callbackfn) !== true');

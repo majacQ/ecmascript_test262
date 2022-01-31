@@ -2,7 +2,7 @@
 // See LICENSE for details.
 
 /*---
-info: >
+info: |
    Misc sequencing tests
    inspired by https://github.com/promises-aplus/promises-tests/issues/61
    Case "T1"
@@ -15,18 +15,19 @@ flags: [async]
 
 var resolveP1, rejectP2, sequence = [];
 
-(new Promise(function (resolve, reject) {
-    resolveP1 = resolve;
-})).then(function (msg) {
-    sequence.push(msg);
-}).then(function () {
-    checkSequence(sequence, "Expected 1,2,3");
+(new Promise(function(resolve, reject) {
+  resolveP1 = resolve;
+})).then(function(msg) {
+  sequence.push(msg);
+}).then(function() {
+  assert.sameValue(sequence.length, 3);
+checkSequence(sequence, "Expected 1,2,3");
 }).then($DONE, $DONE);
 
-(new Promise(function (resolve, reject) {
-    rejectP2 = reject;
-})).catch(function (msg) {
-    sequence.push(msg);
+(new Promise(function(resolve, reject) {
+  rejectP2 = reject;
+})).catch(function(msg) {
+  sequence.push(msg);
 });
 
 rejectP2(2);

@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     A property can have attribute DontDelete like NaN propertie of Number
     object
 es5id: 8.6.1_A3
@@ -13,7 +13,7 @@ flags: [noStrict]
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#1
 if (delete Number.NaN !== false){
-  $ERROR('#1: delete Number.NaN === false. Actual: ' + (delete Number.NaN));
+  throw new Test262Error('#1: delete Number.NaN === false. Actual: ' + (delete Number.NaN));
 };
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@ if (delete Number.NaN !== false){
 //////////////////////////////////////////////////////////////////////////////
 //CHECK#2
 if (typeof(Number.NaN) === "undefined"){
-  $ERROR('#2: delete Number.NaN; typeof(Number.NaN) !== "undefined" ');
+  throw new Test262Error('#2: delete Number.NaN; typeof(Number.NaN) !== "undefined" ');
 };
 //
 //////////////////////////////////////////////////////////////////////////////

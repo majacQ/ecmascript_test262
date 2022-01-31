@@ -6,7 +6,7 @@ esid: sec-array.isarray
 es6id: 22.1.2.2
 description: >
   Array.isArray.name is "isArray".
-info: >
+info: |
   Array.isArray ( arg )
 
   17 ECMAScript Standard Built-in Objects:
@@ -20,7 +20,7 @@ info: >
 includes: [propertyHelper.js]
 ---*/
 
-assert.sameValue(Array.isArray.name, "isArray");
+assert.sameValue(Array.isArray.name, "isArray", 'The value of Array.isArray.name is expected to be "isArray"');
 
 verifyNotEnumerable(Array.isArray, "name");
 verifyNotWritable(Array.isArray, "name");

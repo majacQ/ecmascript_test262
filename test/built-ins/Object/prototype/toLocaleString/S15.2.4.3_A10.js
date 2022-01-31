@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The Object.prototype.toLocaleString.length property has the attribute
     ReadOnly
 es5id: 15.2.4.3_A10
@@ -11,17 +11,21 @@ description: >
     property fails
 includes: [propertyHelper.js]
 ---*/
-
-//CHECK#1
-if (!(Object.prototype.toLocaleString.hasOwnProperty('length'))) {
-  $ERROR('#1: the Object.prototype.toLocaleString has length property.');
-}
+assert(
+  !!Object.prototype.toLocaleString.hasOwnProperty('length'),
+  'The value of !!Object.prototype.toLocaleString.hasOwnProperty("length") is expected to be true'
+);
 
 var obj = Object.prototype.toLocaleString.length;
 
-verifyNotWritable(Object.prototype.toLocaleString, "length", null, function(){return "shifted";});
+verifyNotWritable(Object.prototype.toLocaleString, "length", null, function() {
+  return "shifted";
+});
 
-//CHECK#2
-if (Object.prototype.toLocaleString.length !== obj) {
-  $ERROR('#2: the Object.prototype.toLocaleString length property has the attributes ReadOnly.');
-}
+assert.sameValue(
+  Object.prototype.toLocaleString.length,
+  obj,
+  'The value of Object.prototype.toLocaleString.length is expected to equal the value of obj'
+);
+
+// TODO: Convert to verifyProperty() format.

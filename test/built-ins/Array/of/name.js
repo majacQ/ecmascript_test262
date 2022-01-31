@@ -2,10 +2,9 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-array.of
-es6id: 22.1.2.3
 description: >
   Array.of.name value and property descriptor
-info: >
+info: |
   Array.of ( ...items )
 
   17 ECMAScript Standard Built-in Objects
@@ -15,7 +14,7 @@ includes: [propertyHelper.js]
 
 assert.sameValue(
   Array.of.name, 'of',
-  'The value of `Array.of.name` is `"of"`'
+  'The value of Array.of.name is expected to be "of"'
 );
 
 verifyNotEnumerable(Array.of, 'name');

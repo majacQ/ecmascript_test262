@@ -4,15 +4,20 @@
 /*---
 info: The Date.prototype property "toTimeString" has { DontEnum } attributes
 esid: sec-date.prototype.totimestring
-es5id: 15.9.5.4_A1_T1
 description: Checking absence of ReadOnly attribute
 ---*/
 
 var x = Date.prototype.toTimeString;
-if(x === 1)
+if (x === 1) {
   Date.prototype.toTimeString = 2;
-else
+} else {
   Date.prototype.toTimeString = 1;
-if (Date.prototype.toTimeString === x) {
-  $ERROR('#1: The Date.prototype.toTimeString has not the attribute ReadOnly');
 }
+
+assert.notSameValue(
+  Date.prototype.toTimeString,
+  x,
+  'The value of Date.prototype.toTimeString is expected to not equal the value of `x`'
+);
+
+// TODO: Convert to verifyProperty() format.

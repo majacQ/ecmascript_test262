@@ -9,35 +9,35 @@ description: Global execution context - Constructor Properties
 
 //CHECK#1
 for (var x in this) {
-  if ( x === 'Object' ) {
-    $ERROR("#1: 'property 'Object' have attribute DontEnum");
-  } else if ( x === 'Function') {
-    $ERROR("#1: 'Function' have attribute DontEnum");
-  } else if ( x === 'String' ) {
-    $ERROR("#1: 'String' have attribute DontEnum");
-  } else if ( x === 'Number' ) {
-    $ERROR("#1: 'Number' have attribute DontEnum");
-  } else if ( x === 'Array' ) {
-    $ERROR("#1: 'Array' have attribute DontEnum");
-  } else if ( x === 'Boolean' ) {
-    $ERROR("#1: 'Boolean' have attribute DontEnum");
-  } else if ( x === 'Date' ) {
-    $ERROR("#1: 'Date' have attribute DontEnum");
-  } else if ( x === 'RegExp' ) {
-    $ERROR("#1: 'RegExp' have attribute DontEnum");
-  } else if ( x === 'Error' ) {
-    $ERROR("#1: 'Error' have attribute DontEnum");
-  } else if ( x === 'EvalError' ) {
-    $ERROR("#1: 'EvalError' have attribute DontEnum");
-  } else if ( x === 'RangeError' ) {
-    $ERROR("#1: 'RangeError' have attribute DontEnum");
-  } else if ( x === 'ReferenceError' ) {
-    $ERROR("#1: 'ReferenceError' have attribute DontEnum");
-  } else if ( x === 'SyntaxError' ) {
-    $ERROR("#1: 'SyntaxError' have attribute DontEnum");
-  } else if ( x === 'TypeError' ) {
-    $ERROR("#1: 'TypeError' have attribute DontEnum");
-  } else if ( x === 'URIError' ) {
-    $ERROR("#1: 'URIError' have attribute DontEnum");
+  if (x === 'Object') {
+    throw new Test262Error("#1: 'property 'Object' have attribute DontEnum");
+  } else if (x === 'Function') {
+    throw new Test262Error("#1: 'Function' have attribute DontEnum");
+  } else if (x === 'String') {
+    throw new Test262Error("#1: 'String' have attribute DontEnum");
+  } else if (x === 'Number') {
+    throw new Test262Error("#1: 'Number' have attribute DontEnum");
+  } else if (x === 'Array') {
+    throw new Test262Error("#1: 'Array' have attribute DontEnum");
+  } else if (x === 'Boolean') {
+    throw new Test262Error("#1: 'Boolean' have attribute DontEnum");
+  } else if (x === 'Date') {
+    throw new Test262Error("#1: 'Date' have attribute DontEnum");
+  } else if (x === 'RegExp') {
+    throw new Test262Error("#1: 'RegExp' have attribute DontEnum");
+  } else if (x === 'Error') {
+    throw new Test262Error("#1: 'Error' have attribute DontEnum");
+  } else if (x === 'EvalError') {
+    throw new Test262Error("#1: 'EvalError' have attribute DontEnum");
+  } else if (x === 'RangeError') {
+    throw new Test262Error("#1: 'RangeError' have attribute DontEnum");
+  } else if (x === 'ReferenceError') {
+    throw new Test262Error("#1: 'ReferenceError' have attribute DontEnum");
+  } else if (x === 'SyntaxError') {
+    throw new Test262Error("#1: 'SyntaxError' have attribute DontEnum");
+  } else if (x === 'TypeError') {
+    throw new Test262Error("#1: 'TypeError' have attribute DontEnum");
+  } else if (x === 'URIError') {
+    throw new Test262Error("#1: 'URIError' have attribute DontEnum");
   }
 }

@@ -3,13 +3,11 @@
 
 /*---
 info: The length property of decodeURIComponent is 1
-es5id: 15.1.3.2_A5.4
-es6id: 18.2.6.3
 esid: sec-decodeuricomponent-encodeduricomponent
 description: decodeURIComponent.length === 1
 ---*/
 
 //CHECK#1
 if (decodeURIComponent.length !== 1) {
-  $ERROR('#1: decodeURIComponent.length === 1. Actual: ' + (decodeURIComponent.length));
+  throw new Test262Error('#1: decodeURIComponent.length === 1. Actual: ' + (decodeURIComponent.length));
 }

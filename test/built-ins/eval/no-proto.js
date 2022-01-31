@@ -3,13 +3,11 @@
 
 /*---
 info: The eval property has not prototype property
-es5id: 15.1.2.1_A4.6
-es6id: 18.2.1
 esid: sec-eval-x
 description: Checking eval.prototype
 ---*/
 
 //CHECK#1
 if (eval.prototype !== undefined) {
-  $ERROR('#1: eval.prototype === undefined. Actual: ' + (eval.prototype));
+  throw new Test262Error('#1: eval.prototype === undefined. Actual: ' + (eval.prototype));
 }

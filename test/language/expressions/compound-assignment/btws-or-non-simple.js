@@ -2,16 +2,16 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
-    It is an early Reference Error if IsValidSimpleAssignmentTarget of
-    LeftHandSideExpression is false.
-es6id: 12.14.1
+esid: sec-assignment-operators-static-semantics-early-errors
+info: |
+    It is an early Syntax Error if AssignmentTargetType of
+    LeftHandSideExpression is invalid or strict.
 description: Compound "bitwise or" assignment with non-simple target
 negative:
-  phase: early
-  type: ReferenceError
+  phase: parse
+  type: SyntaxError
 ---*/
 
-throw "Test262: This statement should not be evaluated.";
+$DONOTEVALUATE();
 
 1 |= 1;

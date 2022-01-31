@@ -8,9 +8,9 @@ description: Array.isArray applied to an object with an array as the prototype
 ---*/
 
 var proto = [];
-var Con = function () { };
+var Con = function() {};
 Con.prototype = proto;
 
 var child = new Con();
 
-assert.sameValue(Array.isArray(child), false, 'Array.isArray(child)');
+assert.sameValue(Array.isArray(child), false, 'Array.isArray(new Con()) must return false');

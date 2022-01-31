@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     The value of the internal [[Class]] property of Object prototype object
     is "Object"
 es5id: 15.2.4_A2
@@ -13,7 +13,4 @@ description: >
 
 var tostr = Object.prototype.toString();
 
-//CHECK#1
-if (tostr !== "[object Object]") {
-  $ERROR('#1: the value of the internal [[Class]] property of Object prototype object is "Object"');
-}
+assert.sameValue(tostr, "[object Object]", 'The value of tostr is expected to be "[object Object]"');

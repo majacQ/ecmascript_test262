@@ -4,14 +4,17 @@
 /*---
 info: The "length" property of the "toLocaleTimeString" is 0
 esid: sec-date.prototype.tolocaletimestring
-es5id: 15.9.5.7_A2_T1
 description: The "length" property of the "toLocaleTimeString" is 0
 ---*/
 
-if(Date.prototype.toLocaleTimeString.hasOwnProperty("length") !== true){
-  $ERROR('#1: The toLocaleTimeString has a "length" property');
-}
+assert.sameValue(
+  Date.prototype.toLocaleTimeString.hasOwnProperty("length"),
+  true,
+  'Date.prototype.toLocaleTimeString.hasOwnProperty("length") must return true'
+);
 
-if(Date.prototype.toLocaleTimeString.length !== 0){
-  $ERROR('#2: The "length" property of the toLocaleTimeString is 0');
-}
+assert.sameValue(
+  Date.prototype.toLocaleTimeString.length,
+  0,
+  'The value of Date.prototype.toLocaleTimeString.length is expected to be 0'
+);

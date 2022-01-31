@@ -3,17 +3,19 @@
 
 /*---
 esid: sec-array.prototype.every
-es5id: 15.4.4.16-7-c-iii-2
 description: Array.prototype.every - return value of callbackfn is null
 ---*/
 
-        var accessed = false;
-        var obj = { 0: 11, length: 1 };
+var accessed = false;
+var obj = {
+  0: 11,
+  length: 1
+};
 
-        function callbackfn(val, idx, obj) {
-            accessed = true;
-            return null;
-        }
+function callbackfn(val, idx, obj) {
+  accessed = true;
+  return null;
+}
 
 
 

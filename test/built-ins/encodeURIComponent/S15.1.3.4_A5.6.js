@@ -3,13 +3,11 @@
 
 /*---
 info: The encodeURIComponent property has not prototype property
-es5id: 15.1.3.4_A5.6
-es6id: 18.2.6.5
 esid: sec-encodeuricomponent-uricomponent
 description: Checking encodeURIComponent.prototype
 ---*/
 
 //CHECK#1
 if (encodeURIComponent.prototype !== undefined) {
-  $ERROR('#1: encodeURIComponent.prototype === undefined. Actual: ' + (encodeURIComponent.prototype));
+  throw new Test262Error('#1: encodeURIComponent.prototype === undefined. Actual: ' + (encodeURIComponent.prototype));
 }

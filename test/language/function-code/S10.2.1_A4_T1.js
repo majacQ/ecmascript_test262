@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     Function declaration in function code - If the variable object
     already has a property with the name of Function Identifier, replace its
     value and attributes. Semantically, this step must follow the creation of
@@ -21,7 +21,7 @@ function f1(x){
   }
 }
 if(!(f1().constructor.prototype === Function.prototype)){
-  $ERROR('#1: f1() returns function');
+  throw new Test262Error('#1: f1() returns function');
 }
 
 //CHECK#2
@@ -33,7 +33,7 @@ function f2(x){
   }
 }
 if(!(f2() === "function")){
-  $ERROR('#2: f2() === "function"');
+  throw new Test262Error('#2: f2() === "function"');
 }
 
 //CHECK#3
@@ -44,5 +44,5 @@ function f3() {
   }
 }
 if (!(f3() === "function")){
-  $ERROR('#3: f3() === "function"');
+  throw new Test262Error('#3: f3() === "function"');
 }

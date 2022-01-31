@@ -2,7 +2,7 @@
 // This code is governed by the BSD license found in the LICENSE file.
 
 /*---
-info: >
+info: |
     If F contains any character other than 'g', 'i', or 'm', or if it
     contains the same one more than once, then throw a SyntaxError exception
 es5id: 15.10.4.1_A5_T9
@@ -11,11 +11,14 @@ description: >
     the correct exception
 ---*/
 
-//CHECK#1
 try {
-	$ERROR('#1.1: new RegExp("$sup",{toString:function(){}}) throw SyntaxError. Actual: ' + (new RegExp("$sup",{toString:function(){}})));
+    throw new Test262Error('#1.1: new RegExp("$sup",{toString:function(){}}) throw SyntaxError. Actual: ' + (new RegExp("$sup",{toString:function(){}})));
 } catch (e) {
-	if ((e instanceof SyntaxError) !== true) {
-		$ERROR('#1.2: new RegExp("$sup",{toString:function(){}}) throw SyntaxError. Actual: ' + (e));
-	}
+  assert.sameValue(
+    e instanceof SyntaxError,
+    true,
+    'The result of evaluating (e instanceof SyntaxError) is expected to be true'
+  );
 }
+
+// TODO: Convert to assert.throws() format.

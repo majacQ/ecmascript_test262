@@ -4,15 +4,20 @@
 /*---
 info: The Date.prototype property "setSeconds" has { DontEnum } attributes
 esid: sec-date.prototype.setseconds
-es5id: 15.9.5.30_A1_T1
 description: Checking absence of ReadOnly attribute
 ---*/
 
 var x = Date.prototype.setSeconds;
-if(x === 1)
+if (x === 1) {
   Date.prototype.setSeconds = 2;
-else
+} else {
   Date.prototype.setSeconds = 1;
-if (Date.prototype.setSeconds === x) {
-  $ERROR('#1: The Date.prototype.setSeconds has not the attribute ReadOnly');
 }
+
+assert.notSameValue(
+  Date.prototype.setSeconds,
+  x,
+  'The value of Date.prototype.setSeconds is expected to not equal the value of `x`'
+);
+
+// TODO: Convert to verifyProperty() format.

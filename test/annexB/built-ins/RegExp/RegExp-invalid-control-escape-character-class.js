@@ -5,11 +5,12 @@
 esid: prod-annexB-ClassAtomNoDash
 description: >
   Character classes containing an invalid control escape behave like [\\c]
-info: >
+info: |
   ClassAtomNoDash :: `\`
 
   The production ClassAtomNoDash :: `\` evaluates as follows:
     1. Return the CharSet containing the single character `\`.
+features: [generators]
 ---*/
 
 function* invalidControls() {
@@ -33,21 +34,21 @@ for (let letter of invalidControls()) {
     var str = String.fromCharCode(char % 32);
     var arr = re.exec(str);
     if (str !== letter && arr !== null) {
-      $ERROR(`Character ${letter} unreasonably wrapped around as a control character`);
+      throw new Test262Error(`Character ${letter} unreasonably wrapped around as a control character`);
     }
 
     arr = re.exec(letter);
     if (arr === null) {
-      $ERROR(`Character ${letter} missing from character class ${source}`);
+      throw new Test262Error(`Character ${letter} missing from character class ${source}`);
     }
   }
   arr = re.exec("\\")
   if (arr === null) {
-    $ERROR(`Character \\ missing from character class ${source}`);
+    throw new Test262Error(`Character \\ missing from character class ${source}`);
   }
   arr = re.exec("c")
   if (arr === null) {
-    $ERROR(`Character c missing from character class ${source}`);
+    throw new Test262Error(`Character c missing from character class ${source}`);
   }
 }
 

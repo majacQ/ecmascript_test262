@@ -3,19 +3,19 @@
 
 /*---
 esid: sec-date.prototype.getfullyear
-info: >
+info: |
     The Date.prototype.getFullYear property "length" has { ReadOnly,
     DontDelete, DontEnum } attributes
 es5id: 15.9.5.10_A3_T3
 description: Checking DontEnum attribute
 ---*/
+assert(
+  !Date.prototype.getFullYear.propertyIsEnumerable('length'),
+  'The value of !Date.prototype.getFullYear.propertyIsEnumerable(\'length\') is expected to be true'
+);
 
-if (Date.prototype.getFullYear.propertyIsEnumerable('length')) {
-  $ERROR('#1: The Date.prototype.getFullYear.length property has the attribute DontEnum');
+for (var x in Date.prototype.getFullYear) {
+  assert.notSameValue(x, "length", 'The value of x is not "length"');
 }
 
-for(var x in Date.prototype.getFullYear) {
-  if(x === "length") {
-    $ERROR('#2: The Date.prototype.getFullYear.length has the attribute DontEnum');
-  }
-}
+// TODO: Convert to verifyProperty() format.

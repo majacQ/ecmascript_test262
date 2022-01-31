@@ -2,7 +2,6 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-promise.all
-es6id: 25.4.4.1
 description: >
   Promise is rejected when the "resolve" capability returns an abrupt
   completion.
@@ -48,9 +47,13 @@ flags: [async]
 var thrown = new Test262Error();
 var P = function(executor) {
   return new Promise(function(_, reject) {
-    executor(function() { throw thrown; }, reject);
+    executor(function() {
+      throw thrown;
+    }, reject);
   });
 };
+
+P.resolve = Promise.resolve;
 
 Promise.all.call(P, [])
   .then(function() {

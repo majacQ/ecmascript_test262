@@ -3,25 +3,22 @@
 
 /*---
 info: The parseInt property has the attribute DontEnum
-es5id: 15.1.2.2_A9.5
-es6id: 18.2.5
 esid: sec-parseint-string-radix
 description: Checking use propertyIsEnumerable, for-in
 ---*/
 
-//CHECK#1
-if (this.propertyIsEnumerable('parseInt') !== false) {
-  $ERROR('#1: this.propertyIsEnumerable(\'parseInt\') === false. Actual: ' + (this.propertyIsEnumerable('parseInt')));
-}
+assert.sameValue(
+  this.propertyIsEnumerable('parseInt'),
+  false,
+  'this.propertyIsEnumerable(\'parseInt\') must return false'
+);
 
 //CHECK#2
 var result = true;
-for (var p in this){
+for (var p in this) {
   if (p === "parseInt") {
     result = false;
   }
 }
 
-if (result !== true) {
-  $ERROR('#2: result = true; for (p in this) { if (p === "parseInt") result = false; }  result === true;');
-}
+assert.sameValue(result, true, 'The value of `result` is true');

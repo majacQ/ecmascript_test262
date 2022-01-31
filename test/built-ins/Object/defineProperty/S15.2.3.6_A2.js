@@ -10,8 +10,15 @@ description: >
 
 var base = {};
 var derived = Object.create(base);
-function getter() { return 'gotten'; }
-Object.defineProperty(base, 'foo', {get: getter});
-if (derived.hasOwnProperty('foo')) {
-  $ERROR('Accessor properties inherit as own properties');
+
+function getter() {
+  return 'gotten';
 }
+Object.defineProperty(base, 'foo', {
+  get: getter
+});
+
+assert(
+  !derived.hasOwnProperty('foo'),
+  'The value of !derived.hasOwnProperty("foo") is expected to be true'
+);
