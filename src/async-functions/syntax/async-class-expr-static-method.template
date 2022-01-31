@@ -19,6 +19,8 @@ info: |
 features: [async-functions]
 ---*/
 
-var C = class { static async method() {
+var C = class {
+  static async method(/*{ params }*/) {
     /*{ body }*/
-}};
+  }
+};

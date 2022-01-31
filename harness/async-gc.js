@@ -3,9 +3,8 @@
 /*---
 description: >
     Collection of functions used to capture references cleanup from garbage collectors
-features: [Symbol, async-functions]
+features: [FinalizationRegistry.prototype.cleanupSome, FinalizationRegistry, Symbol, async-functions]
 flags: [non-deterministic]
-features: [FinalizationRegistry]
 defines: [asyncGC, asyncGCDeref, resolveAsyncGC]
 ---*/
 

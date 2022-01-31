@@ -49,10 +49,30 @@ class TestGeneration(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(OUT_DIR, ignore_errors=True)
 
+    def test_glob(self):
+        result = self.fixture('glob.case')
+        self.assertEqual(result['returncode'], 0)
+        self.compareTrees('glob')
+
+    def test_glob_expr(self):
+        result = self.fixture('glob-expr.case')
+        self.assertEqual(result['returncode'], 0)
+        self.compareTrees('glob-expr')
+
+    def test_multiple_templates(self):
+        result = self.fixture('multiple-templates.case')
+        self.assertEqual(result['returncode'], 0)
+        self.compareTrees('multiple-templates')
+
     def test_normal(self):
         result = self.fixture('normal.case')
         self.assertEqual(result['returncode'], 0)
         self.compareTrees('normal')
+
+    def test_async(self):
+        result = self.fixture('async-negative-invalid.case')
+        self.assertEqual(result['returncode'], 0)
+        self.compareTrees('async')
 
     def test_negative(self):
         result = self.fixture('negative.case')

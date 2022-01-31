@@ -15,8 +15,9 @@ info: |
   6. Let q be ? ToNumber(timeout).
 
 flags: [async]
-features: [Atomics.waitAsync, SharedArrayBuffer, TypedArray, Atomics]
+features: [Atomics.waitAsync, SharedArrayBuffer, TypedArray, Atomics, destructuring-binding, arrow-function]
 ---*/
+assert.sameValue(typeof Atomics.waitAsync, 'function', 'The value of `typeof Atomics.waitAsync` is "function"');
 const i32a = new Int32Array(
   new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT * 4)
 );
@@ -27,6 +28,6 @@ Promise.all([
     assert.sameValue(
       outcome,
       'timed-out',
-      'Atomics.waitAsync(i32a, 0, 0, -1).value resolves to "timed-out"'
+      'The value of `outcome` is "timed-out"'
     );
-  }, $DONE).then($DONE, $DONE);
+  }).then($DONE, $DONE);

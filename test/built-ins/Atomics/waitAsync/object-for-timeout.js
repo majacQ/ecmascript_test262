@@ -19,9 +19,10 @@ info: |
       Let primValue be ? ToPrimitive(argument, hint Number).
       Return ? ToNumber(primValue).
 
-features: [Atomics.waitAsync, SharedArrayBuffer, Symbol, Symbol.toPrimitive, TypedArray, computed-property-names, Atomics]
+features: [Atomics.waitAsync, SharedArrayBuffer, Symbol, Symbol.toPrimitive, TypedArray, computed-property-names, Atomics, arrow-function]
 flags: [async]
 ---*/
+assert.sameValue(typeof Atomics.waitAsync, 'function', 'The value of `typeof Atomics.waitAsync` is "function"');
 const i32a = new Int32Array(
   new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT * 4)
 );
@@ -47,17 +48,17 @@ const toPrimitive = {
 assert.sameValue(
   Atomics.waitAsync(i32a, 0, 0, valueOf).value,
   'timed-out',
-  'Atomics.waitAsync(i32a, 0, 0, valueOf).value resolves to "timed-out"'
+  'The value of Atomics.waitAsync(i32a, 0, 0, valueOf).value is "timed-out"'
 );
 assert.sameValue(
   Atomics.waitAsync(i32a, 0, 0, toString).value,
   'timed-out',
-  'Atomics.waitAsync(i32a, 0, 0, toString).value resolves to "timed-out"'
+  'The value of Atomics.waitAsync(i32a, 0, 0, toString).value is "timed-out"'
 );
 assert.sameValue(
   Atomics.waitAsync(i32a, 0, 0, toPrimitive).value,
   'timed-out',
-  'Atomics.waitAsync(i32a, 0, 0, toPrimitive).value resolves to "timed-out"'
+  'The value of Atomics.waitAsync(i32a, 0, 0, toPrimitive).value is "timed-out"'
 );
 
 Promise.all([
@@ -65,7 +66,7 @@ Promise.all([
     Atomics.waitAsync(i32a, 0, 0, toString).value,
     Atomics.waitAsync(i32a, 0, 0, toPrimitive).value,
   ]).then(outcomes => {
-    assert.sameValue(outcomes[0], "timed-out");
-    assert.sameValue(outcomes[1], "timed-out");
-    assert.sameValue(outcomes[2], "timed-out");
-  }, $DONE).then($DONE, $DONE);
+    assert.sameValue(outcomes[0], "timed-out", 'The value of outcomes[0] is "timed-out"');
+    assert.sameValue(outcomes[1], "timed-out", 'The value of outcomes[1] is "timed-out"');
+    assert.sameValue(outcomes[2], "timed-out", 'The value of outcomes[2] is "timed-out"');
+  }).then($DONE, $DONE);

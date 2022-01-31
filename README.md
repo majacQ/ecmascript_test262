@@ -32,10 +32,10 @@ Guidance for contributing to Test262 can be found in [CONTRIBUTING.md](./CONTRIB
 
 ### Running Test262
 
-Guidance for running Test262 and explanations of how a test file is interpreted by a test runner is in [INTERPRETING](./INTERPRETING.md)
+Guidance for running Test262 and explanations of how a test file must be interpreted by a test runner is in [INTERPRETING](./INTERPRETING.md)
 
 
-### Test262 Runners & Harnesses
+### Test262 Runners
 
 Volunteer-maintained projects that may be used to execute Test262 in various ECMAScript hosts:
 
@@ -43,3 +43,14 @@ Volunteer-maintained projects that may be used to execute Test262 in various ECM
 - https://github.com/test262-utils/test262-harness-py (platform: Python)
 - https://bakkot.github.io/test262-web-runner/ (platform: web)
 - https://github.com/Izhido/test262_harness_cpp (platform: C++)
+
+
+### How To Read CI Results
+
+Test262 runs CI tests against every PR and commit. The only tests that are required to pass are visibly flagged as **REQUIRED**. The CI test results that are attributed to specific runs against specific engines should not be perceived as meaningful to anyone but the person that is reviewing the test material contained within the contributed changeset. These tests are almost always expected to fail, especially in the case of tests for new features. They _may_ be helpful in determining whether or not a regression occurred, but that can only be determined by an actual human reviewing the results and comparing those outcomes to the expected outcomes of the tests.
+
+
+
+### Where did `website/` go?
+
+It's been removed. If you need to access the code that contained in that directory, we've preserved it in a branch, [available here](https://github.com/tc39/test262/tree/preserved-website-directory).

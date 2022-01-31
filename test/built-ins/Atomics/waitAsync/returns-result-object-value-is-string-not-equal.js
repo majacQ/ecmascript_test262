@@ -22,8 +22,9 @@ info: |
   Perform ! CreateDataPropertyOrThrow(_resultObject_, *"value"*, _promiseCapability_.[[Promise]]).
   Return _resultObject_.
 
-features: [Atomics.waitAsync]
+features: [Atomics.waitAsync, TypedArray, SharedArrayBuffer, destructuring-binding, Atomics]
 ---*/
+assert.sameValue(typeof Atomics.waitAsync, 'function', 'The value of `typeof Atomics.waitAsync` is "function"');
 
 const i32a = new Int32Array(
   new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT * 8)
@@ -31,5 +32,5 @@ const i32a = new Int32Array(
 
 let {async, value} = Atomics.waitAsync(i32a, 0, 1);
 
-assert.sameValue(async, false);
-assert.sameValue(value, "not-equal");
+assert.sameValue(async, false, 'The value of `async` is false');
+assert.sameValue(value, "not-equal", 'The value of `value` is "not-equal"');

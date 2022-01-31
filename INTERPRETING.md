@@ -26,8 +26,9 @@ code](https://tc39.github.io/ecma262/#sec-types-of-source-code).
 
 ### Test262-Defined Bindings
 
-The contents of the following files must be evaluated in the test realm's
-global scope prior to test execution:
+The contents of the following harness files must be evaluated in the test
+realm's global scope prior to test execution unless the test uses the `raw`
+frontmatter flag:
 
 1. `harness/assert.js`
 2. `harness/sta.js`
@@ -70,7 +71,7 @@ properties of the global scope prior to test execution.
     object that:
 
     1. has an [[IsHTMLDDA]] internal slot, and 
-    2. when called with no arguments or with the single argument `""` (an empty string) returns `null`. 
+    2. when called with no arguments or with the first argument `""` (an empty string) returns `null`. 
 
           Note: The peculiar second requirement permits testing algorithms when they also call `document.all` with such arguments, so that testing for correct behavior requires knowing how the call behaves. This is rarely necessary.  
     
@@ -107,7 +108,7 @@ properties of the global scope prior to test execution.
         sleeps the execution for approximately that duration.
     - **`monotonicNow`** - a function that returns a value that conforms to [`DOMHighResTimeStamp`][] and is produced in such a way that its semantics conform to **[Monotonic Clock][]**.
 
-In addition, consumers may choose to override any of the [the available test harness helper functions](https://github.com/tc39/test262/blob/master/CONTRIBUTING.md#test-environment) as they see fit. See [the documentation on handling errors and negative test cases](https://github.com/tc39/test262/blob/master/CONTRIBUTING.md#handling-errors-and-negative-test-cases) for a useful example of this.
+In addition, consumers may choose to override any of [the functions defined by test harness files](https://github.com/tc39/test262/blob/HEAD/CONTRIBUTING.md#test-environment) as they see fit. See [the documentation on handling errors and negative test cases](https://github.com/tc39/test262/blob/HEAD/CONTRIBUTING.md#handling-errors-and-negative-test-cases) for a useful example of this.
 
 
 #### Normative references
@@ -138,7 +139,7 @@ This must precede any additional text modifications described by test metadata.
 ### Modules
 
 Test262 includes tests for ECMAScript 2015 module code, denoted by the "module"
-metadata flag. Files bearing a name ending in `_FIXTURE.js` **MUST NOT** be interpreted as standalone tests; they are intended to be referenced by test files. Realm modifications, including [Test262-Defined Bindings](#test262-defined-bindings) and [Host-Defined Functions](#host-defined-functions), are not applied to code executed from `_FIXTURE.js` files. See the [**Rules For Module `_FIXTURE.js` Files** section of CONTRIBUTING.md](https://github.com/tc39/test262/blob/master/CONTRIBUTING.md#rules-for-module-fixturejs-files) for more information.
+metadata flag. Files bearing a name which includes the sequence `_FIXTURE` **MUST NOT** be interpreted as standalone tests; they are intended to be referenced by test files. Realm modifications, including [Test262-Defined Bindings](#test262-defined-bindings) and [Host-Defined Functions](#host-defined-functions), are not applied to code executed from `_FIXTURE` files. See the [**Rules For Module `_FIXTURE` Files** section of CONTRIBUTING.md](https://github.com/tc39/test262/blob/HEAD/CONTRIBUTING.md#rules-for-module-fixturejs-files) for more information.
 
 All module specifiers used by Test262 begin with the character sequence `./`.
 The remaining characters should be interpreted as the name of a file within the
@@ -156,6 +157,8 @@ import * as ns from './dep.js';
 
 Implementers should attempt to resolve this module specifier by loading a file
 located at `test/language/import/nested/dep.js`.
+
+Files bearing a name ending in `.json` are intended to be interpreted as JSON.
 
 ## Test Results
 
@@ -179,8 +182,7 @@ attribute is a YAML dictonary with two keys:
 
 - `phase` - the stage of the test interpretation process that the error is
   expected to be produced; valid phases are:
-    - `parse`: occurs while parsing the source text.
-    - `early`: occurs prior to evaluation.
+    - `parse`: occurs while parsing the source text, or while checking it for early errors.
     - `resolution`: occurs during module resolution.
     - `runtime`: occurs during evaluation.
 - `type` - the name of the constructor of the expected error
@@ -189,6 +191,16 @@ If a test configured with the `negative` attribute completes without throwing
 an exception, or if the name of the thrown exception's constructor does not
 match the specified constructor name, or if the error occurs at a phase that
 differs from the indicated phase, the test must be interpreted as "failing."
+
+The **`$DONOTEVALUATE()`** function is for use in tests that include the following meta data: 
+
+```
+negative:
+  phase: runtime
+  type: ReferenceError
+```
+
+The definition is considered "runner implementation defined" and no guarantees can be made about its behavior, therefore it is restricted to only tests that meet the criteria described above. 
 
 *Examples:*
 
@@ -304,8 +316,9 @@ following strings:
   export default function* g() {}
   ```
 
-- **`raw`** The test source code must not be modified in any way, and the test
-  must be executed just once (in non-strict mode, only).
+- **`raw`** The test source code must not be modified in any way, files from
+  the `harness/` directory must not be evaluated, and the test must be executed
+  just once (in non-strict mode, only).
 
   *Example*
 
@@ -349,7 +362,7 @@ following strings:
 
 - **`CanBlockIsFalse`** The test file should only be run when the [[CanBlock]] property of the [Agent Record](https://tc39.github.io/ecma262/#sec-agents) executing the file is `false`.
 
- *Example*
+  *Example*
 
   ```js
   /*---
@@ -361,7 +374,7 @@ following strings:
 
 - **`CanBlockIsTrue`** The test file should only be run when the [[CanBlock]] property of the [Agent Record](https://tc39.github.io/ecma262/#sec-agents) executing the file is `true`.
 
- *Example*
+  *Example*
 
   ```js
   /*---

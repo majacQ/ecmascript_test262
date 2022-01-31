@@ -22,8 +22,9 @@ info: |
   1. If Type(O) is not Object, throw a TypeError exception.
   2. If O does not have an internalSlot internal slot, throw a TypeError exception.
 
-features: [Atomics.waitAsync]
+features: [Atomics.waitAsync, arrow-function, Atomics]
 ---*/
+assert.sameValue(typeof Atomics.waitAsync, 'function', 'The value of `typeof Atomics.waitAsync` is "function"');
 const poisoned = {
   valueOf() {
     throw new Test262Error('should not evaluate this code');
@@ -32,8 +33,8 @@ const poisoned = {
 
 assert.throws(TypeError, () => {
   Atomics.waitAsync({}, 0, 0, 0);
-}, '`Atomics.waitAsync({}, 0, 0, 0)` throws TypeError');
+}, '`Atomics.waitAsync({}, 0, 0, 0)` throws a TypeError exception');
 
 assert.throws(TypeError, () => {
   Atomics.waitAsync({}, poisoned, poisoned, poisoned);
-}, '`Atomics.waitAsync({}, poisoned, poisoned, poisoned)` throws TypeError');
+}, '`Atomics.waitAsync({}, poisoned, poisoned, poisoned)` throws a TypeError exception');
