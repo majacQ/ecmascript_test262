@@ -8,7 +8,7 @@
 
 ## Acceptable Tests
 
-Any test that execercises observable grammar or semantics, originating with citable, normative text in the latest draft of the [ECMAScript Language Specification](https://tc39.es/ecma262/), the [ECMAScript Internationalization API Specification](https://tc39.es/ecma402/), the [The JSON Data
+Any test that exercises observable grammar or semantics, originating with citable, normative text in the latest draft of the [ECMAScript Language Specification](https://tc39.es/ecma262/), the [ECMAScript Internationalization API Specification](https://tc39.es/ecma402/), the [The JSON Data
 Interchange Syntax](https://ecma-international.org/publications/standards/Ecma-404.htm), a [Stage 3](https://github.com/tc39/proposals#stage-3) proposal or a Pull Request which makes a normative change to any of those specifications.
 
 ## Unacceptable Tests
@@ -87,14 +87,16 @@ The copyright should follow this format:
 
 Where
 
-- `$Year` must be a 4 digit single year. It should not be an year range. If it's extremely necessary to add multiple years, repeat line for each year.
+- `$Year` must be a 4 digit single year. It should not be a year range. If it's extremely necessary to add multiple years, repeat line for each year.
 - `$ContributorName` must be a legal (natural or juridical) person's name.
 
 The code must be a BSD or BSD-style compatible with the license of this project. Therefore, the line following the year and name parts should be written as in the example above.
 
 ### Frontmatter
 
-The Test262 frontmatter is a string of [YAML](https://en.wikipedia.org/wiki/YAML) enclosed by the comment start tag `/*---` and end tag `---*/`.  There must be exactly one Frontmatter per test.
+The Test262 frontmatter is a string of [YAML](https://en.wikipedia.org/wiki/YAML) enclosed by the comment start tag `/*---` and end tag `---*/`. In order to simplify parsing, scalar values spanning multiple lines may not be expressed using "flow" notation.
+
+There must be exactly one Frontmatter per test.
 
 Test262 supports the following keys:
 
@@ -103,7 +105,6 @@ Test262 supports the following keys:
  - [**info**](#info)
  - [**negative**](#negative)
  - [**includes**](#includes)
- - [**timeout**](#timeout)
  - [**author**](#author)
  - [**flags**](#flags)
  - [**features**](#features) (required for new tests written for new features)
@@ -179,13 +180,6 @@ This key names a list of helper files that will be included in the test environm
 
 The helper files are found in the `harness/` directory. When some code is used repeatedly across a group of tests, a new helper function (or group of helpers) can be defined. Helpers increase test complexity, so they should be created and used sparingly.
 
-#### timeout
-`timeout: [integer]`
-
-This key specifies the number of milliseconds to wait before the test runner declares an [asynchronous test](#writing-asynchronous-tests) to have timed out.  It has no effect on synchronous tests.
-
-Test authors **should not** use this key except as a last resort.  Each runner is allowed to provide its own default timeout, and the user may be permitted to override this in order to account for unusually fast or slow hardware, network delays, etc.
-
 #### author
 `author: [string]`
 
@@ -206,16 +200,16 @@ This key is for boolean properties associated with the test.
 - **async** - defer interpretation of test results until after the invocation
   of the global `$DONE` function
 - **generated** - informative flag used to denote test files that were
-  created procedurally using the project's test generation tool; refer to the
-  section titled "Procedurally-generated tests" for more information on this
-  process
+  created procedurally using the project's test generation tool; refer to
+  [Procedurally-generated tests](#procedurally-generated-tests)
+  for more information on this process
 - **CanBlockIsFalse** - only run the test when the [[CanBlock]] property of the [Agent Record](https://tc39.github.io/ecma262/#sec-agents) executing the test file is `false`
 - **CanBlockIsTrue** - only run the test when the [[CanBlock]] property of the [Agent Record](https://tc39.github.io/ecma262/#sec-agents) executing the test file is `true`
 
 #### features
 `features: [list]`
 
-Some tests require the use of language features that are not directly described by the test file's location in the directory structure. These features should be specified with this key. See the [`features.txt`](features.txt) file for a complete list of available values. This key is required for new tests written for new features, but contributions will not be "blocked" if the key is missing from frontmatter. The committing maintainer is required to ensure that the key is present and contains the correct feature names; this can be done in an follow up commit.
+Some tests require the use of language features that are not directly described by the test file's location in the directory structure. These features should be specified with this key. See the [`features.txt`](features.txt) file for a complete list of available values. This key is required for new tests written for new features, but contributions will not be "blocked" if the key is missing from frontmatter. The committing maintainer is required to ensure that the key is present and contains the correct feature names; this can be done in a follow up commit.
 
 #### es5id
 `es5id: [es5-test-id]`
@@ -243,13 +237,12 @@ Function | Purpose
 ---------|--------
 `Test262Error(message)` | constructor for an error object that indicates a test failure
 `$DONE(arg)` | see [Writing Asynchronous Tests](#writing-asynchronous-tests), below
-`assert(value, message)` | throw a new Test262Error instance if the specified value is not strictly equal to the JavaScript `true` value; accepts an optional string message for use in creating the error
-`assert.sameValue(actual, expected, message)` | throw a new Test262Error instance if the first two arguments are not [the same value](https://tc39.github.io/ecma262/#sec-samevalue); accepts an optional string message for use in creating the error
-`assert.notSameValue(actual, unexpected, message)` | throw a new Test262Error instance if the first two arguments are [the same value](https://tc39.github.io/ecma262/#sec-samevalue); accepts an optional string message for use in creating the error
-`assert.throws(expectedErrorConstructor, fn, message)` | throw a new Test262Error instance if the provided function does not throw an error, or if the constructor of the value thrown does not match the provided constructor
+`assert(value, message)` | throw a new Test262Error instance if the specified value is not strictly equal to the JavaScript `true` value; accepts an optional string message explaining the scenario and what should have happened
+`assert.sameValue(actual, expected, message)` | throw a new Test262Error instance if the first two arguments are not [the same value](https://tc39.github.io/ecma262/#sec-samevalue); accepts an optional string message explaining the scenario and what should have happened
+`assert.notSameValue(actual, unexpected, message)` | throw a new Test262Error instance if the first two arguments are [the same value](https://tc39.github.io/ecma262/#sec-samevalue); accepts an optional string message explaining the scenario and what should have happened
+`assert.throws(expectedErrorConstructor, fn, message)` | throw a new Test262Error instance if the provided function does not throw an error or if the constructor of the value thrown does not match the provided constructor; accepts an optional string message explaining the scenario and what should have happened
 `$DONOTEVALUATE()` | throw an exception if the code gets evaluated. This may only be used in [negative test cases for parsing errors](#handling-errors-and-negative-test-cases).
 `throw "Test262: This statement should not be evaluated.";` | throw an exception if the code gets evaluated. Use this if the test file has the `raw` flag and it's a negative test case for parsing error.
-`$ERROR(message)` | construct a Test262Error object and throw it <br>**DEPRECATED** -- Do not use in new tests. Use `assert`, `assert.*`, or `throw new Test262Error` instead.
 
 ```javascript
 /// error class
@@ -258,9 +251,9 @@ function Test262Error(message) {
 }
 ```
 
-## Rules For Module `_FIXTURE.js` Files
+## Rules For Module `_FIXTURE` Files
 
-The [Module section of INTERPRETING.md](https://github.com/tc39/test262/blob/HEAD/INTERPRETING.md#modules) states that `_FIXTURE.js` files will not have have Realm modifications applied. In practice, this means that code in `_FIXTURE.js` files must abide by the following rules: 
+The [Module section of INTERPRETING.md](https://github.com/tc39/test262/blob/HEAD/INTERPRETING.md#modules) states that `_FIXTURE` files will not have Realm modifications applied. In practice, this means that code in `_FIXTURE` files must abide by the following rules:
 
 - **MUST NOT** refer to, or make use of any [Test262-Defined Bindings](https://github.com/tc39/test262/blob/HEAD/INTERPRETING.md#test262-defined-bindings) in any way. 
 - **MUST NOT** refer to, or make use of any [Host-Defined Functions](https://github.com/tc39/test262/blob/HEAD/INTERPRETING.md#host-defined-functions) in any way. 
@@ -378,29 +371,37 @@ In some cases, it may be necessary for a test to intentionally violate the rules
 
 ## Procedurally-generated tests
 
-Some language features are expressed through a number of distinct syntactic forms. Test262 maintains these tests as a set of "test cases" and "test templates" in order to ensure equivalent coverage across all forms. The sub-directories within the `src/` directory describe the various language features that benefit from this approach.
+Some language features are expressed through a number of distinct syntactic forms. To ensure equivalent coverage across all of them, Test262 includes "test templates" and "test cases" in sub-directories under the `src/` directory. Test cases and test templates have the same sections as so-called "static" (i.e. non-generated) tests, although the expected metadata keys differ between test cases and test templates and the Body of each is subject to special interpretation as described below.
 
-Test cases and test templates specify meta-data using the same YAML frontmatter pattern as so-called "static" (i.e. non-generated) tests. The expected attributes differ between test cases and test templates:
+### test templates (`*.template`)
+The Body of a test template matches that of a non-generated test in which an arbitrary number of "placeholder" comments have replaced input elements. A placeholder comment is one whose content consists of an identifier wrapped in curly braces with optional interior whitespace, e.g. `/*{name}*/` or `/*{ name }*/`, which is replaced in each generated file with data from a test case.
+
+Expected [Frontmatter](#frontmatter) keys:
+Key | Description
+------|-------------
+`path` | location within the published test hierarchy to output files created from this template, each with a path formed by appending the name of the corresponding test case file. For example, a template with `path` "/test/language/template1-" used by test case file case1.js will generate a test file for that case at "/test/language/template1-case1.js".
+`name` | human-readable name of the syntactic form described by this template. Each generated test will have a `description` that is the result of appending the test template `name`, in parentheses, to the test case `desc` field.
+`esid` | see the general definition of the [`esid` frontmatter key](#esid).
+`info` | see the general definition of the [`info` frontmatter key](#info). Each generated test will have `info` that is the concatenation of the test template `info` field and the test case `info` field.
+`features` | see the general definition of the [`features` frontmatter key](#features). Each generated test will have a feature list that is the union of the test template `features` and the test case `features`.
+any other valid frontmatter field | see the general definitions.
 
 ### test cases (`*.case`)
-Field | Description
+The Body of a test case consists of a sequence of "value" comments, each followed by a line break and then content for use in a template. A value comment is one whose content consists of a whitespace-separated sequence of an initial ASCII dash, an identifier, and any number of optional tags, e.g. `//- name` or `//- character codepoints`. Line(s) after the value comment are trimmed of leading whitespace and then interpreted according to its tags and used as the replacement for any template placeholder comment sharing its identifier. The special identifiers "setup" and "teardown" always become the start and end (respectively) of the template Body.
+
+Currently-defined value comment tags:
+* `codepoints` indicates that the following line(s) of content are to be interpreted as a sequence of hexadecimal-encoded Unicode code points separated by whitespace. This is useful for definining content that includes whitespace or other invisible characters, e.g. `0000` represents a NULL character and `2028 2029` represents a line separator followed by a paragraph separator.
+
+Expected [Frontmatter](#frontmatter) keys:
+Key | Description
 ------|-------------
 `template` | a template file, directory or glob expression.
 `templates` | a list of template file, directory or glob expressions.
-`desc` | see the frontmatter definition of the "desc" field. The generated test will have a have final "desc" value which is this text appended with the test template's "name" field in parentheses.
-`info` | see the frontmatter definition of the "info" field. The generated test will have a have final "info" value which is this text concatenated at the end of the test templates's "info" text.
-`features` | see the frontmatter definition of the "features" field. The generated test will have a final feature list in combination with the template's feature field.
+`desc` | see the general definition of the [`description` frontmatter key](#description). Each generated test will have a `description` that is the result of appending the test template `name`, in parentheses, to the test case `desc` field.
+`info` | see the general definition of the [`info` frontmatter key](#info). Each generated test will have `info` that is the concatenation of the test template `info` field and the test case `info` field.
+`features` | see the general definition of the [`features` frontmatter key](#features). Each generated test will have a feature list that is the union of the test template `features` and the test case `features`.
 
-### test templates (`*.template`)
-Field | Description
-------|-------------
-`path` | location within the published test hierarchy to output files created from this template. This path will be ended with the name of the test case file. If path is "/test/language/template1-" and the test case is "case1.js", the final location of the file will be "/test/language/template1-case1.js"
-`name` | human-readable name of the syntactic form described by this template. This text will be appended, in parentheses, to the end of the test cases `desc` field.
-`esid` | see the frontmatter definition of the "info" key.
-`info` | see the frontmatter definition of the "info" key. The generated test will have a have final "info" value which is this text appended with the test cases's "info" text.
-`features` | see the frontmatter definition of the "features" field. The generated test will have a final feature list in combination with the test case's feature field.
-any other valid frontmatter field | see the frontmatter definitions.
-
+### Generated test management
 Generated files are managed using the `make.py` Python script located in the root of this repository. To use it, first install the required Python packages via the following command:
 
     python -m pip install --requirement tools/generation/requirements.txt

@@ -5,7 +5,8 @@ desc: ImportCall is not extensible - no arguments list
 template: syntax/invalid
 info: |
   ImportCall :
-      import( AssignmentExpression[+In, ?Yield] )
+      import( AssignmentExpression[+In, ?Yield, ?Await] ,opt )
+      import( AssignmentExpression[+In, ?Yield, ?Await] , AssignmentExpression[+In, ?Yield, ?Await] ,opt )
 
   Forbidden Extensions
 
@@ -13,4 +14,4 @@ info: |
 ---*/
 
 //- import
-import('', '')
+import('./empty_FIXTURE.js', {}, '')
