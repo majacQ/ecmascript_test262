@@ -8,8 +8,17 @@ includes: [compareArray.js, temporalHelpers.js]
 features: [Temporal]
 ---*/
 
+const expectedOptionsReading = [
+  // GetTemporalOverflowOption
+  "get options.overflow",
+  "get options.overflow.toString",
+  "call options.overflow.toString",
+];
+
 const expected = [
+  // GetTemporalCalendarSlotValueWithISODefault
   "get fields.calendar",
+  // PrepareTemporalFields
   "get fields.day",
   "get fields.day.valueOf",
   "call fields.day.valueOf",
@@ -40,8 +49,9 @@ const expected = [
   "get fields.year",
   "get fields.year.valueOf",
   "call fields.year.valueOf",
-];
+].concat(expectedOptionsReading);
 const actual = [];
+
 const fields = TemporalHelpers.propertyBagObserver(actual, {
   year: 1.7,
   month: 1.7,
@@ -53,8 +63,33 @@ const fields = TemporalHelpers.propertyBagObserver(actual, {
   millisecond: 1.7,
   microsecond: 1.7,
   nanosecond: 1.7,
-}, "fields");
-const result = Temporal.PlainDateTime.from(fields);
-TemporalHelpers.assertPlainDateTime(result, 1, 1, "M01", 1, 1, 1, 1, 1, 1, 1);
-assert.sameValue(result.calendar.id, "iso8601", "calendar result");
+  calendar: "iso8601",
+}, "fields", ["calendar"]);
+
+const options = TemporalHelpers.propertyBagObserver(actual, {
+  overflow: "constrain",
+  extra: "property",
+}, "options");
+
+Temporal.PlainDateTime.from(fields, options);
 assert.compareArray(actual, expected, "order of operations");
+
+actual.splice(0);  // clear for next test
+
+Temporal.PlainDateTime.from(new Temporal.PlainDateTime(2000, 5, 2), options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when cloning a PlainDateTime instance");
+
+actual.splice(0);
+
+Temporal.PlainDateTime.from(new Temporal.PlainDate(2000, 5, 2), options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when converting a PlainDate instance");
+
+actual.splice(0);
+
+Temporal.PlainDateTime.from(new Temporal.ZonedDateTime(0n, "UTC"), options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when converting a ZonedDateTime instance");
+
+actual.splice(0);
+
+Temporal.PlainDateTime.from("2001-05-02", options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when parsing a string");

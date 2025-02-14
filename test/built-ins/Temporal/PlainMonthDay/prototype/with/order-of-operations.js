@@ -8,10 +8,11 @@ includes: [compareArray.js, temporalHelpers.js]
 features: [Temporal]
 ---*/
 
-const instance = new Temporal.PlainMonthDay(5, 2);
 const expected = [
+  // RejectObjectWithCalendarOrTimeZone
   "get fields.calendar",
   "get fields.timeZone",
+  // PrepareTemporalFields on argument
   "get fields.day",
   "get fields.day.valueOf",
   "call fields.day.valueOf",
@@ -24,14 +25,26 @@ const expected = [
   "get fields.year",
   "get fields.year.valueOf",
   "call fields.year.valueOf",
+  // GetTemporalOverflowOption
+  "get options.overflow",
+  "get options.overflow.toString",
+  "call options.overflow.toString",
 ];
 const actual = [];
+
+const instance = new Temporal.PlainMonthDay(5, 2, "iso8601");
+
 const fields = TemporalHelpers.propertyBagObserver(actual, {
   year: 1.7,
   month: 1.7,
   monthCode: "M01",
   day: 1.7,
 }, "fields");
-const result = instance.with(fields);
-TemporalHelpers.assertPlainMonthDay(result, "M01", 1);
+
+const options = TemporalHelpers.propertyBagObserver(actual, {
+  overflow: "constrain",
+  extra: "property",
+}, "options");
+
+instance.with(fields, options);
 assert.compareArray(actual, expected, "order of operations");

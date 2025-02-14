@@ -8,8 +8,15 @@ includes: [compareArray.js, temporalHelpers.js]
 features: [Temporal]
 ---*/
 
+const expectedOptionsReading = [
+  // GetTemporalOverflowOption
+  "get options.overflow",
+  "get options.overflow.toString",
+  "call options.overflow.toString",
+];
+
 const expected = [
-  "get fields.calendar",
+  // ToTemporalTimeRecord
   "get fields.hour",
   "get fields.hour.valueOf",
   "call fields.hour.valueOf",
@@ -28,8 +35,9 @@ const expected = [
   "get fields.second",
   "get fields.second.valueOf",
   "call fields.second.valueOf",
-];
+].concat(expectedOptionsReading);
 const actual = [];
+
 const fields = TemporalHelpers.propertyBagObserver(actual, {
   hour: 1.7,
   minute: 1.7,
@@ -37,8 +45,32 @@ const fields = TemporalHelpers.propertyBagObserver(actual, {
   millisecond: 1.7,
   microsecond: 1.7,
   nanosecond: 1.7,
+  calendar: "iso8601",
 }, "fields");
-const result = Temporal.PlainTime.from(fields);
-TemporalHelpers.assertPlainTime(result, 1, 1, 1, 1, 1, 1);
-assert.sameValue(result.calendar.id, "iso8601", "calendar result");
+
+const options = TemporalHelpers.propertyBagObserver(actual, {
+  overflow: "constrain",
+}, "options");
+
+const result = Temporal.PlainTime.from(fields, options);
 assert.compareArray(actual, expected, "order of operations");
+
+actual.splice(0);  // clear for next test
+
+Temporal.PlainTime.from(new Temporal.PlainTime(12, 34), options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when cloning a PlainTime instance");
+
+actual.splice(0);
+
+Temporal.PlainTime.from(new Temporal.PlainDateTime(2000, 5, 2), options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when converting a PlainDateTime instance");
+
+actual.splice(0);
+
+Temporal.PlainTime.from(new Temporal.ZonedDateTime(0n, "UTC"), options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when converting a ZonedDateTime instance");
+
+actual.splice(0);
+
+Temporal.PlainTime.from("12:34", options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when parsing a string");

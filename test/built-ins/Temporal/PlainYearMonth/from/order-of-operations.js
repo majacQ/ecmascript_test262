@@ -8,8 +8,17 @@ includes: [compareArray.js, temporalHelpers.js]
 features: [Temporal]
 ---*/
 
+const expectedOptionsReading = [
+  // GetTemporalOverflowOption
+  "get options.overflow",
+  "get options.overflow.toString",
+  "call options.overflow.toString",
+];
+
 const expected = [
+  // GetTemporalCalendarSlotValueWithISODefault
   "get fields.calendar",
+  // PrepareTemporalFields
   "get fields.month",
   "get fields.month.valueOf",
   "call fields.month.valueOf",
@@ -19,14 +28,30 @@ const expected = [
   "get fields.year",
   "get fields.year.valueOf",
   "call fields.year.valueOf",
-];
+].concat(expectedOptionsReading);
 const actual = [];
+
 const fields = TemporalHelpers.propertyBagObserver(actual, {
   year: 1.7,
   month: 1.7,
   monthCode: "M01",
-}, "fields");
-const result = Temporal.PlainYearMonth.from(fields);
-TemporalHelpers.assertPlainYearMonth(result, 1, 1, "M01");
-assert.sameValue(result.calendar.id, "iso8601", "calendar result");
+  calendar: "iso8601",
+}, "fields", ["calendar"]);
+
+const options = TemporalHelpers.propertyBagObserver(actual, {
+  overflow: "constrain",
+  extra: "property",
+}, "options");
+
+Temporal.PlainYearMonth.from(fields, options);
 assert.compareArray(actual, expected, "order of operations");
+
+actual.splice(0);  // clear for next test
+
+Temporal.PlainYearMonth.from(new Temporal.PlainYearMonth(2000, 5), options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when cloning a PlainYearMonth instance");
+
+actual.splice(0);
+
+Temporal.PlainYearMonth.from("2000-05", options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when parsing a string");

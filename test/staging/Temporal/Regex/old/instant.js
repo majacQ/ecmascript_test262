@@ -10,8 +10,7 @@ features: [Temporal]
 function test(isoString, components) {
   var [y, mon, d, h = 0, min = 0, s = 0, ms = 0, µs = 0, ns = 0] = components;
   var instant = Temporal.Instant.from(isoString);
-  var utc = Temporal.TimeZone.from("UTC");
-  var datetime = utc.getPlainDateTimeFor(instant);
+  var datetime = instant.toZonedDateTimeISO("UTC");
   assert.sameValue(datetime.year, y);
   assert.sameValue(datetime.month, mon);
   assert.sameValue(datetime.day, d);
@@ -28,22 +27,10 @@ function generateTest(dateTimeString, zoneString, components) {
   test(`${ dateTimeString }:30.123456789${ zoneString }`, components);
 }
 // valid strings
-test("2020-01-01Z", [
-  2020,
-  1,
-  1,
-  0,
-  0,
-  0
-]);
 [
   "+01:00",
   "+01",
   "+0100",
-  "+01:00:00",
-  "+010000",
-  "+01:00:00.000000000",
-  "+010000.0"
 ].forEach(zoneString => {
   generateTest("1976-11-18T15:23", `${ zoneString }[Europe/Vienna]`, [
     1976,
@@ -187,21 +174,7 @@ test("1976-11-18T15:23:30,1234Z", [
   123,
   400
 ]);
-[
-  "\u221204:00",
-  "\u221204",
-  "\u22120400"
-].forEach(offset => test(`1976-11-18T15:23:30.1234${ offset }`, [
-  1976,
-  11,
-  18,
-  19,
-  23,
-  30,
-  123,
-  400
-]));
-test("\u2212009999-11-18T15:23:30.1234Z", [
+test("-009999-11-18T15:23:30.1234Z", [
   -9999,
   11,
   18,

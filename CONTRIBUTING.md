@@ -45,10 +45,11 @@ A test file has three sections: Copyright, Frontmatter, and Body.  A test looks 
 ```javascript
 // Copyright (C) $Year $ContributorName. All rights reserved.
 // This code is governed by the BSD license found in the LICENSE file.
+
 /*---
+esid: reference to spec section, e.g. "sec-well-known-symbols"
 description: >
     brief description, e.g. "Non-numeric input must be rejected with a TypeError"
-esid: reference to spec section, e.g. "sec-well-known-symbols"
 info: |
     verbose test description, multiple lines OK.
     (info should contain relevant, direct quotes from ECMAScript if possible)
@@ -208,8 +209,9 @@ This key is for boolean properties associated with the test.
 - **raw** - execute the test without any modification (no harness files will be
   included); necessary to test the behavior of directive prologue; implies
   `noStrict`
-- **async** - defer interpretation of test results until after the invocation
-  of the global `$DONE` function
+- **async** - defer interpretation of test results until settlement of an
+  `asyncTest` callback promise or manual invocation of `$DONE`; refer to
+  [Writing Asynchronous Tests](#writing-asynchronous-tests) for details
 - **generated** - informative flag used to denote test files that were
   created procedurally using the project's test generation tool; refer to
   [Procedurally-generated tests](#procedurally-generated-tests)
@@ -226,7 +228,7 @@ Some tests require the use of language features that are not directly described 
 #### locale
 `locale: [list]`
 
-Some tests require the use of one or more specific human languages as exposed by [ECMA402](https://tc39.es/ecma402/) as a means to verify semantics which cannot be observed in the abstract. Sch tests must declare their requirements by using this key to define an array of one or more valid language tags or subtags.
+Some tests require the use of one or more specific human languages as exposed by [ECMA402](https://tc39.es/ecma402/) as a means to verify semantics which cannot be observed in the abstract. Such tests must declare their requirements by using this key to define an array of one or more valid language tags or subtags.
 
 #### es5id
 `es5id: [es5-test-id]`
@@ -245,6 +247,29 @@ Read the [Test262 Technical Rationale Report](https://github.com/tc39/test262/wi
 This key identifies the section number from the portion of the ES6 standard that is tested by this test _at the time the test was written_. The es6ids might not correspond to the correction section numbers in the ES6 (or later) specification because routine edits to the specification will change section numbering. For this reason, only the esid is required for new tests.
 
 Read the [Test262 Technical Rationale Report](https://github.com/tc39/test262/wiki/Test262-Technical-Rationale-Report,-October-2017#specification-reference-ids) for reasoning behind deprecation.
+
+## Staging
+
+There is a `test/staging/` folder, containing tests that are subject to fewer requirements, in order to get tests running across more than one implementation as early as possible, and promote interoperability of in-progress features.
+
+Tests in staging are not required to be split up into one test per file, or to conform to any particular style as long as they are runnable.
+In particular, mechanically-converted tests from implementations' private test suites are encouraged, as sharing them with other implementations promotes interoperability.
+
+These are the requirements for adding a test to staging:
+
+1. Just as with a test outside of staging, it must test an existing language feature, a Stage 3 TC39 proposal, or a normative pull request.
+2. It is correct.
+3. It is runnable using the usual test262 runner.
+4. It is reviewed by someone with permission to land tests in the staging folder, not necessarily a test262 maintainer.
+5. If it requires the implementation to support ECMA-402, it must be in `test/staging/intl402/` or a subfolder thereof.
+
+Tests are intended to live temporarily in staging.
+Once the feature they test has stabilized, contributors are encouraged to refine them to meet the additional requirements of the main test262 suite, and move them out of the staging folder.
+
+Tests in staging do not count towards the test262 coverage requirement for a TC39 proposal to reach Stage 4.
+
+Implementations may designate a group of people who have permission to review and land tests in the staging folder.
+To add or remove people from this group, please open an issue.
 
 ## Test Environment
 
@@ -320,52 +345,43 @@ Consumers that violate the spec by throwing exceptions for parsing errors at run
 
 ## Writing Asynchronous Tests
 
-An asynchronous test is any test that include the `async` frontmatter flag. When executing such tests, the runner expects that the global `$DONE()` function will be called **exactly once** to signal test completion.
+An asynchronous test is any test that include the `async` frontmatter flag.
+
+Most asynchronous tests should include the `asyncHelpers.js` harness file and call its `asyncTest` function **exactly once**, with a callback returning a promise that indicates test failure via rejection and otherwise fulfills upon test conclusion (such as an async function).
+
+```js
+/*---
+... (other frontmatter) ...
+flags: [async]
+includes: [asyncHelpers.js]
+---*/
+
+asyncTest(async function() {
+  assert.sameValue(true, await someTestCode(1), "someTestCode(1) should return true");
+});
+```
+
+For more complicated asynchronous testing, such as testing Promise or other core asynchronous functionality, the runner expects that the global `$DONE()` function will be called **exactly once** to signal test completion.
 
  * If the argument to `$DONE` is omitted, is `undefined`, or is any other falsy value, the test is considered to have passed.
 
  * If the argument to `$DONE` is a truthy value, the test is considered to have failed and the argument is displayed as the failure reason.
 
-A common idiom when writing asynchronous tests is the following:
+### Checking Exception Type in Asynchronous Tests
+
+The `asyncHelpers.js` harness file defines `assert.throwsAsync`, analogous in form to `assert.throws`. It requires that the passed function _asynchronously_ throws the specified exception type, and will reject functions that synchronously throw the specified exception type (and presumably summon [Zalgo](https://blog.izs.me/2013/08/designing-apis-for-asynchrony/)).
 
 ```js
-var p = new Promise(function () { /* some test code */ });
+/*---
+... (other frontmatter) ...
+flags: [async]
+includes: [asyncHelpers.js]
+---*/
 
-p.then(function checkAssertions(arg) {
-  if (!expected_condition) {
-    throw new Test262Error("failure message");
-  }
-
-}).then($DONE, $DONE);
+asyncTest(async function() {
+  await assert.throwsAsync(TypeError, () => Array.fromAsync([], "not a function"), "Array.fromAsync should reject asynchronously");
+});
 ```
-
-Function `checkAssertions` implicitly returns `undefined` if the expected condition is observed.  The return value of function `checkAssertions` is then used to asynchronously invoke the first function of the final `then` call, resulting in a call to `$DONE(undefined)`, which signals a passing test.
-
-If the expected condition is not observed, function `checkAssertions` throws a `Test262Error`.  This is caught by the Promise and then used to asynchronously invoke the second function in the call -- which is also `$DONE` -- resulting in a call to `$DONE(error_object)`, which signals a failing test.
-
-### Checking Exception Type and Message in Asynchronous Tests
-
-This idiom can be extended to check for specific exception types or messages:
-
-```js
-p.then(function () {
-  // some code that is expected to throw a TypeError
-
-  return "Expected exception to be thrown";
-}).then($DONE, function (e) {
- if (!(e instanceof TypeError)) {
-  throw new Test262Error("Expected TypeError but got " + e);
- }
-
- if (!/expected message/.test(e.message)) {
-  throw new Test262Error("Expected message to contain 'expected message' but found " + e.message);
- }
-
-}).then($DONE, $DONE);
-
-```
-
-As above, exceptions that are thrown from a `then` clause are passed to a later `$DONE` function and reported asynchronously.
 
 ## A Note on Python-based tools
 

@@ -8,9 +8,8 @@ includes: [compareArray.js, temporalHelpers.js]
 features: [Temporal]
 ---*/
 
-const instance = new Temporal.Duration(1, 2, 1, 4, 5, 6, 7, 987, 654, 321);
-const relativeTo = new Temporal.PlainDateTime(2000, 1, 1);
 const expected = [
+  // ToTemporalDurationRecord
   "get fields.days",
   "get fields.days.valueOf",
   "call fields.days.valueOf",
@@ -43,10 +42,11 @@ const expected = [
   "call fields.years.valueOf",
 ];
 const actual = [];
+
 const fields = TemporalHelpers.propertyBagObserver(actual, {
-  years: 1,
-  months: 1,
-  weeks: 1,
+  years: 0,
+  months: 0,
+  weeks: 0,
   days: 1,
   hours: 1,
   minutes: 1,
@@ -55,6 +55,9 @@ const fields = TemporalHelpers.propertyBagObserver(actual, {
   microseconds: 1,
   nanoseconds: 1,
 }, "fields");
-const result = instance.subtract(fields, { relativeTo });
-TemporalHelpers.assertDuration(result, 0, 1, 0, 3, 4, 5, 6, 986, 653, 320);
+
+// basic order of observable operations, without any calendar units:
+const instance = new Temporal.Duration(0, 0, 0, 1, 1, 1, 1, 1, 1, 1);
+instance.subtract(fields);
 assert.compareArray(actual, expected, "order of operations");
+actual.splice(0); // clear

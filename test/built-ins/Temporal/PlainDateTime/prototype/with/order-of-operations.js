@@ -8,10 +8,11 @@ includes: [compareArray.js, temporalHelpers.js]
 features: [Temporal]
 ---*/
 
-const instance = new Temporal.PlainDateTime(2000, 5, 2, 12, 34, 56, 987, 654, 321);
 const expected = [
+  // RejectObjectWithCalendarOrTimeZone
   "get fields.calendar",
   "get fields.timeZone",
+  // PrepareTemporalFields on argument
   "get fields.day",
   "get fields.day.valueOf",
   "call fields.day.valueOf",
@@ -42,8 +43,25 @@ const expected = [
   "get fields.year",
   "get fields.year.valueOf",
   "call fields.year.valueOf",
+  // GetTemporalOverflowOption
+  "get options.overflow",
+  "get options.overflow.toString",
+  "call options.overflow.toString",
 ];
 const actual = [];
+
+const calendar = "iso8601";
+const instance = new Temporal.PlainDateTime(2000, 5, 2, 12, 34, 56, 987, 654, 321, calendar);
+// clear observable operations that occurred during the constructor call
+actual.splice(0);
+
+TemporalHelpers.observeProperty(actual, instance, "hour", 12, "this");
+TemporalHelpers.observeProperty(actual, instance, "minute", 34, "this");
+TemporalHelpers.observeProperty(actual, instance, "second", 56, "this");
+TemporalHelpers.observeProperty(actual, instance, "millisecond", 987, "this");
+TemporalHelpers.observeProperty(actual, instance, "microsecond", 654, "this");
+TemporalHelpers.observeProperty(actual, instance, "nanosecond", 321, "this");
+
 const fields = TemporalHelpers.propertyBagObserver(actual, {
   year: 1.7,
   month: 1.7,
@@ -56,7 +74,11 @@ const fields = TemporalHelpers.propertyBagObserver(actual, {
   microsecond: 1.7,
   nanosecond: 1.7,
 }, "fields");
-const result = instance.with(fields);
-TemporalHelpers.assertPlainDateTime(result, 1, 1, "M01", 1, 1, 1, 1, 1, 1, 1);
-assert.sameValue(result.calendar.id, "iso8601", "calendar result");
+
+const options = TemporalHelpers.propertyBagObserver(actual, {
+  overflow: "constrain",
+  extra: "property",
+}, "options");
+
+instance.with(fields, options);
 assert.compareArray(actual, expected, "order of operations");

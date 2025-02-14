@@ -8,8 +8,15 @@ includes: [compareArray.js, temporalHelpers.js]
 features: [Temporal]
 ---*/
 
+const expectedOptionsReading = [
+  "get options.overflow",
+  "get options.overflow.toString",
+  "call options.overflow.toString",
+];
+
 const expected = [
   "get fields.calendar",
+  // PrepareTemporalFields
   "get fields.day",
   "get fields.day.valueOf",
   "call fields.day.valueOf",
@@ -22,15 +29,31 @@ const expected = [
   "get fields.year",
   "get fields.year.valueOf",
   "call fields.year.valueOf",
-];
+].concat(expectedOptionsReading);
 const actual = [];
+
 const fields = TemporalHelpers.propertyBagObserver(actual, {
   year: 1.7,
   month: 1.7,
   monthCode: "M01",
   day: 1.7,
-}, "fields");
-const result = Temporal.PlainMonthDay.from(fields);
-TemporalHelpers.assertPlainMonthDay(result, "M01", 1);
-assert.sameValue(result.calendar.id, "iso8601", "calendar result");
+  calendar: "iso8601",
+}, "fields", ["calendar"]);
+
+const options = TemporalHelpers.propertyBagObserver(actual, {
+  overflow: "constrain",
+  extra: "property",
+}, "options");
+
+Temporal.PlainMonthDay.from(fields, options);
 assert.compareArray(actual, expected, "order of operations");
+
+actual.splice(0);  // clear for next test
+
+Temporal.PlainMonthDay.from(new Temporal.PlainMonthDay(5, 2), options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when cloning a PlainMonthDay instance");
+
+actual.splice(0);
+
+Temporal.PlainMonthDay.from("05-02", options);
+assert.compareArray(actual, expectedOptionsReading, "order of operations when parsing a string");
